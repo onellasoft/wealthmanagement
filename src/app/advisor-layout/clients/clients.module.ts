@@ -14,6 +14,8 @@ import { InputTextModule } from 'primeng/inputtext';
 import { SelectModule } from 'primeng/select';
 import { DialogModule } from 'primeng/dialog';
 import { CalendarModule } from 'primeng/calendar';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
 
 @NgModule({
   declarations: [
@@ -31,7 +33,9 @@ import { CalendarModule } from 'primeng/calendar';
     InputTextModule,
     SelectModule,
     DialogModule,
-    CalendarModule
-  ]
+    CalendarModule,
+    ToastModule
+  ],
+  providers: [MessageService]
 })
 export class ClientsModule { }

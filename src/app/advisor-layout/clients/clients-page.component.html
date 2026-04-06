@@ -274,6 +274,8 @@
   </div>
 </div>
 
+<p-toast position="top-right" />
+
 <!-- Add New Client Modal -->
 <p-dialog [(visible)]="showAddModal" [header]="'Add New ' + activeTab" [modal]="true" [draggable]="false" [style]="{width: '50vw'}"
   (onHide)="closeAddModal()">
@@ -494,10 +496,9 @@
       </div>
     </div>
 
-    <!-- Form Actions -->
-    <ng-template #footer>
-      <button type="button" (click)="closeAddModal()" class="p-button p-button-text">Cancel</button>
-      <button type="submit" class="p-button">Verify & Create</button>
-    </ng-template>
   </form>
+  <ng-template pTemplate="footer">
+    <button type="button" (click)="closeAddModal()" class="p-button p-button-outlined p-button-secondary">Cancel</button>
+    <button type="button" (click)="onAddClientSubmit()" class="p-button">Verify & Create</button>
+  </ng-template>
 </p-dialog>

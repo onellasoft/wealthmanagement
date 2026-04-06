@@ -97,7 +97,7 @@
               <p-sortIcon field="availableBalance" />
             </div>
           </th>
-          <th style="min-width: 130px">
+          <th style="min-width: 210px">
             <div class="th-content">
               Actions
             </div>
@@ -156,7 +156,7 @@
         </tr>
       </ng-template>
 
-      <ng-template #body let-row>
+      <ng-template #body let-row let-i="rowIndex">
         <!-- Body for Deposit Accounts -->
         <tr *ngIf="activeTab === 'Deposit Accounts'">
           <td pFrozenColumn><span class="cell-name font-medium">{{ row.clientName }}</span></td>
@@ -183,9 +183,11 @@
           </td>
           <td>
             <div class="flex gap-2">
-              <button class="row-action-btn row-action-btn--view"><i class="pi pi-eye"></i></button>
-              <button class="row-action-btn row-action-btn--deposit"><i class="pi pi-dollar"></i></button>
-              <button class="row-action-btn row-action-btn--withdraw"><i class="pi pi-dollar"></i></button>
+              <button class="row-action-btn row-action-btn--view" pTooltip="View" tooltipPosition="top" (click)="viewAccount(i)"><i class="pi pi-eye"></i></button>
+              <button class="row-action-btn row-action-btn--deposit" pTooltip="Deposit" tooltipPosition="top"><i class="pi pi-dollar"></i></button>
+              <button class="row-action-btn row-action-btn--withdraw" pTooltip="Withdraw" tooltipPosition="top"><i class="pi pi-dollar"></i></button>
+              <button class="row-action-btn row-action-btn--clipboard" pTooltip="Copy" tooltipPosition="top"><i class="pi pi-clipboard"></i></button>
+              <button class="row-action-btn row-action-btn--refresh" pTooltip="Refresh" tooltipPosition="top"><i class="pi pi-refresh"></i></button>
             </div>
           </td>
         </tr>

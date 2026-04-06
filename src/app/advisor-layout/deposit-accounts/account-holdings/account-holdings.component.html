@@ -1,0 +1,746 @@
+<div class="p-3" *ngIf="account">
+  <!-- Breadcrumb + Header Row -->
+  <div class="header-row">
+    <div>
+      <nav class="breadcrumb">
+        <i class="pi pi-home text-sm mr-1 cursor-pointer" (click)="goBack()"></i>
+        <span class="breadcrumb__sep">/</span>
+        <span class="breadcrumb__link ml-1 cursor-pointer" (click)="goBack()">Deposit Accounts</span>
+      </nav>
+      <h1 class="page-title">Account Holdings</h1>
+    </div>
+
+    <!-- Account Info Bar -->
+    <div class="account-info-bar">
+      <div class="account-info-item">
+        <span class="info-label">Client Name</span>
+        <span class="info-value">{{ account.clientName }}</span>
+      </div>
+      <div class="account-info-divider"></div>
+      <div class="account-info-item">
+        <span class="info-label">Account Number</span>
+        <span class="info-value">{{ account.accountNumber }}</span>
+      </div>
+      <div class="account-info-divider"></div>
+      <div class="account-info-item">
+        <span class="info-label">Account Balance</span>
+        <span class="info-value">{{ account.accountBalance }}</span>
+      </div>
+      <button class="info-icon-btn" pTooltip="Account Info" tooltipPosition="bottom">
+        <i class="pi pi-info-circle"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- Tabs Bar -->
+  <div class="tab-bar">
+    <button *ngFor="let tab of tabs" class="tab-btn" [class.tab-btn--active]="tab === activeTab"
+      (click)="switchTab(tab)">
+      {{ tab }}
+    </button>
+  </div>
+
+  <!-- Transactions Tab Content -->
+  <div *ngIf="activeTab === 'Transactions'" class="table-wrapper">
+    <!-- Table Toolbar -->
+    <div class="table-toolbar">
+      <div class="flex align-items-center gap-2">
+        <span class="count-badge">{{ transactions.length }}</span>
+        <span class="table-title">Transactions</span>
+      </div>
+      <div class="flex align-items-center gap-2">
+        <div class="range-select">
+          <span class="range-placeholder">Select Range</span>
+        </div>
+        <button class="action-btn" pTooltip="Search" tooltipPosition="bottom">
+          <i class="pi pi-search text-base"></i>
+        </button>
+        <button class="action-btn" pTooltip="Grid View" tooltipPosition="bottom">
+          <i class="pi pi-th-large text-base"></i>
+        </button>
+        <button class="action-btn" pTooltip="Export" tooltipPosition="bottom">
+          <i class="pi pi-download text-base"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Transactions Table -->
+    <p-table [value]="transactions" [paginator]="true" [rows]="10"
+      [rowsPerPageOptions]="[10, 20, 50]" styleClass="holdings-table"
+      [showCurrentPageReport]="false" [sortMode]="'single'">
+      <ng-template #header>
+        <tr>
+          <th pSortableColumn="date" style="width: 200px">
+            <div class="th-content">
+              <i class="pi pi-filter th-icon text-xs"></i>
+              Date
+              <p-sortIcon field="date" />
+            </div>
+          </th>
+          <th pSortableColumn="netAmount" style="width: 100px">
+            <div class="th-content">
+              <i class="pi pi-filter th-icon text-xs"></i>
+              Net Amount
+              <p-sortIcon field="netAmount" />
+            </div>
+          </th>
+          <th pSortableColumn="description">
+            <div class="th-content">
+              <i class="pi pi-filter th-icon text-xs"></i>
+              Description
+              <p-sortIcon field="description" />
+            </div>
+          </th>
+        </tr>
+      </ng-template>
+      <ng-template #body let-row>
+        <tr>
+          <td><span class="cell-date-text">{{ row.date }}</span></td>
+          <td class="text-right"><span class="cell-amount-text">{{ row.netAmount }}</span></td>
+          <td><span class="cell-desc-text">{{ row.description }}</span></td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+
+  <!-- Withdraw Cash Tab Content -->
+  <div *ngIf="activeTab === 'Withdraw Cash'" class="table-wrapper">
+    <!-- Table Toolbar -->
+    <div class="table-toolbar">
+      <div class="flex align-items-center gap-2">
+        <span class="count-badge">{{ viewMode === 'accounts' ? externalAccounts.length : withdrawalTransactions.length }}</span>
+        <span class="table-title">{{ viewMode === 'accounts' ? 'External Accounts' : 'Transactions' }}</span>
+      </div>
+      <div class="flex align-items-center gap-3">
+        <button class="btn-primary-filled" pTooltip="{{ viewMode === 'accounts' ? 'View Transactions' : 'View Linked Accounts' }}" 
+          tooltipPosition="bottom" (click)="toggleWithdrawView()">
+          {{ viewMode === 'accounts' ? 'View Transactions' : 'View Linked Accounts' }}
+        </button>
+        <button class="btn-saffron" (click)="openWithdrawModal()" style="position: relative; z-index: 10;">
+          <i class="pi pi-send"></i>Withdraw Cash
+        </button>
+        <div class="flex align-items-center gap-2 ml-2 toolbar-divider-group">
+          <span class="toolbar-divider"></span>
+          <button class="action-btn" pTooltip="Search" tooltipPosition="bottom">
+            <i class="pi pi-search text-base"></i>
+          </button>
+          <button class="action-btn" pTooltip="Grid View" tooltipPosition="bottom">
+            <i class="pi pi-th-large text-base"></i>
+          </button>
+          <button class="action-btn" pTooltip="Export PDF" tooltipPosition="bottom">
+            <i class="pi pi-file-pdf text-base"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- View Mode: External Accounts -->
+    <p-table *ngIf="viewMode === 'accounts'" [value]="externalAccounts" [paginator]="true" [rows]="10"
+      [rowsPerPageOptions]="[10, 20, 50]" styleClass="holdings-table withdraw-table"
+      [(selection)]="selectedExternalAccount" dataKey="accountNumber"
+      [showCurrentPageReport]="false">
+      <ng-template #header>
+        <tr>
+          <th style="width: 4rem"></th>
+          <th pSortableColumn="accountName">
+            <div class="th-content">
+              <i class="pi pi-filter th-icon text-xs"></i>
+              Account Name
+              <p-sortIcon field="accountName" />
+            </div>
+          </th>
+          <th pSortableColumn="bankName">
+            <div class="th-content">
+              <i class="pi pi-filter th-icon text-xs"></i>
+              Bank Name
+              <p-sortIcon field="bankName" />
+            </div>
+          </th>
+          <th pSortableColumn="accountType">
+            <div class="th-content">
+              <i class="pi pi-filter th-icon text-xs"></i>
+              Account Type
+              <p-sortIcon field="accountType" />
+            </div>
+          </th>
+          <th pSortableColumn="accountNumber">
+            <div class="th-content">
+              <i class="pi pi-filter th-icon text-xs"></i>
+              Account Number
+              <p-sortIcon field="accountNumber" />
+            </div>
+          </th>
+          <th pSortableColumn="accountBalance">
+            <div class="th-content">
+              <i class="pi pi-filter th-icon text-xs"></i>
+              Account Balance
+              <p-sortIcon field="accountBalance" />
+            </div>
+          </th>
+          <th>
+            <div class="th-content">Actions</div>
+          </th>
+        </tr>
+      </ng-template>
+      <ng-template #body let-rowData>
+        <tr [pSelectableRow]="rowData">
+          <td>
+            <p-radioButton [value]="rowData" [(ngModel)]="selectedExternalAccount" name="externalAcc"></p-radioButton>
+          </td>
+          <td><span class="cell-primary-text">{{ rowData.accountName }}</span></td>
+          <td><span class="cell-secondary-text">{{ rowData.bankName }}</span></td>
+          <td><span class="cell-type-text">{{ rowData.accountType }}</span></td>
+          <td><span class="cell-number-text">{{ rowData.accountNumber }}</span></td>
+          <td>
+            <div class="cell-balance-group">
+              <span class="cell-amount-text">{{ rowData.accountBalance }}</span>
+              <span class="cell-date-subtext" *ngIf="rowData.balanceDate">As of {{ rowData.balanceDate }}</span>
+            </div>
+          </td>
+          <td class="text-center">
+            <button class="refresh-btn" pTooltip="Refresh Balance" tooltipPosition="bottom">
+              <i class="pi pi-refresh"></i>
+            </button>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+
+    <!-- View Mode: Transactions -->
+    <p-table *ngIf="viewMode === 'transactions'" [value]="withdrawalTransactions" [paginator]="true" [rows]="10"
+      [rowsPerPageOptions]="[10, 20, 50]" styleClass="holdings-table withdraw-table txn-view-table"
+      [showCurrentPageReport]="false">
+      <ng-template #header>
+        <tr>
+          <th pSortableColumn="recipientName">
+            <div class="th-content">
+              <i class="pi pi-filter th-icon text-xs"></i>
+              Recipient Name
+              <p-sortIcon field="recipientName" />
+            </div>
+          </th>
+          <th pSortableColumn="date">
+            <div class="th-content">
+              <i class="pi pi-filter th-icon text-xs"></i>
+              Date
+              <p-sortIcon field="date" />
+            </div>
+          </th>
+          <th pSortableColumn="transferType">
+            <div class="th-content">
+              <i class="pi pi-filter th-icon text-xs"></i>
+              Transfer Type
+              <p-sortIcon field="transferType" />
+            </div>
+          </th>
+          <th pSortableColumn="availableDate">
+            <div class="th-content">
+              <i class="pi pi-filter th-icon text-xs"></i>
+              Available Date
+              <p-sortIcon field="availableDate" />
+            </div>
+          </th>
+          <th pSortableColumn="bankName">
+            <div class="th-content">
+              <i class="pi pi-filter th-icon text-xs"></i>
+              Bank Name
+              <p-sortIcon field="bankName" />
+            </div>
+          </th>
+          <th pSortableColumn="accountNumber">
+            <div class="th-content">
+              <i class="pi pi-filter th-icon text-xs"></i>
+              Account Number
+              <p-sortIcon field="accountNumber" />
+            </div>
+          </th>
+          <th pSortableColumn="routingNumber">
+            <div class="th-content">
+              <i class="pi pi-filter th-icon text-xs"></i>
+              Routing Number
+              <p-sortIcon field="routingNumber" />
+            </div>
+          </th>
+        </tr>
+      </ng-template>
+      <ng-template #body let-rowData>
+        <tr [pSelectableRow]="rowData">
+          <td><span class="cell-primary-text">{{ rowData.recipientName }}</span></td>
+          <td><span class="cell-secondary-text">{{ rowData.date }}</span></td>
+          <td>
+            <span class="status-tag tag-pending">{{ rowData.transferType }}</span>
+          </td>
+          <td><span class="cell-secondary-text">{{ rowData.availableDate }}</span></td>
+          <td><span class="cell-secondary-text">{{ rowData.bankName }}</span></td>
+          <td><span class="cell-number-text">{{ rowData.accountNumber }}</span></td>
+          <td><span class="cell-number-text">{{ rowData.routingNumber }}</span></td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+
+  <!-- Add Cash Tab Content -->
+  <div *ngIf="activeTab === 'Add Cash'" class="table-wrapper">
+    <!-- Table Toolbar -->
+    <div class="table-toolbar">
+      <div class="flex align-items-center gap-2">
+        <span class="count-badge">{{ addCashViewMode === 'accounts' ? externalAccounts.length : addCashTransactions.length }}</span>
+        <span class="table-title">External Accounts</span>
+      </div>
+      <div class="flex align-items-center gap-3">
+        <button class="btn-primary-filled" pTooltip="{{ addCashViewMode === 'accounts' ? 'View Transactions' : 'View Linked Accounts' }}" 
+          tooltipPosition="bottom" (click)="toggleAddCashView()" style="background: #2D6A4F;">
+          {{ addCashViewMode === 'accounts' ? 'View Transactions' : 'View Linked Accounts' }}
+        </button>
+        <button class="btn-saffron" (click)="openAddCashModal()" style="position: relative; z-index: 10;">
+          <i class="pi pi-send"></i>Add Cash
+        </button>
+        <div class="flex align-items-center gap-2 ml-2 toolbar-divider-group">
+          <span class="toolbar-divider"></span>
+          <button class="action-btn action-btn--search" pTooltip="Search" tooltipPosition="bottom">
+            <i class="pi pi-search text-base"></i>
+          </button>
+          <button class="action-btn action-btn--outline" pTooltip="Grid View" tooltipPosition="bottom">
+            <i class="pi pi-th-large text-base"></i>
+          </button>
+          <button class="action-btn action-btn--outline" pTooltip="Export PDF" tooltipPosition="bottom">
+            <i class="pi pi-file-export text-base"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- View Mode: External Accounts -->
+    <p-table *ngIf="addCashViewMode === 'accounts'" [value]="externalAccounts" [paginator]="true" [rows]="10"
+      [rowsPerPageOptions]="[10, 20, 50]" styleClass="holdings-table withdraw-table"
+      [(selection)]="selectedExternalAccount" dataKey="accountNumber"
+      [showCurrentPageReport]="false">
+      <ng-template #header>
+        <tr>
+          <th style="width: 4rem"></th>
+          <th pSortableColumn="accountName">
+            <div class="th-content">
+              <i class="pi pi-filter th-icon text-xs"></i>
+              Account Name
+              <p-sortIcon field="accountName" />
+            </div>
+          </th>
+          <th pSortableColumn="bankName">
+            <div class="th-content">
+              <i class="pi pi-filter th-icon text-xs"></i>
+              Bank Name
+              <p-sortIcon field="bankName" />
+            </div>
+          </th>
+          <th pSortableColumn="accountType">
+            <div class="th-content">
+              <i class="pi pi-filter th-icon text-xs"></i>
+              Account Type
+              <p-sortIcon field="accountType" />
+            </div>
+          </th>
+          <th pSortableColumn="accountNumber">
+            <div class="th-content">
+              <i class="pi pi-filter th-icon text-xs"></i>
+              Account Number
+              <p-sortIcon field="accountNumber" />
+            </div>
+          </th>
+          <th pSortableColumn="accountBalance">
+            <div class="th-content">
+              <i class="pi pi-filter th-icon text-xs"></i>
+              Account Balance
+              <p-sortIcon field="accountBalance" />
+            </div>
+          </th>
+          <th>
+            <div class="th-content">Actions</div>
+          </th>
+        </tr>
+      </ng-template>
+      <ng-template #body let-rowData>
+        <tr [pSelectableRow]="rowData">
+          <td>
+            <p-radioButton [value]="rowData" [(ngModel)]="selectedExternalAccount" name="externalAccAdd"></p-radioButton>
+          </td>
+          <td><span class="cell-primary-text">{{ rowData.accountName }}</span></td>
+          <td><span class="cell-secondary-text">{{ rowData.bankName }}</span></td>
+          <td><span class="cell-type-text">{{ rowData.accountType }}</span></td>
+          <td><span class="cell-number-text">{{ rowData.accountNumber }}</span></td>
+          <td>
+            <div class="cell-balance-group">
+              <span class="cell-amount-text">{{ rowData.accountBalance }}</span>
+              <span class="cell-date-subtext" *ngIf="rowData.balanceDate" style="color: #9CA3AF; font-size: 11px; display: block; margin-top: 2px;">
+                As Of {{ rowData.balanceDate }}
+              </span>
+            </div>
+          </td>
+          <td class="text-center">
+            <button class="refresh-btn" pTooltip="Refresh Balance" tooltipPosition="bottom">
+              <i class="pi pi-refresh"></i>
+            </button>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+
+    <!-- View Mode: Transactions -->
+    <p-table *ngIf="addCashViewMode === 'transactions'" [value]="addCashTransactions" [paginator]="true" [rows]="10"
+      [rowsPerPageOptions]="[10, 20, 50]" styleClass="holdings-table withdraw-table txn-view-table"
+      [showCurrentPageReport]="false">
+      <ng-template #header>
+        <tr>
+          <th pSortableColumn="senderName">
+            <div class="th-content">
+              <i class="pi pi-filter th-icon text-xs"></i>
+              Sender Name
+              <p-sortIcon field="senderName" />
+            </div>
+          </th>
+          <th pSortableColumn="date">
+            <div class="th-content">
+              <i class="pi pi-filter th-icon text-xs"></i>
+              Date
+              <p-sortIcon field="date" />
+            </div>
+          </th>
+          <th pSortableColumn="transferType">
+            <div class="th-content">
+              <i class="pi pi-filter th-icon text-xs"></i>
+              Transfer Type
+              <p-sortIcon field="transferType" />
+            </div>
+          </th>
+          <th pSortableColumn="availableDate">
+            <div class="th-content">
+              <i class="pi pi-filter th-icon text-xs"></i>
+              Available Date
+              <p-sortIcon field="availableDate" />
+            </div>
+          </th>
+          <th pSortableColumn="bankName">
+            <div class="th-content">
+              <i class="pi pi-filter th-icon text-xs"></i>
+              Bank Name
+              <p-sortIcon field="bankName" />
+            </div>
+          </th>
+          <th pSortableColumn="accountNumber">
+            <div class="th-content">
+              <i class="pi pi-filter th-icon text-xs"></i>
+              Account Number
+              <p-sortIcon field="accountNumber" />
+            </div>
+          </th>
+          <th style="width: 4rem" class="text-center">
+            <div class="th-content">
+              <i class="pi pi-filter th-icon text-xs"></i>
+            </div>
+          </th>
+        </tr>
+      </ng-template>
+      <ng-template #body let-rowData>
+        <tr>
+          <td><span class="cell-primary-text">{{ rowData.senderName }}</span></td>
+          <td><span class="cell-secondary-text">{{ rowData.date }}</span></td>
+          <td>
+            <span class="status-tag tag-settled">{{ rowData.transferType }}</span>
+          </td>
+          <td><span class="cell-secondary-text">{{ rowData.availableDate }}</span></td>
+          <td><span class="cell-secondary-text">{{ rowData.bankName }}</span></td>
+          <td><span class="cell-number-text">{{ rowData.accountNumber }}</span></td>
+          <td class="text-center">
+            <p-checkbox [binary]="true"></p-checkbox>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+
+  <!-- Withdraw Cash Modal -->
+  <p-dialog [visible]="showWithdrawModal" (onHide)="closeWithdrawModal()" [modal]="true" 
+    [draggable]="false" [resizable]="false" styleClass="withdraw-modal" [closable]="true" 
+    [style]="{ width: '70vw' }" [appendTo]="'body'" [baseZIndex]="99999">
+    <ng-template #header>
+      <div class="modal-header">
+        <span class="modal-title">Withdraw Cash</span>
+      </div>
+    </ng-template>
+
+    <div class="withdraw-stepper">
+      <div class="step-item" [class.step-item--active]="withdrawStep === 1">
+        Movement Details
+      </div>
+      <div class="step-item" [class.step-item--active]="withdrawStep === 2">
+        Review Transaction
+      </div>
+      <div class="step-item" [class.step-item--active]="withdrawStep === 3">
+        Confirmation
+      </div>
+    </div>
+
+    <div class="modal-body-content">
+      <ng-container *ngIf="withdrawStep < 3">
+        <!-- Step 1 & 2 Shared: Account Details -->
+        <div class="detail-section">
+          <h3 class="section-label">Sender Details</h3>
+          <div class="detail-grid">
+            <div class="detail-item">
+              <span class="detail-label">Account Name :</span>
+              <span class="detail-value text-primary-color">{{ account.accountName }}</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Account Number :</span>
+              <span class="detail-value">{{ account.accountNumber }}</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Account Balance :</span>
+              <span class="detail-value text-primary-color">{{ account.accountBalance }}</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Routing Number :</span>
+              <span class="detail-value">091311261</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="detail-section">
+          <h3 class="section-label">Recipient's Details</h3>
+          <div class="detail-grid" *ngIf="selectedExternalAccount">
+            <div class="detail-item">
+              <span class="detail-label">Account Name :</span>
+              <span class="detail-value text-primary-color">{{ selectedExternalAccount.accountName }}</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Account Number :</span>
+              <span class="detail-value">{{ selectedExternalAccount.accountNumber }}</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Bank Name :</span>
+              <span class="detail-value text-primary-color">{{ selectedExternalAccount.bankName }}</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Routing Number :</span>
+              <span class="detail-value">011401533</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Transaction Details Step 1 -->
+        <div class="detail-section" *ngIf="withdrawStep === 1">
+          <h3 class="section-label">Transaction Details</h3>
+          <div class="form-group">
+            <label class="input-label">Transaction Amount*</label>
+            <div class="input-with-prefix">
+              <span class="prefix">$</span>
+              <input type="text" pInputText [(ngModel)]="withdrawAmount" class="withdraw-input">
+            </div>
+            <span class="helper-text">Available Balance : {{ account.accountBalance }}</span>
+          </div>
+        </div>
+
+        <!-- Transaction Details Step 2 -->
+        <div class="detail-section" *ngIf="withdrawStep === 2">
+          <h3 class="section-label">Transaction Details</h3>
+          <div class="static-amount">
+            <span class="detail-label detail-label--bold">Transaction Amount :</span>
+            <span class="detail-value detail-value--gray">${{ withdrawAmount | number:'1.2-2' }}</span>
+          </div>
+        </div>
+      </ng-container>
+
+      <!-- Confirmation Step 3 -->
+      <div class="confirmation-view" *ngIf="withdrawStep === 3">
+        <p class="success-message">Withdrawal success</p>
+        <button class="btn-primary-filled btn-close-modal" (click)="showWithdrawModal = false">Close</button>
+      </div>
+    </div>
+
+    <ng-template #footer>
+      <div class="modal-footer" *ngIf="withdrawStep < 3">
+        <button class="btn-back" (click)="showWithdrawModal = false" *ngIf="withdrawStep === 1">Cancel</button>
+        <button class="btn-back" (click)="prevStep()" *ngIf="withdrawStep === 2">Back</button>
+        
+        <button class="btn-next" (click)="nextStep()" *ngIf="withdrawStep === 1">Next</button>
+        <button class="btn-next" (click)="nextStep()" *ngIf="withdrawStep === 2">Initiate Approval</button>
+      </div>
+    </ng-template>
+  </p-dialog>
+ 
+  <!-- Add Cash Modal -->
+  <p-dialog [visible]="showAddCashModal" (onHide)="closeAddCashModal()" [modal]="true" 
+    [draggable]="false" [resizable]="false" styleClass="withdraw-modal add-cash-modal" [closable]="true" 
+    [style]="{ width: '70vw' }" [appendTo]="'body'" [baseZIndex]="99999">
+    <ng-template #header>
+      <div class="modal-header">
+        <span class="modal-title" style="color: #2D6A4F;">Add Cash</span>
+      </div>
+    </ng-template>
+
+    <div class="withdraw-stepper">
+      <div class="step-item" [class.step-item--active]="addCashStep === 1">
+        Movement Details
+      </div>
+      <div class="step-item" [class.step-item--active]="addCashStep === 2">
+        Review Transaction
+      </div>
+      <div class="step-item" [class.step-item--active]="addCashStep === 3">
+        Confirmation
+      </div>
+    </div>
+
+    <div class="modal-body-content">
+      <ng-container *ngIf="addCashStep < 3">
+        <!-- Step 1 & 2 Shared: Account Details -->
+        <div class="detail-section">
+          <h3 class="section-label">Sender Details</h3>
+          <div class="detail-grid detail-grid--add-cash">
+            <div class="detail-item">
+              <span class="detail-label">Account Name :</span>
+              <span class="detail-value" style="color: #1F2A37;">Plaid Saving</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Account Number :</span>
+              <span class="detail-value" style="color: #1F2A37;">XXXXXXXXXXXX1111</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Bank Name :</span>
+              <span class="detail-value" style="color: #1F2A37;">Chase</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Routing Number :</span>
+              <span class="detail-value" style="color: #1F2A37;">011401533</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="detail-section">
+          <h3 class="section-label">Recipient's Details</h3>
+          <div class="detail-grid detail-grid--add-cash">
+            <div class="detail-item">
+              <span class="detail-label">Account Name :</span>
+              <span class="detail-value" style="color: #1F2A37;">HYSA 50</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Account Number :</span>
+              <span class="detail-value" style="color: #1F2A37;">XXXXX2356</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Account Balance :</span>
+              <span class="detail-value" style="color: #1F2A37;">$50.25</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Routing Number :</span>
+              <span class="detail-value" style="color: #1F2A37;">091311261</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Transaction Details Step 1 -->
+        <div class="detail-section" *ngIf="addCashStep === 1">
+          <h3 class="section-label">Transaction Details</h3>
+          <div class="form-group">
+            <label class="input-label">Transaction Amount<span style="color: red;">*</span></label>
+            <div class="input-with-prefix">
+              <span class="prefix">$</span>
+              <input type="text" pInputText [(ngModel)]="addCashAmount" class="withdraw-input">
+            </div>
+            <span class="helper-text">Available Balance : $5,000,000.00</span>
+          </div>
+        </div>
+
+        <!-- Transaction Details Step 2 -->
+        <div class="detail-section" *ngIf="addCashStep === 2">
+          <h3 class="section-label">Transaction Details</h3>
+          <div class="static-amount">
+            <span class="detail-label detail-label--bold">Transaction Amount :</span>
+            <span class="detail-value detail-value--gray">${{ addCashAmount | number:'1.2-2' }}</span>
+          </div>
+        </div>
+      </ng-container>
+
+      <!-- Confirmation Step 3 -->
+      <div class="confirmation-view" *ngIf="addCashStep === 3">
+        <p class="success-message">Money sent succesfully</p>
+        <button class="btn-primary-filled btn-close-modal" (click)="showAddCashModal = false" style="background: #2D6A4F;">Close</button>
+      </div>
+    </div>
+
+    <ng-template #footer>
+      <div class="modal-footer" *ngIf="addCashStep < 3">
+        <button class="btn-back" (click)="showAddCashModal = false" *ngIf="addCashStep === 1">Cancel</button>
+        <button class="btn-back" (click)="addCashPrevStep()" *ngIf="addCashStep === 2">Back</button>
+        
+        <button class="btn-next" (click)="addCashNextStep()" *ngIf="addCashStep === 1" style="background: #2D6A4F;">Next</button>
+        <button class="btn-next" (click)="addCashNextStep()" *ngIf="addCashStep === 2" style="background: #2D6A4F;">Initiate Approval</button>
+      </div>
+    </ng-template>
+  </p-dialog>
+
+
+  <!-- Account Details Tab Content -->
+  <div *ngIf="activeTab === 'Account Details'" class="table-wrapper account-details-tab">
+    <!-- Table Toolbar -->
+    <div class="table-toolbar">
+      <div class="flex align-items-center gap-2">
+        <span class="count-badge">1</span>
+        <span class="table-title">Accounts</span>
+      </div>
+      <div class="flex align-items-center gap-2">
+        <button class="action-btn action-btn--search" pTooltip="Search" tooltipPosition="bottom">
+          <i class="pi pi-search text-base"></i>
+        </button>
+        <button class="action-btn action-btn--outline" pTooltip="Grid View" tooltipPosition="bottom">
+          <i class="pi pi-th-large text-base"></i>
+        </button>
+        <button class="action-btn action-btn--outline" pTooltip="Export" tooltipPosition="bottom">
+          <i class="pi pi-file-export text-base"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Account Summary Table -->
+    <p-table [value]="[account]" styleClass="holdings-table details-summary-table">
+      <ng-template #header>
+        <tr>
+          <th style="width: 200px">AccountName</th>
+          <th style="width: 250px">Client Name</th>
+          <th style="width: 150px">Account Number</th>
+          <th style="width: 200px">Account Type</th>
+          <th style="width: 150px">Account Status</th>
+          <th style="width: 150px">Account Balance</th>
+        </tr>
+      </ng-template>
+      <ng-template #body let-row>
+        <tr>
+          <td>{{ row.accountName }}</td>
+          <td>{{ row.clientName }}</td>
+          <td>{{ row.accountNumber }}</td>
+          <td><span class="cell-type-text">{{ row.accountType }}</span></td>
+          <td>{{ row.status }}</td>
+          <td class="text-right">{{ row.accountBalance }}</td>
+        </tr>
+      </ng-template>
+    </p-table>
+
+    <!-- Advisor Revenue Sharing Section -->
+    <div class="revenue-sharing-section p-4">
+      <h3 class="revenue-title">Advisor Revenue Sharing</h3>
+      
+      <div class="revenue-form-grid">
+        <div class="form-field">
+          <label class="field-label">Full Name <span class="required">*</span> <span class="label-sub">(Primary)</span></label>
+          <input type="text" pInputText value="Adnan AH Hussain Sr." class="read-only-input" readonly>
+        </div>
+        
+        <div class="form-field">
+          <label class="field-label">Revenue Sharing <span class="required">*</span></label>
+          <div class="input-group-percent">
+            <input type="text" pInputText value="100" class="percent-input">
+            <span class="percent-box">%</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -102,6 +102,21 @@ export const DEPOSIT_ACCOUNTS_DATA: DepositAccount[] = [
 ];
 
 
+export interface Transaction {
+  date: string;
+  netAmount: string;
+  description: string;
+}
+
+export const TRANSACTIONS_DATA: Transaction[] = [
+  { date: '01-14-2026', netAmount: '$150,000.00', description: 'Transfer from CITIZENS BANK NA to HYSA 50 2265' },
+  { date: '12-31-2025', netAmount: '$0.00',        description: 'Interest paid to HYSA 50 2265' },
+  { date: '11-30-2025', netAmount: '$0.00',        description: 'Interest paid to HYSA 50 2265' },
+  { date: '11-28-2025', netAmount: '$20.00',       description: 'Transfer from CITIZENS BANK NA to HYSA 50 2265' },
+  { date: '11-28-2025', netAmount: '$50.00',       description: 'Transfer from CITIZENS BANK NA to HYSA 50 2265' },
+  { date: '11-28-2025', netAmount: '$50.00',       description: 'Transfer from CITIZENS BANK NA to HYSA 50 2265' }
+];
+
 export interface InProgressAccount {
   clientName: string;
   accountName: string;
@@ -169,5 +184,85 @@ export const IN_PROGRESS_DATA: InProgressAccount[] = [
     accountStage: 'Application Holder Details'
   }
 ];
+
+export interface ExternalAccount {
+  accountName: string;
+  bankName: string;
+  accountType: string;
+  accountNumber: string;
+  accountBalance: string;
+  balanceDate?: string;
+}
+
+export const EXTERNAL_ACCOUNTS_DATA: ExternalAccount[] = [
+  {
+    accountName: 'Plaid Saving',
+    bankName: 'Chase',
+    accountType: 'savings',
+    accountNumber: 'XXXXXXXXXXXX1111',
+    accountBalance: '$200.00'
+  },
+  {
+    accountName: 'Plaid Saving',
+    bankName: 'Chase',
+    accountType: 'savings',
+    accountNumber: 'XXXXXXXXXXXX1111',
+    accountBalance: '$200.00',
+    balanceDate: '11-03-2025'
+  },
+  {
+    accountName: 'Plaid Checking',
+    bankName: 'Chase',
+    accountType: 'checking',
+    accountNumber: 'XXXXXXXXXXXX0000',
+    accountBalance: '$100.00'
+  },
+  {
+    accountName: 'Plaid Checking',
+    bankName: 'Chase',
+    accountType: 'checking',
+    accountNumber: 'XXXXXXXXXXXX0000',
+    accountBalance: '$100.00'
+  }
+];
+
+export interface WithdrawalTransaction {
+  recipientName: string;
+  date: string;
+  transferType: string;
+  availableDate: string;
+  bankName: string;
+  accountNumber: string;
+  routingNumber: string;
+}
+
+export const WITHDRAWAL_TRANSACTIONS_DATA: WithdrawalTransaction[] = Array(6).fill(null).map(() => ({
+  recipientName: 'Plaid Saving',
+  date: '11-11-2025',
+  transferType: 'Approval Pending',
+  availableDate: '--',
+  bankName: 'Chase',
+  accountNumber: 'XXXXXXXXXXXX1111',
+  routingNumber: '011401533'
+}));
+
+export interface AddCashTransaction {
+  senderName: string;
+  date: string;
+  transferType: string;
+  availableDate: string;
+  bankName: string;
+  accountNumber: string;
+}
+
+export const ADD_CASH_TRANSACTIONS_DATA: AddCashTransaction[] = Array(4).fill(null).map(() => ({
+  senderName: 'Plaid Saving',
+  date: '11-03-2025',
+  transferType: 'Settled',
+  availableDate: '11-03-2025',
+  bankName: 'Chase',
+  accountNumber: 'XXXXXXXXXXXX1111'
+}));
+
 
 

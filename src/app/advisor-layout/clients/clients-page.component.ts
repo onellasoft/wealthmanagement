@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { CLIENTS_DATA, Client } from '../../data/clients.data';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-clients-page',
@@ -45,7 +46,7 @@ export class ClientsPageComponent {
     { label: 'Mexico', value: 'MX' }
   ];
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private messageService: MessageService) {
     this.initializeForm();
   }
 
@@ -94,12 +95,12 @@ export class ClientsPageComponent {
   }
 
   onAddClientSubmit(): void {
-    if (this.addClientForm.valid) {
-      // Handle form submission here
-      console.log('Form submitted:', this.addClientForm.value);
-      // You can add the new client to the allClients array here
-      this.closeAddModal();
-    }
+    this.closeAddModal();
+    this.messageService.add({
+      severity: 'success',
+      summary: 'Success',
+      detail: 'Client created successfully'
+    });
   }
 
   getBusinessName(client: Client): string {

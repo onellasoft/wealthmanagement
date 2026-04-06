@@ -79,6 +79,14 @@
     color: #ffffff;
   }
 
+  &--clipboard {
+    color: var(--text-secondary);
+  }
+
+  &--refresh {
+    color: var(--text-secondary);
+  }
+
   &--delete {
     background: #ffffff;
     border-color: #f44336;
