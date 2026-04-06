@@ -1,0 +1,70 @@
+<div class="p-4">
+  <!-- Breadcrumb & Title -->
+  <div class="mb-4">
+    <nav class="breadcrumb">
+      <i class="pi pi-home text-sm mr-1"></i>
+      <span class="breadcrumb__sep">/</span>
+      <span class="breadcrumb__current ml-1 text-secondary">Dashboard</span>
+    </nav>
+    <h1 class="page-title text-xl font-bold" style="color: var(--text-primary)">Dashboard</h1>
+  </div>
+
+  <!-- Summary Cards -->
+  <div class="grid mb-4">
+    <div class="col-12 md:col-6 lg:col-3">
+      <div class="stat-card" pTooltip="Total Users across all platforms" tooltipPosition="top">
+        <div class="stat-card__icon stat-card__icon--green">
+          <i class="pi pi-users text-xl"></i>
+        </div>
+        <div class="flex flex-column">
+          <span class="stat-card__value">2,847</span>
+          <span class="stat-card__label">Total Users</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12 md:col-6 lg:col-3">
+      <div class="stat-card" pTooltip="Active investment accounts" tooltipPosition="top">
+        <div class="stat-card__icon stat-card__icon--blue">
+          <i class="pi pi-credit-card text-xl"></i>
+        </div>
+        <div class="flex flex-column">
+          <span class="stat-card__value">1,234</span>
+          <span class="stat-card__label">Active Accounts</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12 md:col-6 lg:col-3">
+      <div class="stat-card" pTooltip="Assets Under Management" tooltipPosition="top">
+        <div class="stat-card__icon stat-card__icon--teal">
+          <i class="pi pi-dollar text-xl"></i>
+        </div>
+        <div class="flex flex-column">
+          <span class="stat-card__value">$48.2M</span>
+          <span class="stat-card__label">AUM</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12 md:col-6 lg:col-3">
+      <div class="stat-card" pTooltip="Pending approval requests" tooltipPosition="top">
+        <div class="stat-card__icon stat-card__icon--amber">
+          <i class="pi pi-clock text-xl"></i>
+        </div>
+        <div class="flex flex-column">
+          <span class="stat-card__value">37</span>
+          <span class="stat-card__label">Pending Requests</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Empty state placeholder -->
+  <div class="surface-card border-round-xl shadow-1 flex align-items-center justify-content-center" style="min-height: 300px">
+    <div class="empty-state">
+      <i class="pi pi-objects-column text-4xl mb-3 opacity-40"></i>
+      <p>Admin dashboard widgets coming soon</p>
+    </div>
+  </div>
+</div>

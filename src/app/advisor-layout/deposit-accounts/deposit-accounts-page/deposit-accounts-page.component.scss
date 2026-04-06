@@ -1,0 +1,121 @@
+/* Component-level styles — only what's NOT in PrimeFlex or application.scss */
+
+.deposit-table {
+  ::ng-deep {
+    // Custom cell styles if needed, but primary cell styles are in application.scss
+    .p-datatable-tbody > tr > td {
+      padding: 12px 10px;
+      white-space: nowrap; // Ensure content doesn't wrap in scrollable table
+
+      &.p-frozen-column {
+        background: #ffffff !important;
+        border-right: 1px solid var(--border-light) !important;
+        box-shadow: 2px 0 5px rgba(0,0,0,0.05);
+        z-index: 10;
+      }
+    }
+
+    .p-datatable-thead > tr > th {
+      &.p-frozen-column {
+        background: var(--table-header-bg) !important;
+        border-right: 1px solid rgba(255, 255, 255, 0.1) !important;
+        z-index: 11;
+      }
+    }
+  }
+}
+
+.cell-balance {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+
+  .balance-value {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+
+  .balance-date {
+    font-size: 11px;
+    color: var(--text-muted);
+  }
+}
+
+.row-action-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 4px;
+  border: 1px solid var(--border-light);
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  padding: 0;
+
+  i {
+    font-size: 14px;
+  }
+
+  &:hover {
+    filter: brightness(0.95);
+  }
+
+  &--view {
+    color: var(--text-secondary);
+  }
+
+  &--deposit {
+    background: #4caf50;
+    border-color: #4caf50;
+    color: #ffffff;
+  }
+
+  &--withdraw {
+    background: #f44336;
+    border-color: #f44336;
+    color: #ffffff;
+  }
+
+  &--delete {
+    background: #ffffff;
+    border-color: #f44336;
+    color: #f44336;
+
+    &:hover {
+      background: #f44336;
+      color: #ffffff;
+    }
+  }
+}
+
+
+
+.status-badge {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 500;
+
+  &--open {
+    background: #e1f5fe;
+    color: #0288d1;
+  }
+}
+
+.revenue-badge {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 500;
+
+  &--no {
+    background: #fff3e0;
+    color: #f57c00;
+  }
+}
+

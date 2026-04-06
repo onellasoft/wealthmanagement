@@ -1,0 +1,221 @@
+<div class="dashboard-container p-4">
+  <!-- Header -->
+  <div class="flex align-items-center justify-content-between mb-4">
+    <h1 class="text-2xl font-semibold m-0 text-primary-dark">Dashboard</h1>
+  </div>
+
+  <div class="grid">
+    <!-- Main Left Column -->
+    <div class="col-12 lg:col-9 p-0">
+
+      <!-- Account Tracker -->
+      <div class="card mb-4">
+        <div class="flex align-items-center justify-content-between mb-3 px-3 pt-3">
+          <h2 class="text-lg font-medium m-0 text-secondary">Account Tracker</h2>
+          <div class="flex gap-2">
+            <p-select [options]="accountTypes" [(ngModel)]="selectedAccountType" class="w-8rem"></p-select>
+            <p-select [options]="[{label:'Customer...', value:'Customer...'}]" [(ngModel)]="selectedCustomer"
+              class="w-10rem"></p-select>
+            <p-select [options]="[{label:'All', value:'All'}]" [(ngModel)]="selectedFilter" class="w-6rem"></p-select>
+            <p-select [options]="[{label:'Open', value:'Open'}]" [(ngModel)]="selectedStatus" class="w-8rem"></p-select>
+          </div>
+        </div>
+
+        <p-table [value]="data.accountTracker" class="status-table">
+          <ng-template pTemplate="header">
+            <tr>
+              <th style="width: 30%"></th>
+              <th class="text-center text-xs font-normal text-400">Advisors<br>Agreements</th>
+              <th class="text-center text-xs font-normal text-400">Personal<br>Details</th>
+              <th class="text-center text-xs font-normal text-400">KYC<br>status</th>
+              <th class="text-center text-xs font-normal text-400">Bank<br>Agreements</th>
+              <th class="text-center text-xs font-normal text-400">Additional<br>Information</th>
+              <th class="text-center text-xs font-normal text-400">Open<br>Account</th>
+              <th class="text-center text-xs font-normal text-400">Account<br>Funding</th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-account>
+            <tr>
+              <td>
+                <div class="flex align-items-center gap-3">
+                  <p-avatar [label]="account.avatar" shape="circle"
+                    class="bg-blue-100 text-blue-600 font-medium"></p-avatar>
+                  <div class="flex flex-column">
+                    <span class="font-medium text-sm">{{ account.name }}</span>
+                    <span class="text-xs text-400">{{ account.type }}</span>
+                    <span class="text-xs text-400">{{ account.advisor }}</span>
+                    <span class="text-xs text-400">{{ account.daysSinceStart }} Days since start date</span>
+                  </div>
+                </div>
+              </td>
+              <td class="text-center"><i [class]="getStatusIcon(account.status.advisorsAgreements)"></i></td>
+              <td class="text-center"><i [class]="getStatusIcon(account.status.personalDetails)"></i></td>
+              <td class="text-center"><i [class]="getStatusIcon(account.status.kycStatus)"></i></td>
+              <td class="text-center"><i [class]="getStatusIcon(account.status.bankAgreements)"></i></td>
+              <td class="text-center"><i [class]="getStatusIcon(account.status.additionalInfo)"></i></td>
+              <td class="text-center"><i [class]="getStatusIcon(account.status.openAccount)"></i></td>
+              <td class="text-center"><i [class]="getStatusIcon(account.status.accountFunding)"></i></td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+
+    </div>
+
+    <!-- Right Sidebar Column (Liquidity Rates) -->
+    <div class="col-12 lg:col-3">
+      <div class="card h-full">
+        <div class="p-3 border-bottom-1 border-100">
+          <h2 class="text-md font-semibold m-0 text-secondary">Current Liquidity Rates</h2>
+        </div>
+        <div class="p-3">
+          <div *ngFor="let rate of data.liquidityRates" class="mb-4">
+            <div class="flex justify-content-between align-items-start">
+              <div class="flex flex-column">
+                <span class="text-sm font-medium text-secondary">{{ rate.label }}</span>
+                <span class="text-xs text-400">As of {{ rate.date }}</span>
+              </div>
+              <div class="flex align-items-center gap-1">
+                <span class="text-xs text-400">&#64;</span>
+                <p-badge [value]="rate.rate" class="bg-blue-300 text-white font-medium pulse-badge"></p-badge>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="w-full">
+    <!-- Main Left Column -->
+    <div class="col-12">
+
+
+      <!-- Overview Header -->
+      <div class="flex align-items-center justify-content-between mb-3 mt-5">
+        <h2 class="text-lg font-semibold m-0 text-primary-dark">High Yield Savings Account Overview</h2>
+        <div class="flex align-items-center gap-2">
+          <span class="text-sm font-medium text-secondary">Visual Insights by Category</span>
+          <p-select [options]="accountTypes" [(ngModel)]="selectedAccountType" class="w-8rem"></p-select>
+        </div>
+      </div>
+
+      <!-- Overview Content -->
+      <div class="card mb-4">
+        <div class="grid p-3">
+          <!-- Overview Stats -->
+          <div class="col-12 xl:col-9">
+            <div class="grid mb-4">
+              <div class="col-4">
+                <div class="stat-group">
+                  <span class="stat-label">Total Balance</span>
+                  <span class="stat-value">{{ data.overview.totalBalance }}</span>
+                </div>
+              </div>
+              <div class="col-4 border-left-1 border-100">
+                <div class="stat-group pl-3">
+                  <span class="stat-label">Average Balance</span>
+                  <span class="stat-value">{{ data.overview.averageBalance }}</span>
+                </div>
+              </div>
+              <div class="col-4 border-left-1 border-100">
+                <div class="stat-group pl-3">
+                  <span class="stat-label">Number of Accounts</span>
+                  <span class="stat-value">{{ data.overview.numAccounts }}</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Charts Grid -->
+            <div class="grid mt-4">
+              <div class="col-12 md:col-6 text-center">
+                <div echarts [options]="radialChartOptions" style="height: 250px;"></div>
+                <span class="text-xs text-400 mt-2 block">Accounts Opened Summary Current Year</span>
+              </div>
+              <div class="col-12 md:col-6">
+                <div echarts [options]="topClientsChartOptions" style="height: 250px;"></div>
+                <span class="text-xs text-400 mt-2 block text-center">Top 10 Client Balances</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Overview Sidebar (Client Balances) -->
+          <div class="col-12 xl:col-3 border-left-1 border-100 pl-4">
+            <div class="flex align-items-center justify-content-between mb-3 border-bottom-1 border-100 pb-2">
+              <span class="text-md font-semibold m-0 text-secondary">Client Balances</span>
+              <i class="pi pi-search text-400 cursor-pointer"></i>
+            </div>
+            <div class="list-container h-25rem overflow-auto">
+              <div *ngFor="let client of data.overview.clientBalances"
+                class="flex align-items-center gap-3 mb-3 pb-2 border-bottom-1 border-50 last:border-none">
+                <p-avatar [label]="client.initials" shape="circle"
+                  [style]="{'background-color': client.color, 'color': '#ffffff'}"></p-avatar>
+                <div class="flex flex-column">
+                  <span class="text-sm font-medium">{{ client.name }}</span>
+                  <span class="text-xs text-400">{{ client.balance }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cash Flow Header -->
+      <h2 class="text-lg font-semibold mb-3 mt-5 text-primary-dark">High Yield Savings Account Cash Flow Summary</h2>
+
+      <!-- Cash Flow Content -->
+      <div class="card mb-4">
+        <div class="grid p-3">
+          <div class="col-12 xl:col-9">
+            <div class="grid mb-4">
+              <div class="col-4">
+                <div class="stat-group">
+                  <span class="stat-label text-blue-500">Inflows</span>
+                  <span class="stat-value">{{ data.cashFlow.inflows }}</span>
+                </div>
+              </div>
+              <div class="col-4 border-left-1 border-100">
+                <div class="stat-group pl-3">
+                  <span class="stat-label text-blue-300">Outflows</span>
+                  <span class="stat-value">{{ data.cashFlow.outflows }}</span>
+                </div>
+              </div>
+              <div class="col-4 border-left-1 border-100">
+                <div class="stat-group pl-3">
+                  <span class="stat-label">Net Cash Flow</span>
+                  <span class="stat-value">{{ data.cashFlow.netCashFlow }}</span>
+                </div>
+              </div>
+            </div>
+            <div echarts [options]="cashFlowChartOptions" style="height: 350px;"></div>
+          </div>
+
+          <!-- Cash Flow Sidebar (Transactions) -->
+          <div class="col-12 xl:col-3 border-left-1 border-100 pl-4">
+            <div class="flex align-items-center justify-content-between mb-3 border-bottom-1 border-100 pb-2">
+              <span class="text-md font-semibold m-0 text-secondary">Transactions</span>
+              <p-select [options]="[{label:'Pending', value:'Pending'}]" [(ngModel)]="selectedFilter"
+                class="w-6rem text-xs"></p-select>
+            </div>
+            <div class="list-container h-25rem overflow-auto">
+              <div *ngFor="let tx of data.cashFlow.transactions"
+                class="border-bottom-1 border-50 mb-3 pb-2 last:border-none">
+                <div class="flex justify-content-between align-items-start">
+                  <div class="flex flex-column">
+                    <span class="text-xs font-semibold text-secondary mb-1">{{ tx.type }}</span>
+                    <span class="text-xs text-300">{{ tx.id }}</span>
+                    <span class="text-xs text-300">{{ tx.date }}</span>
+                  </div>
+                  <div class="flex flex-column align-items-end">
+                    <span class="text-sm font-bold text-success">{{ tx.amount }}</span>
+                    <i class="pi pi-eye text-blue-200 mt-2 cursor-pointer text-xs"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

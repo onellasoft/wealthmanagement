@@ -1,0 +1,178 @@
+@use 'styles/variables' as *;
+@use 'primeflex/primeflex.css' as *;
+@use 'primeicons/primeicons.css' as *;
+@use 'assets/scss/application' as *;
+@use '@fontsource/nunito/400.css' as *;
+@use '@fontsource/nunito/500.css' as *;
+@use '@fontsource/nunito/600.css' as *;
+@use '@fontsource/nunito/700.css' as *;
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: $fontSize;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: $fontFamily;
+  font-size: $fontSize;
+  font-weight: $fontWeight;
+  line-height: $lineHeight;
+  color: var(--text-primary);
+  background: var(--page-bg);
+  overflow: hidden;
+  height: 100vh;
+  width: 100vw;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+// ============================================
+// PrimeNG Global Overrides
+// ============================================
+
+// --- Table ---
+.p-datatable {
+  .p-datatable-header {
+    background: transparent;
+    border: none;
+    padding: 0;
+  }
+
+  .p-datatable-thead>tr>th {
+    background: var(--table-header-bg) !important;
+    color: var(--table-header-text) !important;
+    font-family: var(--font-family);
+    font-size: 14px;
+    font-weight: 600;
+    padding: 10px;
+    border: none !important;
+    white-space: nowrap;
+
+    .p-sortable-column-icon,
+    .p-column-filter-menu-button {
+      color: rgba(255, 255, 255, 0.7) !important;
+    }
+
+    &:first-child {
+      border-top-left-radius: 6px;
+    }
+
+    &:last-child {
+      border-top-right-radius: 6px;
+    }
+  }
+
+  .p-datatable-tbody>tr {
+    background: var(--row-bg);
+    transition: background 0.15s ease;
+
+    >td {
+      font-family: var(--font-family);
+      font-size: 14px;
+      font-weight: 400;
+      color: var(--text-primary);
+      padding: 5px 10px;
+      border-bottom: 1px solid var(--border-light) !important;
+      border-left: none !important;
+      border-right: none !important;
+      border-top: none !important;
+      vertical-align: middle;
+    }
+
+    &:hover>td {
+      background: var(--row-hover) !important;
+    }
+  }
+
+  .p-datatable-sort-icon {
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  .p-sortable-column {
+    &:focus {
+      box-shadow: none !important;
+    }
+
+    &.p-highlight {
+      background: var(--table-header-bg) !important;
+      color: var(--table-header-text) !important;
+    }
+  }
+}
+
+// --- Paginator ---
+.p-paginator {
+  background: transparent !important;
+  border: none !important;
+  padding: 12px 0 !important;
+  font-family: var(--font-family);
+  justify-content: flex-start !important;
+
+  .p-paginator-page,
+  .p-paginator-first,
+  .p-paginator-prev,
+  .p-paginator-next,
+  .p-paginator-last {
+    min-width: 32px;
+    height: 32px;
+    border-radius: 4px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    border: 1px solid var(--border-light);
+    background: #fff;
+    margin: 0 2px;
+
+    &:focus {
+      box-shadow: none;
+    }
+
+    &.p-highlight,
+    &[aria-current="true"],
+    &.p-paginator-page-selected {
+      background: var(--primary-color) !important;
+      border-color: var(--primary-color) !important;
+      color: #fff !important;
+    }
+
+    &:hover:not(.p-highlight):not([aria-current="true"]) {
+      background: var(--row-hover);
+    }
+  }
+
+  .p-paginator-rpp-options,
+  .p-select {
+    height: 32px;
+    border: 1px solid var(--border-light);
+    border-radius: 4px;
+    font-family: var(--font-family);
+    font-size: 13px;
+  }
+}
+
+// scrollbar
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-light);
+  border-radius: 3px;
+}

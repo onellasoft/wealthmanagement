@@ -1,0 +1,9 @@
+/* Component-level styles — only what's NOT in PrimeFlex or application.scss */
+
+@media (max-width: 768px) {
+  :host {
+    .p-4 {
+      padding: 1rem !important;
+    }
+  }
+}

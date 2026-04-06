@@ -1,0 +1,218 @@
+<div class="p-3">
+  <!-- Breadcrumb -->
+  <nav class="breadcrumb">
+    <i class="pi pi-home text-sm mr-1"></i>
+    <span class="breadcrumb__sep">/</span>
+    <span class="breadcrumb__current ml-1">Deposit Accounts</span>
+  </nav>
+
+  <!-- Title & Actions Row -->
+  <div class="flex align-items-center justify-content-between mb-0">
+    <h1 class="page-title">Deposit Accounts</h1>
+    <div class="flex align-items-center gap-2">
+      <button class="action-btn" pTooltip="Search" tooltipPosition="bottom">
+        <i class="pi pi-search text-base"></i>
+      </button>
+      <button class="action-btn" pTooltip="Grid View" tooltipPosition="bottom">
+        <i class="pi pi-th-large text-base"></i>
+      </button>
+      <button class="action-btn" pTooltip="Export" tooltipPosition="bottom">
+        <i class="pi pi-download text-base"></i>
+      </button>
+      <button class="action-btn action-btn--add" pTooltip="Add New" tooltipPosition="bottom">
+        <i class="pi pi-plus text-base"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- Tabs Bar -->
+  <div class="tab-bar">
+    <button *ngFor="let tab of tabs" class="tab-btn" [class.tab-btn--active]="tab === activeTab"
+      (click)="switchTab(tab)">
+      {{ tab }}
+    </button>
+  </div>
+
+  <!-- Table Container -->
+  <div class="table-wrapper">
+    <p-table [value]="currentAccounts" [paginator]="true" [rows]="10" [showCurrentPageReport]="false"
+      [rowsPerPageOptions]="[10, 20, 50]" styleClass="deposit-table" [tableStyle]="{ 'min-width': '1400px' }"
+      [sortMode]="'single'" [scrollable]="true" scrollDirection="horizontal">
+      <ng-template #header>
+        <!-- Header for Deposit Accounts -->
+        <tr *ngIf="activeTab === 'Deposit Accounts'">
+          <th pSortableColumn="clientName" style="min-width: 250px" pFrozenColumn>
+            <div class="th-content">
+              <i class="pi pi-filter th-icon text-xs"></i>
+              Client Name
+              <p-sortIcon field="clientName" />
+            </div>
+          </th>
+          <th pSortableColumn="accountName" style="min-width: 150px">
+            <div class="th-content">
+              <i class="pi pi-filter th-icon text-xs"></i>
+              Account Name
+              <p-sortIcon field="accountName" />
+            </div>
+          </th>
+          <th pSortableColumn="accountNumber" style="min-width: 150px">
+            <div class="th-content">
+              <i class="pi pi-filter th-icon text-xs"></i>
+              Account Number
+              <p-sortIcon field="accountNumber" />
+            </div>
+          </th>
+          <th pSortableColumn="accountType" style="min-width: 200px">
+            <div class="th-content">
+              <i class="pi pi-filter th-icon text-xs"></i>
+              Account Type
+              <p-sortIcon field="accountType" />
+            </div>
+          </th>
+          <th pSortableColumn="status" style="min-width: 150px">
+            <div class="th-content">
+              <i class="pi pi-filter th-icon text-xs"></i>
+              Account Status
+              <p-sortIcon field="status" />
+            </div>
+          </th>
+          <th pSortableColumn="revenueStatus" style="min-width: 150px">
+            <div class="th-content">
+              <i class="pi pi-filter th-icon text-xs"></i>
+              Revenue Shared
+              <p-sortIcon field="revenueStatus" />
+            </div>
+          </th>
+          <th pSortableColumn="accountBalance" style="min-width: 165px">
+            <div class="th-content">
+              <i class="pi pi-filter th-icon text-xs"></i>
+              Account Balance
+              <p-sortIcon field="accountBalance" />
+            </div>
+          </th>
+          <th pSortableColumn="availableBalance" style="min-width: 175px">
+            <div class="th-content">
+              <i class="pi pi-filter th-icon text-xs"></i>
+              Available Balance
+              <p-sortIcon field="availableBalance" />
+            </div>
+          </th>
+          <th style="min-width: 130px">
+            <div class="th-content">
+              Actions
+            </div>
+          </th>
+        </tr>
+
+        <!-- Header for In progress -->
+        <tr *ngIf="activeTab === 'In progress'">
+          <th pSortableColumn="clientName" style="min-width: 250px" pFrozenColumn>
+            <div class="th-content">
+              <i class="pi pi-filter th-icon text-xs"></i>
+              Client Name
+              <p-sortIcon field="clientName" />
+            </div>
+          </th>
+          <th pSortableColumn="accountName" style="min-width: 200px">
+            <div class="th-content">
+              <i class="pi pi-filter th-icon text-xs"></i>
+              Account Name
+              <p-sortIcon field="accountName" />
+            </div>
+          </th>
+          <th pSortableColumn="accountType" style="min-width: 200px">
+            <div class="th-content">
+              <i class="pi pi-filter th-icon text-xs"></i>
+              Account Type
+              <p-sortIcon field="accountType" />
+            </div>
+          </th>
+          <th pSortableColumn="revenueShared" style="min-width: 200px">
+            <div class="th-content">
+              <i class="pi pi-filter th-icon text-xs"></i>
+              Revenue Shared
+              <p-sortIcon field="revenueShared" />
+            </div>
+          </th>
+          <th pSortableColumn="lastModifiedDate" style="min-width: 200px">
+            <div class="th-content">
+              <i class="pi pi-filter th-icon text-xs"></i>
+              Last Modified Date
+              <p-sortIcon field="lastModifiedDate" />
+            </div>
+          </th>
+          <th pSortableColumn="accountStage" style="min-width: 250px">
+            <div class="th-content">
+              <i class="pi pi-filter th-icon text-xs"></i>
+              Account Stage
+              <p-sortIcon field="accountStage" />
+            </div>
+          </th>
+          <th style="min-width: 90px">
+            <div class="th-content">
+              Action
+            </div>
+          </th>
+        </tr>
+      </ng-template>
+
+      <ng-template #body let-row>
+        <!-- Body for Deposit Accounts -->
+        <tr *ngIf="activeTab === 'Deposit Accounts'">
+          <td pFrozenColumn><span class="cell-name font-medium">{{ row.clientName }}</span></td>
+          <td><span class="text-secondary">{{ row.accountName }}</span></td>
+          <td><span class="text-secondary">{{ row.accountNumber }}</span></td>
+          <td><span class="text-secondary">{{ row.accountType }}</span></td>
+          <td class="text-center">
+            <span class="status-badge status-badge--open" *ngIf="row.status === 'Open'">Open</span>
+          </td>
+          <td class="text-center">
+            <span class="revenue-badge revenue-badge--no" *ngIf="row.revenueStatus === 'No'">No</span>
+          </td>
+          <td>
+            <div class="cell-balance text-right">
+              <span class="balance-value">{{ row.accountBalance }}</span>
+              <span class="balance-date">As Of {{ row.balanceDate }}</span>
+            </div>
+          </td>
+          <td>
+            <div class="cell-balance text-right">
+              <span class="balance-value">{{ row.availableBalance }}</span>
+              <span class="balance-date">As Of {{ row.balanceDate }}</span>
+            </div>
+          </td>
+          <td>
+            <div class="flex gap-2">
+              <button class="row-action-btn row-action-btn--view"><i class="pi pi-eye"></i></button>
+              <button class="row-action-btn row-action-btn--deposit"><i class="pi pi-dollar"></i></button>
+              <button class="row-action-btn row-action-btn--withdraw"><i class="pi pi-dollar"></i></button>
+            </div>
+          </td>
+        </tr>
+
+        <!-- Body for In progress -->
+        <tr *ngIf="activeTab === 'In progress'">
+          <td pFrozenColumn><span class="cell-name font-medium">{{ row.clientName }}</span></td>
+          <td><span class="text-secondary">{{ row.accountName }}</span></td>
+          <td><span class="text-secondary">{{ row.accountType }}</span></td>
+          <td class="text-center">
+            <span class="revenue-badge revenue-badge--no" *ngIf="row.revenueShared === 'No'">No</span>
+          </td>
+          <td><span class="text-secondary">{{ row.lastModifiedDate }}</span></td>
+          <td>
+            <span class="text-secondary">{{ row.accountStage }}</span>
+          </td>
+          <td>
+            <div class="flex gap-2">
+              <button class="row-action-btn row-action-btn--view"><i class="pi pi-eye"></i></button>
+              <button class="row-action-btn row-action-btn--delete"><i class="pi pi-trash"></i></button>
+            </div>
+          </td>
+        </tr>
+      </ng-template>
+
+    </p-table>
+  </div>
+
+
+</div>

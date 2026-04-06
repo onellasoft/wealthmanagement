@@ -1,0 +1,90 @@
+.dashboard-container {
+  background-color: #f8f9fa;
+  min-height: 100vh;
+  font-family: var(--font-family);
+}
+
+.card {
+  background: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.text-primary-dark {
+  color: #14446c;
+}
+
+.text-secondary {
+  color: #55606e;
+}
+
+.stat-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.stat-label {
+  font-size: 11px;
+  color: #a0aec0;
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+}
+
+.stat-value {
+  font-size: 18px;
+  font-weight: 700;
+  color: #14446c;
+}
+
+.status-table {
+  ::ng-deep {
+    .p-datatable-thead > tr > th {
+      background: transparent;
+      padding-bottom: 20px;
+    }
+    .p-datatable-tbody > tr > td {
+      padding: 15px 12px;
+    }
+  }
+}
+
+.text-success { color: #4caf50; }
+.text-error { color: #f44336; }
+.text-warning { color: #ff9800; }
+
+.pulse-badge {
+  ::ng-deep .p-badge {
+    background-color: #93aed2 !important;
+    color: white;
+    font-size: 10px;
+    min-width: 32px;
+    height: 20px;
+    border-radius: 10px;
+  }
+}
+
+.list-container {
+  scrollbar-width: thin;
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: #e2e8f0;
+    border-radius: 2px;
+  }
+}
+
+.last\:border-none:last-child {
+  border-bottom: none !important;
+}
+
+::ng-deep .p-select {
+  border: none !important;
+  background: transparent !important;
+  .p-select-label {
+    font-size: 12px;
+    color: #a0aec0;
+  }
+}

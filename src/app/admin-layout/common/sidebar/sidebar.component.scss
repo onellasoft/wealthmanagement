@@ -1,0 +1,113 @@
+// --- Sidebar Dimensions ---
+$sidebar-collapsed-width: 64px;
+$sidebar-expanded-width: 240px;
+$sidebar-transition: 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+
+.sidebar {
+  position: fixed;
+  top: var(--header-height);
+  left: 0;
+  width: $sidebar-collapsed-width;
+  height: calc(100vh - var(--header-height));
+  background: var(--sidebar-bg);
+  display: flex;
+  flex-direction: column;
+  padding: 12px 0 20px;
+  z-index: 200;
+  overflow: hidden;
+  transition: width $sidebar-transition, box-shadow $sidebar-transition;
+
+  &--expanded {
+    width: $sidebar-expanded-width;
+    box-shadow: 6px 0 24px rgba(0, 0, 0, 0.18);
+  }
+}
+
+.sidebar__nav {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  width: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 0 12px;
+
+  scrollbar-width: none;
+  &::-webkit-scrollbar { display: none; }
+}
+
+.sidebar__item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  height: 42px;
+  min-height: 42px;
+  width: 100%;
+  padding: 0 10px;
+  border: none;
+  background: transparent;
+  color: var(--sidebar-icon);
+  cursor: pointer;
+  border-radius: 8px;
+  transition: background 0.18s ease, color 0.18s ease;
+  white-space: nowrap;
+  text-decoration: none;
+
+  &:hover {
+    background: var(--sidebar-active-bg);
+    color: var(--sidebar-icon-active);
+  }
+
+  &--active {
+    background: var(--sidebar-active-bg);
+    color: var(--sidebar-icon-active);
+  }
+}
+
+.sidebar__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  min-width: 20px;
+  height: 20px;
+}
+
+.sidebar__label {
+  font-family: var(--font-family);
+  font-size: 14px;
+  font-weight: 500;
+  opacity: 0;
+  transform: translateX(-8px);
+  transition: opacity 0.22s ease, transform 0.22s ease;
+  pointer-events: none;
+  overflow: hidden;
+
+  .sidebar--expanded & {
+    opacity: 1;
+    transform: translateX(0);
+    pointer-events: auto;
+  }
+}
+
+.sidebar__bottom {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 8px 12px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  margin-top: 8px;
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    width: 0;
+    padding: 12px 0 20px;
+
+    &--expanded {
+      width: $sidebar-expanded-width;
+      padding: 12px 0 20px;
+    }
+  }
+}

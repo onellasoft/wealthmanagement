@@ -1,0 +1,74 @@
+// ============================================
+// DESIGN TOKENS — Wealth Management
+// Single source of truth for all styling
+// ============================================
+
+// --- Primary Palette (Green) ---
+$primaryColor: #2F6F5E;
+$primaryDarkColor: #275B4E;
+$primaryDarkerColor: #1F4F43;
+$primaryTextColor: #ffffff;
+$primaryLightColor: #E8F0ED;
+
+// --- Typography ---
+$fontFamily: 'Nunito', sans-serif;
+$fontSize: 14px;
+$fontWeight: 400;
+$lineHeight: 1.5;
+
+// --- Spacing (8pt grid) ---
+$spacing-2: 2px;
+$spacing-4: 4px;
+$spacing-8: 8px;
+$spacing-12: 12px;
+$spacing-16: 16px;
+$spacing-24: 24px;
+$spacing-32: 32px;
+$spacing-40: 40px;
+
+// --- Layout ---
+$sidebar-width: 64px;
+$header-height: 56px;
+$table-row-height: 56px;
+$cell-padding-v: 12px;
+$cell-padding-h: 16px;
+
+// --- Borders ---
+$borderRadius: 6px;
+$borderRadiusSm: 4px;
+$borderRadiusLg: 8px;
+
+// --- CSS Custom Properties ---
+:root {
+  --primary-color: #{$primaryColor};
+  --primary-color-dark: #{$primaryDarkColor};
+  --primary-color-darker: #{$primaryDarkerColor};
+  --primary-color-light: #{$primaryLightColor};
+  --primary-color-text: #{$primaryTextColor};
+
+  --sidebar-bg: #{$primaryColor};
+  --sidebar-icon: #A7C4BB;
+  --sidebar-icon-active: #ffffff;
+  --sidebar-active-bg: rgba(255, 255, 255, 0.12);
+
+  --header-bg: #ffffff;
+  --page-bg: #F7F9FB;
+
+  --table-header-bg: #{$primaryColor};
+  --table-header-text: #ffffff;
+
+  --row-hover: #F3F4F6;
+  --row-bg: #ffffff;
+  --row-border: #E5E7EB;
+
+  --text-primary: #1F2A37;
+  --text-secondary: #6B7280;
+  --text-muted: #9CA3AF;
+
+  --border-light: #E5E7EB;
+
+  --font-family: #{$fontFamily};
+
+  --sidebar-width: #{$sidebar-width};
+  --header-height: #{$header-height};
+}
