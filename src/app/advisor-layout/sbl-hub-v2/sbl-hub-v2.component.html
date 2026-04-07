@@ -1,0 +1,363 @@
+<div class="p-3">
+  <div class="bg-blue-50 border-1 border-blue-200 p-2 mb-3 text-center text-xs text-blue-800 border-round">
+    SYSTEM: SBL Hub v2.1 Live
+  </div>
+
+  <!-- Breadcrumb + Header Row -->
+  <div class="header-row mb-3">
+    <div>
+      <nav class="breadcrumb">
+        <i class="pi pi-home text-sm mr-1 cursor-pointer" (click)="goBack()"></i>
+        <span class="breadcrumb__sep">/</span>
+        <span class="breadcrumb__link ml-1">Securities Based Loan</span>
+      </nav>
+      <h1 class="page-title">Securities Based Loan</h1>
+    </div>
+
+    <!-- Action Icons -->
+    <div class="flex align-items-center gap-2">
+      <button class="action-btn action-btn--search" pTooltip="Search" tooltipPosition="bottom">
+        <i class="pi pi-search text-base"></i>
+      </button>
+      <button class="action-btn action-btn--outline" pTooltip="Grid View" tooltipPosition="bottom">
+        <i class="pi pi-th-large text-base"></i>
+      </button>
+      <button class="action-btn action-btn--outline" pTooltip="Export" tooltipPosition="bottom">
+        <i class="pi pi-file-export text-base"></i>
+      </button>
+      <button class="action-btn action-btn--add" pTooltip="Create SBL" tooltipPosition="bottom">
+        <i class="pi pi-plus text-base"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- Tabs Bar -->
+  <div class="tab-bar">
+    <button *ngFor="let tab of tabs" class="tab-btn" [class.tab-btn--active]="tab === activeTab"
+      (click)="switchTab(tab)">
+      {{ tab }}
+    </button>
+  </div>
+
+  <!-- Proposal Tab Content -->
+  <div *ngIf="activeTab === 'Proposal'" class="table-wrapper animate-fade-in">
+    <p-table [value]="proposals" [paginator]="true" [rows]="10"
+      [rowsPerPageOptions]="[10, 20, 50]" styleClass="sbl-table"
+      [showCurrentPageReport]="false" [sortMode]="'single'">
+      <ng-template #header>
+        <tr>
+          <th pSortableColumn="number">
+            <div class="th-content">
+              Proposal Number
+              <p-sortIcon field="number" />
+            </div>
+          </th>
+          <th pSortableColumn="advisorName">
+            <div class="th-content">
+              <i class="pi pi-filter th-icon text-xs"></i>
+              Advisor Name
+              <p-sortIcon field="advisorName" />
+            </div>
+          </th>
+          <th pSortableColumn="lineOfCredit">
+            <div class="th-content">
+              <i class="pi pi-filter th-icon text-xs"></i>
+              Desired Line of Credit
+              <p-sortIcon field="lineOfCredit" />
+            </div>
+          </th>
+          <th pSortableColumn="participants">
+            <div class="th-content">
+              <i class="pi pi-filter th-icon text-xs"></i>
+              Number of Participants
+              <p-sortIcon field="participants" />
+            </div>
+          </th>
+          <th pSortableColumn="status">
+            <div class="th-content">
+              <i class="pi pi-filter th-icon text-xs"></i>
+              Status
+              <p-sortIcon field="status" />
+            </div>
+          </th>
+          <th pSortableColumn="createdDate">
+            <div class="th-content">
+              <i class="pi pi-filter th-icon text-xs"></i>
+              Created Date
+              <p-sortIcon field="createdDate" />
+            </div>
+          </th>
+          <th pSortableColumn="expireDate">
+            <div class="th-content">
+              <i class="pi pi-filter th-icon text-xs"></i>
+              Expire Date
+              <p-sortIcon field="expireDate" />
+            </div>
+          </th>
+        </tr>
+      </ng-template>
+      <ng-template #body let-row>
+        <tr>
+          <td><span class="cell-primary-text">{{ row.number }}</span></td>
+          <td>{{ row.advisorName }}</td>
+          <td>{{ row.lineOfCredit }}</td>
+          <td>{{ row.participants }}</td>
+          <td>
+            <span class="status-badge" [ngClass]="'status-' + row.status.toLowerCase().replace(' ', '-')">
+              {{ row.status }}
+            </span>
+          </td>
+          <td>{{ row.createdDate }}</td>
+          <td>{{ row.expireDate }}</td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+
+  <!-- Application Tab Content -->
+  <div *ngIf="activeTab === 'Application'" class="table-wrapper animate-fade-in">
+    <p-table [value]="applications" [paginator]="true" [rows]="10"
+      [rowsPerPageOptions]="[10, 20, 50]" styleClass="sbl-table"
+      [showCurrentPageReport]="false" [sortMode]="'single'">
+      <ng-template #header>
+        <tr>
+          <th pSortableColumn="number">
+            <div class="th-content">
+              <i class="pi pi-filter th-icon text-xs"></i>
+              SBL Application Number
+              <p-sortIcon field="number" />
+            </div>
+          </th>
+          <th pSortableColumn="advisorName">
+            <div class="th-content">
+              <i class="pi pi-filter th-icon text-xs"></i>
+              Advisor Name
+              <p-sortIcon field="advisorName" />
+            </div>
+          </th>
+          <th pSortableColumn="lineOfCredit">
+            <div class="th-content">
+              <i class="pi pi-filter th-icon text-xs"></i>
+              Desired Line of Credit
+              <p-sortIcon field="lineOfCredit" />
+            </div>
+          </th>
+          <th pSortableColumn="participants">
+            <div class="th-content">
+              <i class="pi pi-filter th-icon text-xs"></i>
+              Number of Participants
+              <p-sortIcon field="participants" />
+            </div>
+          </th>
+          <th pSortableColumn="stage">
+            <div class="th-content">
+              <i class="pi pi-filter th-icon text-xs"></i>
+              Stage of Application
+              <p-sortIcon field="stage" />
+            </div>
+          </th>
+          <th pSortableColumn="createdDate">
+            <div class="th-content">
+              <i class="pi pi-filter th-icon text-xs"></i>
+              Created Date
+              <p-sortIcon field="createdDate" />
+            </div>
+          </th>
+        </tr>
+      </ng-template>
+      <ng-template #body let-row>
+        <tr>
+          <td><span class="cell-primary-text">{{ row.number }}</span></td>
+          <td>{{ row.advisorName }}</td>
+          <td>{{ row.lineOfCredit }}</td>
+          <td>{{ row.participants }}</td>
+          <td>
+            <span class="status-badge status-review">
+              {{ row.stage }}
+            </span>
+          </td>
+          <td>{{ row.createdDate }}</td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+
+  <!-- Accounts Tab Content -->
+  <div *ngIf="activeTab === 'Accounts'" class="table-wrapper animate-fade-in">
+    <p-table [value]="accounts" [paginator]="true" [rows]="10"
+      [rowsPerPageOptions]="[10, 20, 50]" styleClass="sbl-table"
+      [showCurrentPageReport]="false" [sortMode]="'single'">
+      <ng-template #header>
+        <tr>
+          <th pSortableColumn="accountNumber">Account Number</th>
+          <th pSortableColumn="totalCreditLine">Total Credit Line ($)</th>
+          <th pSortableColumn="availableBalance">Available Balance ($)</th>
+          <th pSortableColumn="interestRate">Interest Rate(APY)</th>
+          <th pSortableColumn="lastWithdrawalDate">Last Withdrawal</th>
+          <th pSortableColumn="lastWithdrawalAmount">Last Withdrawal Amount ($)</th>
+          <th pSortableColumn="status">Status</th>
+          <th>Actions</th>
+        </tr>
+      </ng-template>
+      <ng-template #body let-row>
+        <tr>
+          <td><span class="cell-primary-text">{{ row.accountNumber }}</span></td>
+          <td>{{ row.totalCreditLine | number }}</td>
+          <td>{{ row.availableBalance | number }}</td>
+          <td>{{ row.interestRate }}</td>
+          <td>{{ row.lastWithdrawalDate }}</td>
+          <td>{{ row.lastWithdrawalAmount }}</td>
+          <td>
+            <span class="status-badge" [ngClass]="'status-' + row.status.toLowerCase()">
+              {{ row.status }}
+            </span>
+          </td>
+          <td class="text-center">
+            <button class="view-btn">
+              <i class="pi pi-eye"></i>
+            </button>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+
+  <!-- Transactions and Statements Content -->
+  <div *ngIf="activeTab === 'Transactions and Statements'" class="animate-fade-in">
+    <!-- Info Bar -->
+    <div class="info-bar mb-3">
+      Account Number: <strong>SBL-102344</strong> | 
+      Line of Credit: <strong>$250,000</strong> | 
+      Outstanding Balance: <strong>$75,000</strong>
+    </div>
+
+    <!-- Sub-tabs bar -->
+    <div class="tab-bar mb-3">
+      <button *ngFor="let sub of subTabs" class="tab-btn" 
+        [class.tab-btn--active]="sub === activeSubTab"
+        (click)="switchSubTab(sub)">
+        {{ sub }}
+      </button>
+    </div>
+
+    <!-- Payment History Sub-Tab Content -->
+    <div *ngIf="activeSubTab === 'Payment History'" class="table-wrapper">
+      <p-table [value]="payments" [paginator]="true" [rows]="10"
+        [rowsPerPageOptions]="[10, 20, 50]" styleClass="sbl-table"
+        [showCurrentPageReport]="false" [sortMode]="'single'">
+        <ng-template #header>
+          <tr>
+            <th pSortableColumn="date">
+              <div class="th-content">
+                Date
+                <p-sortIcon field="date" />
+              </div>
+            </th>
+            <th pSortableColumn="type">
+              <div class="th-content">
+                Payment Type
+                <p-sortIcon field="type" />
+              </div>
+            </th>
+            <th pSortableColumn="amount">
+              <div class="th-content">
+                Amount Paid
+                <p-sortIcon field="amount" />
+              </div>
+            </th>
+            <th pSortableColumn="method">
+              <div class="th-content">
+                Payment Method
+                <p-sortIcon field="method" />
+              </div>
+            </th>
+            <th pSortableColumn="status">
+              <div class="th-content">
+                Status
+                <p-sortIcon field="status" />
+              </div>
+            </th>
+          </tr>
+        </ng-template>
+        <ng-template #body let-row>
+          <tr>
+            <td>{{ row.date }}</td>
+            <td class="text-blue-600 cursor-pointer">{{ row.type }}</td>
+            <td>{{ row.amount }}</td>
+            <td>{{ row.method }}</td>
+            <td>
+              <span class="status-badge status-approved">
+                {{ row.status }}
+              </span>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+
+    <!-- Statements Sub-Tab Content -->
+    <div *ngIf="activeSubTab === 'Statements'" class="animate-fade-in mt-3">
+      <div class="flex justify-content-between align-items-center mb-3">
+        <h4 class="m-0 font-semibold text-gray-700">Statements</h4>
+        <button class="download-all-btn">
+          <i class="pi pi-download mr-1"></i>
+          Download All
+        </button>
+      </div>
+      <div class="table-wrapper">
+        <p-table [value]="statements" [paginator]="true" [rows]="10" styleClass="sbl-table">
+          <ng-template #header>
+            <tr>
+              <th pSortableColumn="period">Statement Period <p-sortIcon field="period" /></th>
+              <th pSortableColumn="openingBalance">Opening Balance <p-sortIcon field="openingBalance" /></th>
+              <th pSortableColumn="closingBalance">Closing Balance <p-sortIcon field="closingBalance" /></th>
+              <th pSortableColumn="interestCharged">Interest Charged <p-sortIcon field="interestCharged" /></th>
+              <th class="text-center">Download</th>
+            </tr>
+          </ng-template>
+          <ng-template #body let-row>
+            <tr>
+              <td><span class="cell-primary-text">{{ row.period }}</span></td>
+              <td>{{ row.openingBalance }}</td>
+              <td>{{ row.closingBalance }}</td>
+              <td class="text-gray-400">{{ row.interestCharged }}</td>
+              <td class="text-center">
+                <button class="view-btn">
+                  <i class="pi pi-download"></i>
+                </button>
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+    </div>
+
+    <!-- Transactions Sub-Tab Content -->
+    <div *ngIf="activeSubTab === 'Transactions'" class="animate-fade-in mt-3">
+      <div class="table-wrapper">
+        <p-table [value]="transactions" [paginator]="true" [rows]="10" styleClass="sbl-table">
+          <ng-template #header>
+            <tr>
+              <th pSortableColumn="date">Date <p-sortIcon field="date" /></th>
+              <th pSortableColumn="type">Transaction Type <p-sortIcon field="type" /></th>
+              <th pSortableColumn="description">Description <p-sortIcon field="description" /></th>
+              <th pSortableColumn="debit">Debit <p-sortIcon field="debit" /></th>
+              <th pSortableColumn="credit">Credit <p-sortIcon field="credit" /></th>
+              <th pSortableColumn="balance">Balance <p-sortIcon field="balance" /></th>
+            </tr>
+          </ng-template>
+          <ng-template #body let-row>
+            <tr>
+              <td>{{ row.date }}</td>
+              <td class="text-blue-600 cursor-pointer">{{ row.type }}</td>
+              <td>{{ row.description }}</td>
+              <td>{{ row.debit }}</td>
+              <td>{{ row.credit }}</td>
+              <td class="font-semibold">{{ row.balance }}</td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+    </div>
+  </div>
+</div>

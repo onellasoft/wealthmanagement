@@ -19,6 +19,26 @@ const routes: Routes = [
       {
         path: 'deposit-accounts',
         loadChildren: () => import('./deposit-accounts/deposit-accounts.module').then(m => m.DepositAccountsModule)
+      },
+      {
+        path: 'mortgage',
+        loadChildren: () => import('./mortgage-management/mortgage-management.module').then(m => m.MortgageManagementModule)
+      },
+      {
+        path: 'advisor-financing',
+        loadChildren: () => import('./advisor-financing-hub/advisor-financing-hub.module').then(m => m.AdvisorFinancingHubModule)
+      },
+      {
+        path: 'life-settlements',
+        loadChildren: () => import('./life-settlements-management/life-settlements-management.module').then(m => m.LifeSettlementsManagementModule)
+      },
+      {
+        path: 'credit-card',
+        loadChildren: () => import('./credit-cards-hub/credit-cards-hub.module').then(m => m.CreditCardsHubModule)
+      },
+      {
+        path: 'sbl',
+        loadChildren: () => import('./sbl-hub-v2/sbl-hub-v2.module').then(m => m.SblHubV2Module)
       }
     ]
   }

@@ -1,0 +1,137 @@
+<div class="p-3">
+  <!-- Breadcrumb + Header Row -->
+  <div class="header-row mb-3">
+    <div>
+      <nav class="breadcrumb">
+        <i class="pi pi-home text-sm mr-1 cursor-pointer" (click)="goBack()"></i>
+        <span class="breadcrumb__sep">/</span>
+        <span class="breadcrumb__link ml-1">Credit Cards</span>
+      </nav>
+      <h1 class="page-title">Credit Cards</h1>
+    </div>
+
+    <!-- Action Icons -->
+    <div class="flex align-items-center gap-2">
+      <button class="action-btn action-btn--search" pTooltip="Search" tooltipPosition="bottom">
+        <i class="pi pi-search text-base"></i>
+      </button>
+      <button class="action-btn action-btn--outline" pTooltip="Grid View" tooltipPosition="bottom">
+        <i class="pi pi-th-large text-base"></i>
+      </button>
+      <button class="action-btn action-btn--outline" pTooltip="Export" tooltipPosition="bottom">
+        <i class="pi pi-file-export text-base"></i>
+      </button>
+      <button class="action-btn action-btn--add" pTooltip="Add Credit Card" tooltipPosition="bottom">
+        <i class="pi pi-plus text-base"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- Tabs Bar -->
+  <div class="tab-bar">
+    <button *ngFor="let tab of tabs" class="tab-btn" [class.tab-btn--active]="tab === activeTab"
+      (click)="switchTab(tab)">
+      {{ tab }}
+    </button>
+  </div>
+
+  <!-- Credit Cards Tab Content -->
+  <div *ngIf="activeTab === 'Credit Cards'" class="table-wrapper animate-fade-in">
+    <p-table [value]="creditCards" [paginator]="true" [rows]="10"
+      [rowsPerPageOptions]="[10, 20, 50]" styleClass="credit-card-table"
+      [showCurrentPageReport]="false" [sortMode]="'single'">
+      <ng-template #header>
+        <tr>
+          <th pSortableColumn="clientName">
+            <div class="th-content">
+              <i class="pi pi-filter th-icon text-xs"></i>
+              Client Name
+              <p-sortIcon field="clientName" />
+            </div>
+          </th>
+          <th pSortableColumn="accountNumber">
+            <div class="th-content">
+              <i class="pi pi-filter th-icon text-xs"></i>
+              Account Number
+              <p-sortIcon field="accountNumber" />
+            </div>
+          </th>
+          <th pSortableColumn="accountStatus">
+            <div class="th-content">
+              <i class="pi pi-filter th-icon text-xs"></i>
+              Account Status
+              <p-sortIcon field="accountStatus" />
+            </div>
+          </th>
+          <th>
+            <div class="th-content flex justify-content-center">
+              Actions
+            </div>
+          </th>
+        </tr>
+      </ng-template>
+      <ng-template #body let-row>
+        <tr>
+          <td><span class="cell-primary-text">{{ row.clientName }}</span></td>
+          <td class="text-blue-600 cursor-pointer">{{ row.accountNumber }}</td>
+          <td [class.text-green-600]="row.accountStatus === 'Active'">{{ row.accountStatus }}</td>
+          <td class="text-center">
+            <button class="view-btn" pTooltip="View Details" tooltipPosition="left">
+              <i class="pi pi-eye text-base"></i>
+            </button>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+
+  <!-- In progress Tab Content -->
+  <div *ngIf="activeTab === 'In progress'" class="table-wrapper animate-fade-in">
+    <p-table [value]="creditCardsInProgress" [paginator]="true" [rows]="10"
+      [rowsPerPageOptions]="[10, 20, 50]" styleClass="credit-card-table"
+      [showCurrentPageReport]="false" [sortMode]="'single'">
+      <ng-template #header>
+        <tr>
+          <th pSortableColumn="clientName">
+            <div class="th-content">
+              <i class="pi pi-filter th-icon text-xs"></i>
+              Client Name
+              <p-sortIcon field="clientName" />
+            </div>
+          </th>
+          <th pSortableColumn="lastModifiedDate">
+            <div class="th-content">
+              <i class="pi pi-filter th-icon text-xs"></i>
+              Last Modified Date
+              <p-sortIcon field="lastModifiedDate" />
+            </div>
+          </th>
+          <th pSortableColumn="accountStage">
+            <div class="th-content">
+              <i class="pi pi-filter th-icon text-xs"></i>
+              Account Stage
+              <p-sortIcon field="accountStage" />
+            </div>
+          </th>
+          <th>
+            <div class="th-content flex justify-content-center">
+              Actions
+            </div>
+          </th>
+        </tr>
+      </ng-template>
+      <ng-template #body let-row>
+        <tr>
+          <td><span class="cell-primary-text">{{ row.clientName }}</span></td>
+          <td>{{ row.lastModifiedDate }}</td>
+          <td>{{ row.accountStage }}</td>
+          <td class="text-center">
+            <button class="view-btn icon-only" pTooltip="View Details" tooltipPosition="left">
+              <i class="pi pi-eye text-base"></i>
+            </button>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</div>

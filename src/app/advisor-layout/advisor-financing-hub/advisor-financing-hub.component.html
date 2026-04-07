@@ -1,0 +1,91 @@
+<div class="p-3">
+  <!-- Breadcrumb + Header Row -->
+  <div class="header-row mb-3">
+    <div>
+      <nav class="breadcrumb">
+        <i class="pi pi-home text-sm mr-1 cursor-pointer" (click)="goBack()"></i>
+        <span class="breadcrumb__sep">/</span>
+        <span class="breadcrumb__link ml-1">Advisor Financing</span>
+      </nav>
+      <h1 class="page-title">Advisor Financing</h1>
+    </div>
+
+    <!-- Action Icons -->
+    <div class="flex align-items-center gap-2">
+      <button class="action-btn action-btn--search" pTooltip="Search" tooltipPosition="bottom">
+        <i class="pi pi-search text-base"></i>
+      </button>
+      <button class="action-btn action-btn--outline" pTooltip="Grid View" tooltipPosition="bottom">
+        <i class="pi pi-th-large text-base"></i>
+      </button>
+      <button class="action-btn action-btn--outline" pTooltip="Export" tooltipPosition="bottom">
+        <i class="pi pi-file-export text-base"></i>
+      </button>
+      <button class="action-btn action-btn--add" pTooltip="Add Financing" tooltipPosition="bottom">
+        <i class="pi pi-plus text-base"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- Table Content -->
+  <div class="table-wrapper animate-fade-in">
+    <p-table [value]="financingData" [paginator]="true" [rows]="10"
+      [rowsPerPageOptions]="[10, 20, 50]" styleClass="financing-table"
+      [showCurrentPageReport]="false" [sortMode]="'single'">
+      <ng-template #header>
+        <tr>
+          <th pSortableColumn="firmName">
+            <div class="th-content">
+              <i class="pi pi-filter th-icon text-xs"></i>
+              Firm Name
+              <p-sortIcon field="firmName" />
+            </div>
+          </th>
+          <th pSortableColumn="submittedDate">
+            <div class="th-content">
+              <i class="pi pi-filter th-icon text-xs"></i>
+              Application Submitted Date
+              <p-sortIcon field="submittedDate" />
+            </div>
+          </th>
+          <th pSortableColumn="firmAum">
+            <div class="th-content">
+              <i class="pi pi-filter th-icon text-xs"></i>
+              Firm AUM ($)
+              <p-sortIcon field="firmAum" />
+            </div>
+          </th>
+          <th pSortableColumn="advisorsCount">
+            <div class="th-content">
+              <i class="pi pi-filter th-icon text-xs"></i>
+              Number of Advisors and Employees
+              <p-sortIcon field="advisorsCount" />
+            </div>
+          </th>
+          <th>
+            <div class="th-content">
+              <i class="pi pi-filter th-icon text-xs"></i>
+              Owners
+            </div>
+          </th>
+        </tr>
+      </ng-template>
+      <ng-template #body let-row>
+        <tr>
+          <td><span class="cell-primary-link text-blue-600">{{ row.firmName }}</span></td>
+          <td>{{ row.submittedDate }}</td>
+          <td>{{ row.firmAum }}</td>
+          <td>{{ row.advisorsCount }}</td>
+          <td>
+            <div class="flex align-items-center gap-1">
+              <span class="owner-name text-blue-600 cursor-pointer">{{ row.owners[0] }}</span>
+              <span *ngIf="row.owners.length > 1" class="owner-badge">
+                +{{ row.owners.length - 1 }}
+              </span>
+            </div>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</div>
