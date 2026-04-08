@@ -13,6 +13,10 @@ const routes: Routes = [
         loadComponent: () => import('./dashboard/dashboard.component').then(m => m.DashboardComponent)
       },
       {
+        path: 'solutions',
+        loadComponent: () => import('./solutions-hub/solutions-hub.component').then(m => m.SolutionsHubComponent)
+      },
+      {
         path: 'clients',
         loadChildren: () => import('./clients/clients.module').then(m => m.ClientsModule)
       },
