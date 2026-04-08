@@ -18,8 +18,8 @@ export const DEPOSIT_ACCOUNTS_DATA: DepositAccount[] = [
     accountType: 'High Yield Savings Account',
     status: 'Open',
     revenueStatus: 'No',
-    accountBalance: '$150,120.35',
-    availableBalance: '$150,120.35',
+    accountBalance: '₹150,120.35',
+    availableBalance: '₹150,120.35',
     balanceDate: '01-18-2026'
   },
   {
@@ -29,8 +29,8 @@ export const DEPOSIT_ACCOUNTS_DATA: DepositAccount[] = [
     accountType: 'High Yield Savings Account',
     status: 'Open',
     revenueStatus: 'No',
-    accountBalance: '$0.00',
-    availableBalance: '$0.00',
+    accountBalance: '₹0.00',
+    availableBalance: '₹0.00',
     balanceDate: '01-18-2026'
   },
   {
@@ -40,8 +40,8 @@ export const DEPOSIT_ACCOUNTS_DATA: DepositAccount[] = [
     accountType: 'High Yield Savings Account',
     status: 'Open',
     revenueStatus: 'No',
-    accountBalance: '$130.42',
-    availableBalance: '$130.42',
+    accountBalance: '₹130.42',
+    availableBalance: '₹130.42',
     balanceDate: '01-18-2026'
   },
   {
@@ -51,8 +51,8 @@ export const DEPOSIT_ACCOUNTS_DATA: DepositAccount[] = [
     accountType: 'High Yield Savings Account',
     status: 'Open',
     revenueStatus: 'No',
-    accountBalance: '$0.00',
-    availableBalance: '$0.00',
+    accountBalance: '₹0.00',
+    availableBalance: '₹0.00',
     balanceDate: '01-18-2026'
   },
   {
@@ -62,8 +62,8 @@ export const DEPOSIT_ACCOUNTS_DATA: DepositAccount[] = [
     accountType: 'High Yield Savings Account',
     status: 'Open',
     revenueStatus: 'No',
-    accountBalance: '$50.25',
-    availableBalance: '$50.25',
+    accountBalance: '₹50.25',
+    availableBalance: '₹50.25',
     balanceDate: '01-18-2026'
   },
   {
@@ -73,8 +73,8 @@ export const DEPOSIT_ACCOUNTS_DATA: DepositAccount[] = [
     accountType: 'High Yield Savings Account',
     status: 'Open',
     revenueStatus: 'No',
-    accountBalance: '$0.00',
-    availableBalance: '$0.00',
+    accountBalance: '₹0.00',
+    availableBalance: '₹0.00',
     balanceDate: '01-18-2026'
   },
   {
@@ -84,8 +84,8 @@ export const DEPOSIT_ACCOUNTS_DATA: DepositAccount[] = [
     accountType: 'High Yield Savings Account',
     status: 'Open',
     revenueStatus: 'No',
-    accountBalance: '$0.00',
-    availableBalance: '$0.00',
+    accountBalance: '₹0.00',
+    availableBalance: '₹0.00',
     balanceDate: '01-18-2026'
   },
   {
@@ -95,8 +95,8 @@ export const DEPOSIT_ACCOUNTS_DATA: DepositAccount[] = [
     accountType: 'High Yield Savings Account',
     status: 'Open',
     revenueStatus: 'No',
-    accountBalance: '$151.67',
-    availableBalance: '$151.67',
+    accountBalance: '₹151.67',
+    availableBalance: '₹151.67',
     balanceDate: '01-18-2026'
   }
 ];
@@ -109,12 +109,12 @@ export interface Transaction {
 }
 
 export const TRANSACTIONS_DATA: Transaction[] = [
-  { date: '01-14-2026', netAmount: '$150,000.00', description: 'Transfer from CITIZENS BANK NA to HYSA 50 2265' },
-  { date: '12-31-2025', netAmount: '$0.00',        description: 'Interest paid to HYSA 50 2265' },
-  { date: '11-30-2025', netAmount: '$0.00',        description: 'Interest paid to HYSA 50 2265' },
-  { date: '11-28-2025', netAmount: '$20.00',       description: 'Transfer from CITIZENS BANK NA to HYSA 50 2265' },
-  { date: '11-28-2025', netAmount: '$50.00',       description: 'Transfer from CITIZENS BANK NA to HYSA 50 2265' },
-  { date: '11-28-2025', netAmount: '$50.00',       description: 'Transfer from CITIZENS BANK NA to HYSA 50 2265' }
+  { date: '01-14-2026', netAmount: '₹150,000.00', description: 'Transfer from CITIZENS BANK NA to HYSA 50 2265' },
+  { date: '12-31-2025', netAmount: '₹0.00',        description: 'Interest paid to HYSA 50 2265' },
+  { date: '11-30-2025', netAmount: '₹0.00',        description: 'Interest paid to HYSA 50 2265' },
+  { date: '11-28-2025', netAmount: '₹20.00',       description: 'Transfer from CITIZENS BANK NA to HYSA 50 2265' },
+  { date: '11-28-2025', netAmount: '₹50.00',       description: 'Transfer from CITIZENS BANK NA to HYSA 50 2265' },
+  { date: '11-28-2025', netAmount: '₹50.00',       description: 'Transfer from CITIZENS BANK NA to HYSA 50 2265' }
 ];
 
 export interface InProgressAccount {
@@ -200,14 +200,14 @@ export const EXTERNAL_ACCOUNTS_DATA: ExternalAccount[] = [
     bankName: 'Chase',
     accountType: 'savings',
     accountNumber: 'XXXXXXXXXXXX1111',
-    accountBalance: '$200.00'
+    accountBalance: '₹200.00'
   },
   {
     accountName: 'Plaid Saving',
     bankName: 'Chase',
     accountType: 'savings',
     accountNumber: 'XXXXXXXXXXXX1111',
-    accountBalance: '$200.00',
+    accountBalance: '₹200.00',
     balanceDate: '11-03-2025'
   },
   {
@@ -215,14 +215,14 @@ export const EXTERNAL_ACCOUNTS_DATA: ExternalAccount[] = [
     bankName: 'Chase',
     accountType: 'checking',
     accountNumber: 'XXXXXXXXXXXX0000',
-    accountBalance: '$100.00'
+    accountBalance: '₹100.00'
   },
   {
     accountName: 'Plaid Checking',
     bankName: 'Chase',
     accountType: 'checking',
     accountNumber: 'XXXXXXXXXXXX0000',
-    accountBalance: '$100.00'
+    accountBalance: '₹100.00'
   }
 ];
 
@@ -277,26 +277,26 @@ export interface Mortgage {
 }
 
 export const MORTGAGES_DATA: Mortgage[] = [
-  { clientName: 'Mr. Kavya KD Dadhich', homeLoanType: 'Purchase', term: '15 year Fixed', rate: '5.125 %', apr: '5.377 %', points: '$3,129.60' },
-  { clientName: 'Mr. Jexon JR Reid Sr.', homeLoanType: 'Purchase', term: '15 year Fixed', rate: '5.25 %', apr: '5.492 %', points: '$2,899.20' },
-  { clientName: 'Mr. Prasantha PR Rout Sr.', homeLoanType: 'Refinance', term: '30 year Fixed', rate: '6.12 %', apr: '6.269 %', points: '$2,780.80' },
-  { clientName: 'Mr. Prasantha PR Rout Sr.', homeLoanType: 'Purchase', term: '15 year Fixed', rate: '5.125 %', apr: '5.365 %', points: '$2,889.60' },
-  { clientName: 'Mr. Kavya KD Dadhich Sr.', homeLoanType: 'Purchase', term: '20 year Fixed', rate: '5.625 %', apr: '5.787 %', points: '$2,006.40' },
-  { clientName: 'Mr. Liyakat LH Hussain II', homeLoanType: 'Purchase', term: '15 year Fixed', rate: '5 %', apr: '5.23 %', points: '$2,716.80' },
-  { clientName: 'Mr. Kavya KD Dadhich', homeLoanType: 'Refinance', term: '20 year Fixed', rate: '5.625 %', apr: '5.777 %', points: '$1,737.60' }
+  { clientName: 'Mr. Aditya Rao', homeLoanType: 'Purchase', term: '15 year Fixed', rate: '5.125 %', apr: '5.377 %', points: '₹3,129.60' },
+  { clientName: 'Mr. Vikram Singh', homeLoanType: 'Purchase', term: '15 year Fixed', rate: '5.25 %', apr: '5.492 %', points: '₹2,899.20' },
+  { clientName: 'Mr. Rajesh Sharma', homeLoanType: 'Refinance', term: '30 year Fixed', rate: '6.12 %', apr: '6.269 %', points: '₹2,780.80' },
+  { clientName: 'Mr. Rajesh Sharma', homeLoanType: 'Purchase', term: '15 year Fixed', rate: '5.125 %', apr: '5.365 %', points: '₹2,889.60' },
+  { clientName: 'Mr. Aditya Rao', homeLoanType: 'Purchase', term: '20 year Fixed', rate: '5.625 %', apr: '5.787 %', points: '₹2,006.40' },
+  { clientName: 'Mr. Suresh Joshi', homeLoanType: 'Purchase', term: '15 year Fixed', rate: '5 %', apr: '5.23 %', points: '₹2,716.80' },
+  { clientName: 'Mr. Aditya Rao', homeLoanType: 'Refinance', term: '20 year Fixed', rate: '5.625 %', apr: '5.777 %', points: '₹1,737.60' }
 ];
 
 export const MORTGAGES_IN_PROGRESS_DATA: Mortgage[] = [
-  { clientName: 'Mr. Kai KD Donovan Sr.', homeLoanType: 'Purchase', term: '20 year Fixed', rate: '5.875 %', apr: '6.055 %', points: '$2,406.40' },
-  { clientName: 'Mr. Kai KD Donovan Sr.', homeLoanType: 'Purchase', term: '20 year Fixed', rate: '5.875 %', apr: '6.055 %', points: '$2,406.40' },
-  { clientName: 'Mr. Kai KD Donovan Sr.', homeLoanType: 'Purchase', term: '20 year Fixed', rate: '5.875 %', apr: '6.055 %', points: '$2,406.40' },
-  { clientName: 'Miss. Anam AK Jr.', homeLoanType: 'Purchase', term: '20 year Fixed', rate: '5.875 %', apr: '6.055 %', points: '$2,406.40' },
-  { clientName: 'Mr. Kai KD Donovan Sr.', homeLoanType: 'Purchase', term: '20 year Fixed', rate: '5.875 %', apr: '6.055 %', points: '$2,406.40' },
-  { clientName: 'Van Dersar Sr.', homeLoanType: 'Purchase', term: '20 year Fixed', rate: '5.875 %', apr: '6.057 %', points: '$2,448.00' },
-  { clientName: 'Mr. Prasantha PR Rout III', homeLoanType: 'Purchase', term: '20 year Fixed', rate: '5.875 %', apr: '6.048 %', points: '$2,224.00' },
-  { clientName: 'Miss. Anam AK Jr.', homeLoanType: 'Purchase', term: '20 year Fixed', rate: '5.625 %', apr: '5.824 %', points: '$2,992.00' },
-  { clientName: 'Miss. Anam AK Jr.', homeLoanType: 'Purchase', term: '15 year Fixed', rate: '5.25 %', apr: '5.477 %', points: '$2,576.00' },
-  { clientName: 'Mr. Krithikesh KI Iyer Sr.', homeLoanType: 'Purchase', term: '15 year Fixed', rate: '5.375 %', apr: '5.578 %', points: '$2,032.00' }
+  { clientName: 'Mr. Manoj Tiwari', homeLoanType: 'Purchase', term: '20 year Fixed', rate: '5.875 %', apr: '6.055 %', points: '₹2,406.40' },
+  { clientName: 'Mr. Manoj Tiwari', homeLoanType: 'Purchase', term: '20 year Fixed', rate: '5.875 %', apr: '6.055 %', points: '₹2,406.40' },
+  { clientName: 'Mr. Manoj Tiwari', homeLoanType: 'Purchase', term: '20 year Fixed', rate: '5.875 %', apr: '6.055 %', points: '₹2,406.40' },
+  { clientName: 'Miss. Ananya Patel', homeLoanType: 'Purchase', term: '20 year Fixed', rate: '5.875 %', apr: '6.055 %', points: '₹2,406.40' },
+  { clientName: 'Mr. Manoj Tiwari', homeLoanType: 'Purchase', term: '20 year Fixed', rate: '5.875 %', apr: '6.055 %', points: '₹2,406.40' },
+  { clientName: 'Kavita Iyer', homeLoanType: 'Purchase', term: '20 year Fixed', rate: '5.875 %', apr: '6.057 %', points: '₹2,448.00' },
+  { clientName: 'Mr. Rajesh Sharma', homeLoanType: 'Purchase', term: '20 year Fixed', rate: '5.875 %', apr: '6.048 %', points: '₹2,224.00' },
+  { clientName: 'Miss. Ananya Patel', homeLoanType: 'Purchase', term: '20 year Fixed', rate: '5.625 %', apr: '5.824 %', points: '₹2,992.00' },
+  { clientName: 'Miss. Ananya Patel', homeLoanType: 'Purchase', term: '15 year Fixed', rate: '5.25 %', apr: '5.477 %', points: '₹2,576.00' },
+  { clientName: 'Mr. Suresh Joshi', homeLoanType: 'Purchase', term: '15 year Fixed', rate: '5.375 %', apr: '5.578 %', points: '₹2,032.00' }
 ];
 
 export interface AdvisorFinancing {
@@ -318,20 +318,20 @@ export interface LifeSettlement {
 }
 
 export const LIFE_SETTLEMENTS_DATA: LifeSettlement[] = [
-  { firstName: 'John', lastName: 'Doe', phone: '+1-555-123-4567', email: 'john.doe@example.com', deathBenefit: 500000, age: 45, health: 'Excellent' },
-  { firstName: 'Jane', lastName: 'Smith', phone: '+1-555-234-5678', email: 'jane.smith@example.com', deathBenefit: 750000, age: 39, health: 'Good' },
-  { firstName: 'Michael', lastName: 'Johnson', phone: '+1-555-345-6789', email: 'michael.johnson@example.com', deathBenefit: 250000, age: 52, health: 'Fair' },
-  { firstName: 'Emily', lastName: 'Davis', phone: '+1-555-456-7890', email: 'emily.davis@example.com', deathBenefit: 300000, age: 31, health: 'Excellent' },
-  { firstName: 'Robert', lastName: 'Miller', phone: '+1-555-567-8901', email: 'robert.miller@example.com', deathBenefit: 1000000, age: 60, health: 'Good' },
-  { firstName: 'Laura', lastName: 'Wilson', phone: '+1-555-678-9012', email: 'laura.wilson@example.com', deathBenefit: 450000, age: 42, health: 'Excellent' },
-  { firstName: 'David', lastName: 'Anderson', phone: '+1-555-789-0123', email: 'david.anderson@example.com', deathBenefit: 600000, age: 48, health: 'Fair' },
-  { firstName: 'Sophia', lastName: 'Thomas', phone: '+1-555-890-1234', email: 'sophia.thomas@example.com', deathBenefit: 350000, age: 36, health: 'Good' },
-  { firstName: 'Daniel', lastName: 'Martinez', phone: '+1-555-901-2345', email: 'daniel.martinez@example.com', deathBenefit: 800000, age: 50, health: 'Excellent' }
+  { firstName: 'Rajesh', lastName: 'Sharma', phone: '+91 98765 43210', email: 'rajesh.sharma@example.in', deathBenefit: 500000, age: 45, health: 'Excellent' },
+  { firstName: 'Priya', lastName: 'Deshmukh', phone: '+91 91234 56789', email: 'priya.deshmukh@example.in', deathBenefit: 750000, age: 39, health: 'Good' },
+  { firstName: 'Aditya', lastName: 'Rao', phone: '+91 98123 45678', email: 'aditya.rao@example.in', deathBenefit: 250000, age: 52, health: 'Fair' },
+  { firstName: 'Ananya', lastName: 'Patel', phone: '+91 98765 12345', email: 'ananya.patel@example.in', deathBenefit: 300000, age: 31, health: 'Excellent' },
+  { firstName: 'Vikram', lastName: 'Singh', phone: '+91 99887 76655', email: 'vikram.singh@example.in', deathBenefit: 1000000, age: 60, health: 'Good' },
+  { firstName: 'Kavita', lastName: 'Iyer', phone: '+91 98400 33445', email: 'kavita.iyer@example.in', deathBenefit: 450000, age: 42, health: 'Excellent' },
+  { firstName: 'Suresh', lastName: 'Joshi', phone: '+91 94567 89012', email: 'suresh.joshi@example.in', deathBenefit: 600000, age: 48, health: 'Fair' },
+  { firstName: 'Neha', lastName: 'Gupta', phone: '+91 94150 11223', email: 'neha.gupta@example.in', deathBenefit: 350000, age: 36, health: 'Good' },
+  { firstName: 'Manoj', lastName: 'Tiwari', phone: '+91 98290 55667', email: 'manoj.tiwari@example.in', deathBenefit: 800000, age: 50, health: 'Excellent' }
 ];
 
 export const ADVISOR_FINANCING_DATA: AdvisorFinancing[] = [
-  { firmName: '18Forty8 Private Wealth', submittedDate: '10-17-2025', firmAum: '$2,000.00', advisorsCount: 500, owners: ['adnan hussain Jr.'] },
-  { firmName: '18Forty8 Private Wealth', submittedDate: '09-11-2025', firmAum: '$5,000.00', advisorsCount: 200, owners: ['Kavya Dashich', 'Adnan Hussain Jr.'] },
+  { firmName: '18Forty8 Private Wealth', submittedDate: '10-17-2025', firmAum: '₹2,000.00', advisorsCount: 500, owners: ['adnan hussain Jr.'] },
+  { firmName: '18Forty8 Private Wealth', submittedDate: '09-11-2025', firmAum: '₹5,000.00', advisorsCount: 200, owners: ['Kavya Dashich', 'Adnan Hussain Jr.'] },
 ];
 
 export interface CreditCard {
@@ -400,14 +400,14 @@ export interface SblPayment {
 }
 
 export const SBL_PROPOSALS_DATA: SblProposal[] = [
-  { number: 'P001', advisorName: 'John Doe', lineOfCredit: '$100,000.00', participants: 3, status: 'Pending', createdDate: '07-25-2025', expireDate: '07-25-2027' },
-  { number: 'P002', advisorName: 'Jane Smith', lineOfCredit: '$50,000.00', participants: 2, status: 'Approved', createdDate: '07-25-2025', expireDate: '07-25-2028' },
-  { number: 'P003', advisorName: 'Will Harne', lineOfCredit: '$200,000.00', participants: 5, status: 'Rejected', createdDate: '07-25-2025', expireDate: '07-25-2029' },
-  { number: 'P004', advisorName: 'Jack Powell', lineOfCredit: '$200,000.00', participants: 5, status: 'Expired', createdDate: '07-25-2025', expireDate: '07-25-2030' }
+  { number: 'P001', advisorName: 'Rajesh Sharma', lineOfCredit: '₹100,000.00', participants: 3, status: 'Pending', createdDate: '07-25-2025', expireDate: '07-25-2027' },
+  { number: 'P002', advisorName: 'Priya Deshmukh', lineOfCredit: '₹50,000.00', participants: 2, status: 'Approved', createdDate: '07-25-2025', expireDate: '07-25-2028' },
+  { number: 'P003', advisorName: 'Suresh Joshi', lineOfCredit: '₹200,000.00', participants: 5, status: 'Rejected', createdDate: '07-25-2025', expireDate: '07-25-2029' },
+  { number: 'P004', advisorName: 'Kavita Iyer', lineOfCredit: '₹200,000.00', participants: 5, status: 'Expired', createdDate: '07-25-2025', expireDate: '07-25-2030' }
 ];
 
 export const SBL_APPLICATIONS_DATA: SblApplication[] = [
-  { number: 'A001', advisorName: 'John Doe', lineOfCredit: '$150,000.00', participants: 4, stage: 'In Review', createdDate: '07-20-2025' }
+  { number: 'A001', advisorName: 'Rajesh Sharma', lineOfCredit: '₹150,000.00', participants: 4, stage: 'In Review', createdDate: '07-20-2025' }
 ];
 
 export const SBL_ACCOUNTS_DATA: SblAccount[] = [
@@ -417,8 +417,8 @@ export const SBL_ACCOUNTS_DATA: SblAccount[] = [
 ];
 
 export const SBL_PAYMENTS_DATA: SblPayment[] = [
-  { date: '15 Sep 2025', type: 'Monthly Repayment', amount: '$5,000', method: 'ACH Transfer', status: 'Completed' },
-  { date: '15 Aug 2025', type: 'Monthly Repayment', amount: '$5,000', method: 'ACH Transfer', status: 'Completed' }
+  { date: '15 Sep 2025', type: 'Monthly Repayment', amount: '₹5,000', method: 'ACH Transfer', status: 'Completed' },
+  { date: '15 Aug 2025', type: 'Monthly Repayment', amount: '₹5,000', method: 'ACH Transfer', status: 'Completed' }
 ];
 
 export interface SblTransaction {
@@ -438,11 +438,11 @@ export interface SblStatement {
 }
 
 export const SBL_TRANSACTIONS_DATA: SblTransaction[] = [
-  { date: '20 Sep 2025', type: 'Draw', description: 'Transferred to HYSA Account', debit: '$10,000', credit: '--', balance: '$75,000' },
-  { date: '15 Sep 2025', type: 'Payment', description: 'Monthly repayment received', debit: '--', credit: '$5,000', balance: '$65,000' }
+  { date: '20 Sep 2025', type: 'Draw', description: 'Transferred to HYSA Account', debit: '₹10,000', credit: '--', balance: '₹75,000' },
+  { date: '15 Sep 2025', type: 'Payment', description: 'Monthly repayment received', debit: '--', credit: '₹5,000', balance: '₹65,000' }
 ];
 
 export const SBL_STATEMENTS_DATA: SblStatement[] = [
-  { period: 'Sep 2025', openingBalance: '$80,000', closingBalance: '$75,000', interestCharged: '$250' },
-  { period: 'Aug 2025', openingBalance: '$85,000', closingBalance: '$80,000', interestCharged: '$300' }
+  { period: 'Sep 2025', openingBalance: '₹80,000', closingBalance: '₹75,000', interestCharged: '₹250' },
+  { period: 'Aug 2025', openingBalance: '₹85,000', closingBalance: '₹80,000', interestCharged: '₹300' }
 ];

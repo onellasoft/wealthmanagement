@@ -63,8 +63,8 @@ export const DASHBOARD_DATA: AdvisorDashboardData = {
     { label: '180-Day Average SOFR', date: '01-16-2026', rate: '4.1%' }
   ],
   overview: {
-    totalBalance: '$1,923,709.00',
-    averageBalance: '$10,512.00',
+    totalBalance: '₹1,923,709.00',
+    averageBalance: '₹10,512.00',
     numAccounts: 183,
     accountsOpenedChart: {
       data: [
@@ -79,29 +79,29 @@ export const DASHBOARD_DATA: AdvisorDashboardData = {
       data: [780000, 650000, 420000, 210000, 150000, 80000, 40000, 30000, 20000, 10000]
     },
     clientBalances: [
-      { name: 'Mr. Aditya Rao', balance: '$802,622.67', initials: 'A', color: '#93aed2' },
-      { name: 'Mr. Vikram Singh', balance: '$651,900.30', initials: 'V', color: '#93aed2' },
-      { name: 'Meena Kumari', balance: '$421,289.44', initials: 'M', color: '#93aed2' },
-      { name: 'Mr. Sanjay Kumar', balance: '$150,120.35', initials: 'S', color: '#93aed2' },
-      { name: 'Mr. Nishant Shah', balance: '$1,054.22', initials: 'N', color: '#93aed2' },
-      { name: 'Mr. Arjun Reddy', balance: '$1,051.40', initials: 'A', color: '#93aed2' }
+      { name: 'Mr. Aditya Rao', balance: '₹802,622.67', initials: 'A', color: '#93aed2' },
+      { name: 'Mr. Vikram Singh', balance: '₹651,900.30', initials: 'V', color: '#93aed2' },
+      { name: 'Meena Kumari', balance: '₹421,289.44', initials: 'M', color: '#93aed2' },
+      { name: 'Mr. Sanjay Kumar', balance: '₹150,120.35', initials: 'S', color: '#93aed2' },
+      { name: 'Mr. Nishant Shah', balance: '₹1,054.22', initials: 'N', color: '#93aed2' },
+      { name: 'Mr. Arjun Reddy', balance: '₹1,051.40', initials: 'A', color: '#93aed2' }
     ]
   },
   cashFlow: {
-    inflows: '$400,010.00',
-    outflows: '$0.00',
-    netCashFlow: '$400,010.00',
+    inflows: '₹400,010.00',
+    outflows: '₹0.00',
+    netCashFlow: '₹400,010.00',
     cashFlowChart: {
       categories: ['Jan26'],
       inflows: [400010],
       outflows: [0]
     },
     transactions: [
-      { type: 'INDIVIDUAL', id: 'XXXXX6768', date: '10-25-2025', amount: '$60.00', status: 'Pending', color: '#4caf50' },
-      { type: 'INDIVIDUAL', id: 'XXXXX6768', date: '10-25-2025', amount: '$50.00', status: 'Pending', color: '#4caf50' },
-      { type: 'Joint Acco...', id: 'XXXXX6722', date: '10-25-2025', amount: '$30.00', status: 'Pending', color: '#4caf50' },
-      { type: 'Joint Acco...', id: 'XXXXX6722', date: '10-25-2025', amount: '$60.00', status: 'Pending', color: '#4caf50' },
-      { type: 'Joint Acco...', id: 'XXXXX6722', date: '10-25-2025', amount: '$50.00', status: 'Pending', color: '#4caf50' }
+      { type: 'INDIVIDUAL', id: 'XXXXX6768', date: '10-25-2025', amount: '₹60.00', status: 'Pending', color: '#4caf50' },
+      { type: 'INDIVIDUAL', id: 'XXXXX6768', date: '10-25-2025', amount: '₹50.00', status: 'Pending', color: '#4caf50' },
+      { type: 'Joint Acco...', id: 'XXXXX6722', date: '10-25-2025', amount: '₹30.00', status: 'Pending', color: '#4caf50' },
+      { type: 'Joint Acco...', id: 'XXXXX6722', date: '10-25-2025', amount: '₹60.00', status: 'Pending', color: '#4caf50' },
+      { type: 'Joint Acco...', id: 'XXXXX6722', date: '10-25-2025', amount: '₹50.00', status: 'Pending', color: '#4caf50' }
     ]
   }
 };
