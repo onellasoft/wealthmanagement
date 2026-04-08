@@ -22,11 +22,11 @@ export const DASHBOARD_DATA: AdvisorDashboardData = {
   accountTracker: [
     {
       id: 1,
-      name: 'Mr. Nathan Berk',
+      name: 'Mr. Rajesh Sharma',
       type: 'Primary',
-      advisor: 'Rafael Nadal Sr.',
+      advisor: 'Vikram Malhotra',
       daysSinceStart: 6,
-      avatar: 'NB',
+      avatar: 'RS',
       status: {
         advisorsAgreements: 'error', // 'error', 'pending', 'complete', 'not-started'
         personalDetails: 'pending',
@@ -39,11 +39,11 @@ export const DASHBOARD_DATA: AdvisorDashboardData = {
     },
     {
       id: 2,
-      name: 'Drake Andrew',
+      name: 'Amit Gupta',
       type: 'Primary',
-      advisor: 'Rafael Nadal Sr.',
+      advisor: 'Vikram Malhotra',
       daysSinceStart: 6,
-      avatar: 'DA',
+      avatar: 'AG',
       status: {
         advisorsAgreements: 'pending',
         personalDetails: 'not-started',
@@ -75,16 +75,16 @@ export const DASHBOARD_DATA: AdvisorDashboardData = {
       ]
     },
     topClientsChart: {
-      categories: ['Mr. Noel Anto', 'Mr. Fernando Valero', 'Meena Kumari', 'Mr. Saijan SK Khan Sr.', 'Mr. Nathaniel Archibald', 'Mr. Joseph Daniel Harris Jr.', 'Mr. Daniel A Sinha', 'Mrs. Scarlett Grace Hollander Sr.', 'Mr. Dewald wqwqw Brevis', 'Mrs. Evelyn Rose Ashford III'],
+      categories: ['Mr. Aditya Rao', 'Mr. Vikram Singh', 'Meena Kumari', 'Mr. Sanjay Kumar', 'Mr. Nishant Shah', 'Mr. Arjun Reddy', 'Mr. Deepak Sinha', 'Mrs. Sunita Patel', 'Mr. Rohan Deshmukh', 'Mrs. Kavita Iyer'],
       data: [780000, 650000, 420000, 210000, 150000, 80000, 40000, 30000, 20000, 10000]
     },
     clientBalances: [
-      { name: 'Mr. Noel Anto', balance: '$802,622.67', initials: 'N', color: '#93aed2' },
-      { name: 'Mr. Fernando Valero', balance: '$651,900.30', initials: 'F', color: '#93aed2' },
-      { name: 'Meena Kumari', balance: '$301,289.44', initials: 'M', color: '#93aed2' },
-      { name: 'Mr. Saijan SK Khan Sr.', balance: '$150,120.35', initials: 'S', color: '#93aed2' },
-      { name: 'Mr. Nathaniel Archibald', balance: '$1,054.22', initials: 'N', color: '#93aed2' },
-      { name: 'Mr. Joseph Daniel Harris Jr.', balance: '$1,051.40', initials: 'J', color: '#93aed2' }
+      { name: 'Mr. Aditya Rao', balance: '$802,622.67', initials: 'A', color: '#93aed2' },
+      { name: 'Mr. Vikram Singh', balance: '$651,900.30', initials: 'V', color: '#93aed2' },
+      { name: 'Meena Kumari', balance: '$421,289.44', initials: 'M', color: '#93aed2' },
+      { name: 'Mr. Sanjay Kumar', balance: '$150,120.35', initials: 'S', color: '#93aed2' },
+      { name: 'Mr. Nishant Shah', balance: '$1,054.22', initials: 'N', color: '#93aed2' },
+      { name: 'Mr. Arjun Reddy', balance: '$1,051.40', initials: 'A', color: '#93aed2' }
     ]
   },
   cashFlow: {

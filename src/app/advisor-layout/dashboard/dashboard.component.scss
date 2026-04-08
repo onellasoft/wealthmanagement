@@ -8,15 +8,56 @@
   background: #ffffff;
   border-radius: 8px;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
-  border: 1px solid rgba(0, 0, 0, 0.05);
+  border: 1px solid #f1f3f5;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.page-title {
+  color: #1a5c45;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.tracker-title {
+  color: #2D6A4F;
+  font-size: 18px;
 }
 
 .text-primary-dark {
-  color: #14446c;
+  color: #1a5c45; // Dark green
 }
 
 .text-secondary {
-  color: #55606e;
+  color: #707EAE; // Darker blue-grey for improved contrast
+}
+
+.text-navy-bold {
+  color: #2B3674; // Dark navy/blue-grey for titles and values
+  font-weight: 700;
+}
+
+.status-icon-error {
+  color: #E5A48F !important;
+}
+
+.status-icon-pending {
+  color: #E5A48F !important;
+}
+
+.status-icon-default {
+  color: #D1D5DB !important;
+}
+
+.color-707eae {
+  color: #707EAE !important;
+}
+
+.text-success-vibrant {
+  color: #05CD99 !important; // Vibrant green for transaction amounts
+}
+
+.text-main-black {
+  color: #000000 !important;
 }
 
 .stat-group {
@@ -27,7 +68,7 @@
 
 .stat-label {
   font-size: 11px;
-  color: #a0aec0;
+  color: #707EAE;
   text-transform: uppercase;
   letter-spacing: 0.025em;
 }
@@ -41,8 +82,12 @@
 .status-table {
   ::ng-deep {
     .p-datatable-thead > tr > th {
-      background: transparent;
+      background: #ffffff !important;
+      color: #707EAE !important;
       padding-bottom: 20px;
+      font-weight: 400;
+      font-size: 11px;
+      border: none;
     }
     .p-datatable-tbody > tr > td {
       padding: 15px 12px;
@@ -54,15 +99,20 @@
 .text-error { color: #f44336; }
 .text-warning { color: #ff9800; }
 
-.pulse-badge {
-  ::ng-deep .p-badge {
-    background-color: #93aed2 !important;
-    color: white;
-    font-size: 10px;
-    min-width: 32px;
-    height: 20px;
-    border-radius: 10px;
-  }
+.pulse-badge-round {
+  background-color: #1a5c45;
+  color: white;
+  font-size: 11px;
+  width: 42px;
+  height: 42px;
+  min-width: 42px;
+  min-height: 42px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-weight: 600;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .list-container {

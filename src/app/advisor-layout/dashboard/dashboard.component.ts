@@ -82,7 +82,7 @@ export class DashboardComponent implements OnInit {
           name: 'Accounts',
           roundCap: true,
           itemStyle: {
-            color: '#1a4c8e'
+            color: '#1a5c45'
           }
         }
       ]
@@ -119,7 +119,7 @@ export class DashboardComponent implements OnInit {
           barWidth: '40%',
           data: this.data.overview.topClientsChart.data,
           itemStyle: {
-            color: '#1a4c8e'
+            color: '#1a5c45'
           }
         }
       ]
@@ -153,13 +153,13 @@ export class DashboardComponent implements OnInit {
           name: 'Inflows',
           type: 'bar',
           data: this.data.cashFlow.cashFlowChart.inflows,
-          itemStyle: { color: '#1a4c8e' }
+          itemStyle: { color: '#1a5c45' }
         },
         {
           name: 'Outflows',
           type: 'bar',
           data: this.data.cashFlow.cashFlowChart.outflows,
-          itemStyle: { color: '#93aed2' }
+          itemStyle: { color: '#A3AED0' }
         }
       ]
     };
@@ -168,9 +168,10 @@ export class DashboardComponent implements OnInit {
   getStatusIcon(status: string): string {
     switch (status) {
       case 'complete': return 'pi pi-check-circle text-success';
-      case 'error': return 'pi pi-times-circle text-error';
-      case 'pending': return 'pi pi-spinner pi-spin text-warning';
-      default: return 'pi pi-circle text-300';
+      case 'error': return 'pi pi-times-circle status-icon-error';
+      case 'pending': return 'pi pi-spinner-dotted pi-spin status-icon-pending';
+      case 'not-started': return 'pi pi-spinner-dotted status-icon-default';
+      default: return 'pi pi-spinner-dotted status-icon-default';
     }
   }
 }
