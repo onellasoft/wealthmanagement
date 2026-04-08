@@ -23,7 +23,7 @@
 .page-title {
   font-size: 20px;
   font-weight: 600;
-  color: var(--primary-color, #1a5c45);
+  color: var(--primary-color, #da274a);
   margin: 0;
 }
 
@@ -46,8 +46,8 @@
   transition: all 0.2s;
 
   &--active {
-    color: var(--primary-color, #1a5c45);
-    border-bottom-color: var(--primary-color, #1a5c45);
+    color: var(--primary-color, #da274a);
+    border-bottom-color: var(--primary-color, #da274a);
     font-weight: 600;
   }
 
@@ -61,7 +61,7 @@
   height: 36px;
   border-radius: 4px;
   border: none;
-  background: var(--primary-color, #1a5c45);
+  background: var(--primary-color, #da274a);
   color: #fff;
   display: flex;
   align-items: center;
@@ -73,14 +73,16 @@
     opacity: 0.85;
   }
 
-  &--search, &--add {
-    background: #2D6A4F;
+  &--search,
+  &--add {
+    background: #da274a;
   }
 
   &--outline {
     background: transparent;
     border: 1px solid #E5E7EB;
     color: #4B5563;
+
     &:hover {
       background: #F9FAFB;
     }
@@ -96,8 +98,8 @@
 
 .mortgage-table {
   ::ng-deep {
-    .p-datatable-thead > tr > th {
-      background: var(--table-header-bg, #1a5c45);
+    .p-datatable-thead>tr>th {
+      background: var(--table-header-bg, #da274a);
       color: #fff;
       font-size: 13px;
       font-weight: 500;
@@ -119,7 +121,7 @@
       }
     }
 
-    .p-datatable-tbody > tr > td {
+    .p-datatable-tbody>tr>td {
       padding: 14px 16px;
       border-bottom: 1px solid #E5E7EB;
       font-size: 13px;
@@ -129,11 +131,14 @@
         color: #2563EB;
         font-weight: 500;
         cursor: pointer;
-        &:hover { text-decoration: underline; }
+
+        &:hover {
+          text-decoration: underline;
+        }
       }
     }
 
-    .p-datatable-tbody > tr:last-child > td {
+    .p-datatable-tbody>tr:last-child>td {
       border-bottom: none;
     }
 
@@ -149,6 +154,13 @@
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(5px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
