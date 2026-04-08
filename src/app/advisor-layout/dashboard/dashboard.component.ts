@@ -20,11 +20,11 @@ echarts.use([BarChart, PieChart, PolarComponent, GridComponent, TooltipComponent
   selector: 'app-dashboard',
   standalone: true,
   imports: [
-    CommonModule, 
-    TableModule, 
-    SelectModule, 
-    TooltipModule, 
-    AvatarModule, 
+    CommonModule,
+    TableModule,
+    SelectModule,
+    TooltipModule,
+    AvatarModule,
     ButtonModule,
     BadgeModule,
     FormsModule,
@@ -35,12 +35,12 @@ echarts.use([BarChart, PieChart, PolarComponent, GridComponent, TooltipComponent
 })
 export class DashboardComponent implements OnInit {
   data = DASHBOARD_DATA;
-  
+
   selectedAccountType = 'HYSA';
   selectedCustomer = 'Customer...';
   selectedFilter = 'All';
   selectedStatus = 'Open';
-  
+
   accountTypes = [
     { label: 'HYSA', value: 'HYSA' },
     { label: 'SBL', value: 'SBL' }
@@ -82,7 +82,7 @@ export class DashboardComponent implements OnInit {
           name: 'Accounts',
           roundCap: true,
           itemStyle: {
-            color: '#1a5c45'
+            color: '#da274a'
           }
         }
       ]
@@ -119,7 +119,7 @@ export class DashboardComponent implements OnInit {
           barWidth: '40%',
           data: this.data.overview.topClientsChart.data,
           itemStyle: {
-            color: '#1a5c45'
+            color: '#da274a'
           }
         }
       ]
@@ -153,7 +153,7 @@ export class DashboardComponent implements OnInit {
           name: 'Inflows',
           type: 'bar',
           data: this.data.cashFlow.cashFlowChart.inflows,
-          itemStyle: { color: '#1a5c45' }
+          itemStyle: { color: '#da274a' }
         },
         {
           name: 'Outflows',

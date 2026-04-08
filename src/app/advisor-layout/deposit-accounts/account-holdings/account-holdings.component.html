@@ -65,9 +65,8 @@
     </div>
 
     <!-- Transactions Table -->
-    <p-table [value]="transactions" [paginator]="true" [rows]="10"
-      [rowsPerPageOptions]="[10, 20, 50]" styleClass="holdings-table"
-      [showCurrentPageReport]="false" [sortMode]="'single'">
+    <p-table [value]="transactions" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[10, 20, 50]"
+      styleClass="holdings-table" [showCurrentPageReport]="false" [sortMode]="'single'">
       <ng-template #header>
         <tr>
           <th pSortableColumn="date" style="width: 200px">
@@ -108,11 +107,13 @@
     <!-- Table Toolbar -->
     <div class="table-toolbar">
       <div class="flex align-items-center gap-2">
-        <span class="count-badge">{{ viewMode === 'accounts' ? externalAccounts.length : withdrawalTransactions.length }}</span>
+        <span class="count-badge">{{ viewMode === 'accounts' ? externalAccounts.length : withdrawalTransactions.length
+          }}</span>
         <span class="table-title">{{ viewMode === 'accounts' ? 'External Accounts' : 'Transactions' }}</span>
       </div>
       <div class="flex align-items-center gap-3">
-        <button class="btn-primary-filled" pTooltip="{{ viewMode === 'accounts' ? 'View Transactions' : 'View Linked Accounts' }}" 
+        <button class="btn-primary-filled"
+          pTooltip="{{ viewMode === 'accounts' ? 'View Transactions' : 'View Linked Accounts' }}"
           tooltipPosition="bottom" (click)="toggleWithdrawView()">
           {{ viewMode === 'accounts' ? 'View Transactions' : 'View Linked Accounts' }}
         </button>
@@ -137,8 +138,7 @@
     <!-- View Mode: External Accounts -->
     <p-table *ngIf="viewMode === 'accounts'" [value]="externalAccounts" [paginator]="true" [rows]="10"
       [rowsPerPageOptions]="[10, 20, 50]" styleClass="holdings-table withdraw-table"
-      [(selection)]="selectedExternalAccount" dataKey="accountNumber"
-      [showCurrentPageReport]="false">
+      [(selection)]="selectedExternalAccount" dataKey="accountNumber" [showCurrentPageReport]="false">
       <ng-template #header>
         <tr>
           <th style="width: 4rem"></th>
@@ -284,12 +284,14 @@
     <!-- Table Toolbar -->
     <div class="table-toolbar">
       <div class="flex align-items-center gap-2">
-        <span class="count-badge">{{ addCashViewMode === 'accounts' ? externalAccounts.length : addCashTransactions.length }}</span>
+        <span class="count-badge">{{ addCashViewMode === 'accounts' ? externalAccounts.length :
+          addCashTransactions.length }}</span>
         <span class="table-title">External Accounts</span>
       </div>
       <div class="flex align-items-center gap-3">
-        <button class="btn-primary-filled" pTooltip="{{ addCashViewMode === 'accounts' ? 'View Transactions' : 'View Linked Accounts' }}" 
-          tooltipPosition="bottom" (click)="toggleAddCashView()" style="background: #2D6A4F;">
+        <button class="btn-primary-filled"
+          pTooltip="{{ addCashViewMode === 'accounts' ? 'View Transactions' : 'View Linked Accounts' }}"
+          tooltipPosition="bottom" (click)="toggleAddCashView()" style="background: #da274a;">
           {{ addCashViewMode === 'accounts' ? 'View Transactions' : 'View Linked Accounts' }}
         </button>
         <button class="btn-saffron" (click)="openAddCashModal()" style="position: relative; z-index: 10;">
@@ -313,8 +315,7 @@
     <!-- View Mode: External Accounts -->
     <p-table *ngIf="addCashViewMode === 'accounts'" [value]="externalAccounts" [paginator]="true" [rows]="10"
       [rowsPerPageOptions]="[10, 20, 50]" styleClass="holdings-table withdraw-table"
-      [(selection)]="selectedExternalAccount" dataKey="accountNumber"
-      [showCurrentPageReport]="false">
+      [(selection)]="selectedExternalAccount" dataKey="accountNumber" [showCurrentPageReport]="false">
       <ng-template #header>
         <tr>
           <th style="width: 4rem"></th>
@@ -361,7 +362,8 @@
       <ng-template #body let-rowData>
         <tr [pSelectableRow]="rowData">
           <td>
-            <p-radioButton [value]="rowData" [(ngModel)]="selectedExternalAccount" name="externalAccAdd"></p-radioButton>
+            <p-radioButton [value]="rowData" [(ngModel)]="selectedExternalAccount"
+              name="externalAccAdd"></p-radioButton>
           </td>
           <td><span class="cell-primary-text">{{ rowData.accountName }}</span></td>
           <td><span class="cell-secondary-text">{{ rowData.bankName }}</span></td>
@@ -370,7 +372,8 @@
           <td>
             <div class="cell-balance-group">
               <span class="cell-amount-text">{{ rowData.accountBalance }}</span>
-              <span class="cell-date-subtext" *ngIf="rowData.balanceDate" style="color: #9CA3AF; font-size: 11px; display: block; margin-top: 2px;">
+              <span class="cell-date-subtext" *ngIf="rowData.balanceDate"
+                style="color: #9CA3AF; font-size: 11px; display: block; margin-top: 2px;">
                 As Of {{ rowData.balanceDate }}
               </span>
             </div>
@@ -458,9 +461,9 @@
   </div>
 
   <!-- Withdraw Cash Modal -->
-  <p-dialog [visible]="showWithdrawModal" (onHide)="closeWithdrawModal()" [modal]="true" 
-    [draggable]="false" [resizable]="false" styleClass="withdraw-modal" [closable]="true" 
-    [style]="{ width: '70vw' }" [appendTo]="'body'" [baseZIndex]="99999">
+  <p-dialog [visible]="showWithdrawModal" (onHide)="closeWithdrawModal()" [modal]="true" [draggable]="false"
+    [resizable]="false" styleClass="withdraw-modal" [closable]="true" [style]="{ width: '70vw' }" [appendTo]="'body'"
+    [baseZIndex]="99999">
     <ng-template #header>
       <div class="modal-header">
         <span class="modal-title">Withdraw Cash</span>
@@ -560,20 +563,20 @@
       <div class="modal-footer" *ngIf="withdrawStep < 3">
         <button class="btn-back" (click)="showWithdrawModal = false" *ngIf="withdrawStep === 1">Cancel</button>
         <button class="btn-back" (click)="prevStep()" *ngIf="withdrawStep === 2">Back</button>
-        
+
         <button class="btn-next" (click)="nextStep()" *ngIf="withdrawStep === 1">Next</button>
         <button class="btn-next" (click)="nextStep()" *ngIf="withdrawStep === 2">Initiate Approval</button>
       </div>
     </ng-template>
   </p-dialog>
- 
+
   <!-- Add Cash Modal -->
-  <p-dialog [visible]="showAddCashModal" (onHide)="closeAddCashModal()" [modal]="true" 
-    [draggable]="false" [resizable]="false" styleClass="withdraw-modal add-cash-modal" [closable]="true" 
-    [style]="{ width: '70vw' }" [appendTo]="'body'" [baseZIndex]="99999">
+  <p-dialog [visible]="showAddCashModal" (onHide)="closeAddCashModal()" [modal]="true" [draggable]="false"
+    [resizable]="false" styleClass="withdraw-modal add-cash-modal" [closable]="true" [style]="{ width: '70vw' }"
+    [appendTo]="'body'" [baseZIndex]="99999">
     <ng-template #header>
       <div class="modal-header">
-        <span class="modal-title" style="color: #2D6A4F;">Add Cash</span>
+        <span class="modal-title" style="color: #da274a;">Add Cash</span>
       </div>
     </ng-template>
 
@@ -662,7 +665,8 @@
       <!-- Confirmation Step 3 -->
       <div class="confirmation-view" *ngIf="addCashStep === 3">
         <p class="success-message">Money sent succesfully</p>
-        <button class="btn-primary-filled btn-close-modal" (click)="showAddCashModal = false" style="background: #2D6A4F;">Close</button>
+        <button class="btn-primary-filled btn-close-modal" (click)="showAddCashModal = false"
+          style="background: #da274a;">Close</button>
       </div>
     </div>
 
@@ -670,9 +674,11 @@
       <div class="modal-footer" *ngIf="addCashStep < 3">
         <button class="btn-back" (click)="showAddCashModal = false" *ngIf="addCashStep === 1">Cancel</button>
         <button class="btn-back" (click)="addCashPrevStep()" *ngIf="addCashStep === 2">Back</button>
-        
-        <button class="btn-next" (click)="addCashNextStep()" *ngIf="addCashStep === 1" style="background: #2D6A4F;">Next</button>
-        <button class="btn-next" (click)="addCashNextStep()" *ngIf="addCashStep === 2" style="background: #2D6A4F;">Initiate Approval</button>
+
+        <button class="btn-next" (click)="addCashNextStep()" *ngIf="addCashStep === 1"
+          style="background: #da274a;">Next</button>
+        <button class="btn-next" (click)="addCashNextStep()" *ngIf="addCashStep === 2"
+          style="background: #da274a;">Initiate Approval</button>
       </div>
     </ng-template>
   </p-dialog>
@@ -726,13 +732,14 @@
     <!-- Advisor Revenue Sharing Section -->
     <div class="revenue-sharing-section p-4">
       <h3 class="revenue-title">Advisor Revenue Sharing</h3>
-      
+
       <div class="revenue-form-grid">
         <div class="form-field">
-          <label class="field-label">Full Name <span class="required">*</span> <span class="label-sub">(Primary)</span></label>
+          <label class="field-label">Full Name <span class="required">*</span> <span
+              class="label-sub">(Primary)</span></label>
           <input type="text" pInputText value="Adnan AH Hussain Sr." class="read-only-input" readonly>
         </div>
-        
+
         <div class="form-field">
           <label class="field-label">Revenue Sharing <span class="required">*</span></label>
           <div class="input-group-percent">

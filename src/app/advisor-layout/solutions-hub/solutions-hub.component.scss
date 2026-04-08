@@ -3,7 +3,7 @@
   background-color: #fcfdfe;
 
   .text-primary-dark {
-    color: #1a5c45;
+    color: #da274a;
   }
 
   .text-secondary-dark {
@@ -22,12 +22,12 @@
       border-bottom: 3px solid transparent;
 
       &:hover {
-        color: #1a5c45;
+        color: #da274a;
       }
 
       &.active {
-        color: #1a5c45;
-        border-bottom-color: #1a5c45;
+        color: #da274a;
+        border-bottom-color: #da274a;
         font-weight: 600;
       }
     }
@@ -35,7 +35,7 @@
 
   .category-tabs {
     padding-bottom: 10px;
-    
+
     .category-tab-item {
       background-color: transparent;
       color: #707EAE;
@@ -49,8 +49,8 @@
 
       &.active {
         background-color: #f3f9f7;
-        color: #1a5c45;
-        border: 1px solid #1a5c45;
+        color: #da274a;
+        border: 1px solid #da274a;
       }
     }
   }
@@ -63,24 +63,40 @@
 
     &:hover {
       transform: translateY(-2px);
-      box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
     }
   }
 
   .illustration-container {
     background: #f8fafc;
     border-radius: 8px;
+
     // Custom-generated illustrations matching design
-    .svg-adv-financing { background: url('../../../assets/images/hub/advisor-financing.png') no-repeat center; background-size: contain; }
-    .svg-hysa { background: url('../../../assets/images/hub/hysa.png') no-repeat center; background-size: contain; }
-    .svg-mortgage { background: url('../../../assets/images/hub/mortgage.png') no-repeat center; background-size: contain; }
-    .svg-sbl { background: url('../../../assets/images/hub/sbl.png') no-repeat center; background-size: contain; }
+    .svg-adv-financing {
+      background: url('../../../assets/images/hub/advisor-financing.png') no-repeat center;
+      background-size: contain;
+    }
+
+    .svg-hysa {
+      background: url('../../../assets/images/hub/hysa.png') no-repeat center;
+      background-size: contain;
+    }
+
+    .svg-mortgage {
+      background: url('../../../assets/images/hub/mortgage.png') no-repeat center;
+      background-size: contain;
+    }
+
+    .svg-sbl {
+      background: url('../../../assets/images/hub/sbl.png') no-repeat center;
+      background-size: contain;
+    }
   }
 
   .view-more-btn {
-    background-color: #1a5c45;
+    background-color: #da274a;
     color: #ffffff;
-    
+
     &:hover {
       background-color: #144937;
     }
@@ -99,9 +115,11 @@
 .category-tabs::-webkit-scrollbar {
   height: 4px;
 }
+
 .category-tabs::-webkit-scrollbar-track {
   background: #f1f1f1;
 }
+
 .category-tabs::-webkit-scrollbar-thumb {
   background: #ccd2d8;
   border-radius: 10px;
