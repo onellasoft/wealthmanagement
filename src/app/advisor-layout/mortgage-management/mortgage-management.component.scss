@@ -23,7 +23,7 @@
 .page-title {
   font-size: 20px;
   font-weight: 600;
-  color: var(--primary-color, #da274a);
+  color: var(--primary-color, #1359B9);
   margin: 0;
 }
 
@@ -46,8 +46,8 @@
   transition: all 0.2s;
 
   &--active {
-    color: var(--primary-color, #da274a);
-    border-bottom-color: var(--primary-color, #da274a);
+    color: var(--primary-color, #1359B9);
+    border-bottom-color: var(--primary-color, #1359B9);
     font-weight: 600;
   }
 
@@ -61,7 +61,7 @@
   height: 36px;
   border-radius: 4px;
   border: none;
-  background: var(--primary-color, #da274a);
+  background: var(--primary-color, #1359B9);
   color: #fff;
   display: flex;
   align-items: center;
@@ -75,7 +75,7 @@
 
   &--search,
   &--add {
-    background: #da274a;
+    background: #1359B9;
   }
 
   &--outline {
@@ -99,7 +99,7 @@
 .mortgage-table {
   ::ng-deep {
     .p-datatable-thead>tr>th {
-      background: var(--table-header-bg, #da274a);
+      background: var(--table-header-bg, #1359B9);
       color: #fff;
       font-size: 13px;
       font-weight: 500;

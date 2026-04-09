@@ -291,7 +291,7 @@
       <div class="flex align-items-center gap-3">
         <button class="btn-primary-filled"
           pTooltip="{{ addCashViewMode === 'accounts' ? 'View Transactions' : 'View Linked Accounts' }}"
-          tooltipPosition="bottom" (click)="toggleAddCashView()" style="background: #da274a;">
+          tooltipPosition="bottom" (click)="toggleAddCashView()" style="background: #1359B9;">
           {{ addCashViewMode === 'accounts' ? 'View Transactions' : 'View Linked Accounts' }}
         </button>
         <button class="btn-saffron" (click)="openAddCashModal()" style="position: relative; z-index: 10;">
@@ -576,7 +576,7 @@
     [appendTo]="'body'" [baseZIndex]="99999">
     <ng-template #header>
       <div class="modal-header">
-        <span class="modal-title" style="color: #da274a;">Add Cash</span>
+        <span class="modal-title" style="color: #1359B9;">Add Cash</span>
       </div>
     </ng-template>
 
@@ -666,7 +666,7 @@
       <div class="confirmation-view" *ngIf="addCashStep === 3">
         <p class="success-message">Money sent succesfully</p>
         <button class="btn-primary-filled btn-close-modal" (click)="showAddCashModal = false"
-          style="background: #da274a;">Close</button>
+          style="background: #1359B9;">Close</button>
       </div>
     </div>
 
@@ -676,9 +676,9 @@
         <button class="btn-back" (click)="addCashPrevStep()" *ngIf="addCashStep === 2">Back</button>
 
         <button class="btn-next" (click)="addCashNextStep()" *ngIf="addCashStep === 1"
-          style="background: #da274a;">Next</button>
+          style="background: #1359B9;">Next</button>
         <button class="btn-next" (click)="addCashNextStep()" *ngIf="addCashStep === 2"
-          style="background: #da274a;">Initiate Approval</button>
+          style="background: #1359B9;">Initiate Approval</button>
       </div>
     </ng-template>
   </p-dialog>

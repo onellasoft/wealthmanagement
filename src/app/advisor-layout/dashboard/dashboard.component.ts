@@ -82,7 +82,7 @@ export class DashboardComponent implements OnInit {
           name: 'Accounts',
           roundCap: true,
           itemStyle: {
-            color: '#da274a'
+            color: '#1359B9'
           }
         }
       ]
@@ -119,7 +119,7 @@ export class DashboardComponent implements OnInit {
           barWidth: '40%',
           data: this.data.overview.topClientsChart.data,
           itemStyle: {
-            color: '#da274a'
+            color: '#1359B9'
           }
         }
       ]
@@ -153,7 +153,7 @@ export class DashboardComponent implements OnInit {
           name: 'Inflows',
           type: 'bar',
           data: this.data.cashFlow.cashFlowChart.inflows,
-          itemStyle: { color: '#da274a' }
+          itemStyle: { color: '#1359B9' }
         },
         {
           name: 'Outflows',

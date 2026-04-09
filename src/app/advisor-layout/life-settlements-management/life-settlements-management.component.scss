@@ -23,7 +23,7 @@
 .page-title {
   font-size: 20px;
   font-weight: 600;
-  color: var(--primary-color, #da274a);
+  color: var(--primary-color, #1359B9);
   margin: 0;
 }
 
@@ -32,7 +32,7 @@
   height: 36px;
   border-radius: 4px;
   border: none;
-  background: var(--primary-color, #da274a);
+  background: var(--primary-color, #1359B9);
   color: #fff;
   display: flex;
   align-items: center;
@@ -55,7 +55,7 @@
   }
 
   &--search {
-    background: #da274a;
+    background: #1359B9;
   }
 }
 
@@ -70,7 +70,7 @@
 .settlements-table {
   ::ng-deep {
     .p-datatable-thead>tr>th {
-      background: var(--table-header-bg, #da274a);
+      background: var(--table-header-bg, #1359B9);
       color: #fff;
       font-size: 12px;
       font-weight: 500;

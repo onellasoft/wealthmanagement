@@ -27,7 +27,7 @@ src/
 
 ## Design System
 
-- **Primary:** #da274a (green)
+- **Primary:** #1359B9 (green)
 - **Font:** Nunito (400/500/600/700) via @fontsource/nunito
 - **Spacing:** 8pt grid (4, 8, 12, 16, 24px)
 - **Sidebar:** 64px fixed | **Header:** 56px fixed
