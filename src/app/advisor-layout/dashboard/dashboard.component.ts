@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 import { TableModule } from 'primeng/table';
 import { SelectModule } from 'primeng/select';
 import { TooltipModule } from 'primeng/tooltip';
@@ -28,7 +29,8 @@ echarts.use([BarChart, PieChart, PolarComponent, GridComponent, TooltipComponent
     ButtonModule,
     BadgeModule,
     FormsModule,
-    NgxEchartsDirective
+    NgxEchartsDirective,
+    RouterModule
   ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss'

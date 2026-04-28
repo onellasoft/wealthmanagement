@@ -1,0 +1,372 @@
+<div class="details-container p-4">
+  <!-- Breadcrumb -->
+  <div class="flex align-items-center gap-2 mb-2 text-secondary text-sm">
+    <i class="pi pi-home cursor-pointer" routerLink="/advisor/dashboard"></i>
+    <span>/</span>
+    <span class="cursor-pointer" routerLink="/advisor/new-account-creation">New Account Creation</span>
+    <span>/</span>
+    <span>Credit Cards</span>
+  </div>
+
+  <!-- Header and Stepper Row -->
+  <div class="flex justify-content-between align-items-center mb-5">
+    <h1 class="page-title m-0">Credit Cards</h1>
+
+    <!-- Premium Stepper -->
+    <div class="stepper-container m-0">
+      <div class="step-wrapper">
+        <div class="step-node active">
+          <div class="step-circle">1</div>
+          <span class="step-label">Client Details</span>
+        </div>
+        <div class="step-connector"></div>
+      </div>
+      <div class="step-wrapper">
+        <div class="step-node">
+          <div class="step-circle">2</div>
+          <span class="step-label">Advisor Documents</span>
+        </div>
+        <div class="step-connector"></div>
+      </div>
+      <div class="step-wrapper">
+        <div class="step-node">
+          <div class="step-circle">3</div>
+          <span class="step-label">Preview</span>
+        </div>
+        <div class="step-connector"></div>
+      </div>
+      <div class="step-wrapper">
+        <div class="step-node">
+          <div class="step-circle">4</div>
+          <span class="step-label">Mail</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card p-4">
+    <div class="grid form-grid">
+      <!-- Row 1: Name, Email -->
+      <div class="col-12 md:col-2">
+        <label class="block text-sm font-medium mb-1 label-required">First Name</label>
+        <div class="flex gap-1">
+          <input type="text" pInputText [(ngModel)]="clientDetails.firstName" #firstName="ngModel" 
+                 (keypress)="onlyAlphabets($event)"
+                 [class.ng-invalid]="firstName.touched && !isFieldValid('firstName')"
+                 [class.ng-dirty]="firstName.touched && isFieldValid('firstName')" class="w-full" />
+          <div class="check-box" [class.verified]="isFieldValid('firstName')" [class.failure-box]="firstName.touched && !isFieldValid('firstName')">
+            <i [class]="isFieldValid('firstName') ? 'pi pi-check' : (firstName.touched ? 'pi pi-times' : 'pi pi-check')"></i>
+          </div>
+        </div>
+        <small class="error-msg" *ngIf="firstName.touched && !isFieldValid('firstName')">Required</small>
+      </div>
+      <div class="col-12 md:col-2">
+        <label class="block text-sm font-medium mb-1">Middle Name</label>
+        <div class="flex gap-1">
+          <input type="text" pInputText [(ngModel)]="clientDetails.middleName" #middleName="ngModel" 
+                 (keypress)="onlyAlphabets($event)"
+                 [class.ng-dirty]="middleName.touched && isFieldValid('middleName')" class="w-full" />
+          <div class="check-box" [class.verified]="isFieldValid('middleName')">
+            <i class="pi pi-check"></i>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 md:col-2">
+        <label class="block text-sm font-medium mb-1 label-required">Last Name</label>
+        <div class="flex gap-1">
+          <input type="text" pInputText [(ngModel)]="clientDetails.lastName" #lastName="ngModel" 
+                 (keypress)="onlyAlphabets($event)"
+                 [class.ng-invalid]="lastName.touched && !isFieldValid('lastName')"
+                 [class.ng-dirty]="lastName.touched && isFieldValid('lastName')" class="w-full" />
+          <div class="check-box" [class.verified]="isFieldValid('lastName')" [class.failure-box]="lastName.touched && !isFieldValid('lastName')">
+            <i [class]="isFieldValid('lastName') ? 'pi pi-check' : (lastName.touched ? 'pi pi-times' : 'pi pi-check')"></i>
+          </div>
+        </div>
+        <small class="error-msg" *ngIf="lastName.touched && !isFieldValid('lastName')">Required</small>
+      </div>
+      <div class="col-12 md:col-2">
+        <label class="block text-sm font-medium mb-1">Suffix</label>
+        <div class="flex gap-1">
+          <p-select [options]="suffixes" [(ngModel)]="clientDetails.suffix" placeholder="Select Suffix" class="w-full" />
+          <div class="check-box verified"><i class="pi pi-check"></i></div>
+        </div>
+      </div>
+      <div class="col-12 md:col-4">
+        <label class="block text-sm font-medium mb-1 label-required">Email Address</label>
+        <div class="flex gap-1">
+          <input type="email" pInputText [(ngModel)]="clientDetails.email" #email="ngModel" 
+                 [class.ng-invalid]="email.touched && !isFieldValid('email')"
+                 [class.ng-dirty]="email.touched && isFieldValid('email')" class="w-full" />
+          <div class="check-box" [class.verified]="isFieldValid('email')" [class.failure-box]="email.touched && !isFieldValid('email')">
+            <i [class]="isFieldValid('email') ? 'pi pi-check' : (email.touched ? 'pi pi-times' : 'pi pi-check')"></i>
+          </div>
+        </div>
+        <small class="error-msg" *ngIf="email.touched && !isFieldValid('email')">
+          {{ clientDetails.email ? 'Invalid Email' : 'Required' }}
+        </small>
+      </div>
+
+      <!-- Row 2: DOB, ID, Income, Employment -->
+      <div class="col-12 md:col-2">
+        <label class="block text-sm font-medium mb-1 label-required">Date of Birth</label>
+        <div class="flex gap-1">
+          <p-datepicker [(ngModel)]="clientDetails.dob" #dob="ngModel" 
+                 dateFormat="dd-mm-yy" [showIcon]="true" iconDisplay="input"
+                 size="small"
+                 [class.ng-invalid]="dob.touched && !isFieldValid('dob')"
+                 [class.ng-dirty]="dob.touched && isFieldValid('dob')" class="w-full" />
+          <div class="check-box" [class.verified]="isFieldValid('dob')" [class.failure-box]="dob.touched && !isFieldValid('dob')">
+            <i [class]="isFieldValid('dob') ? 'pi pi-check' : (dob.touched ? 'pi pi-times' : 'pi pi-check')"></i>
+          </div>
+        </div>
+        <small class="error-msg" *ngIf="dob.touched && !isFieldValid('dob')">Required</small>
+      </div>
+      <div class="col-12 md:col-2">
+        <label class="block text-sm font-medium mb-1 label-required">PAN Number</label>
+        <div class="flex gap-1">
+          <input type="text" pInputText [(ngModel)]="clientDetails.panNumber" #pan="ngModel" 
+                 (keypress)="onlyAlphanumericUpper($event)" (input)="formatPAN()"
+                 maxlength="10"
+                 [class.ng-invalid]="pan.touched && !isFieldValid('panNumber')"
+                 [class.ng-dirty]="pan.touched && isFieldValid('panNumber')" class="w-full" />
+          <div class="check-box" [class.verified]="isFieldValid('panNumber')" [class.failure-box]="pan.touched && !isFieldValid('panNumber')">
+            <i [class]="isFieldValid('panNumber') ? 'pi pi-check' : (pan.touched ? 'pi pi-times' : 'pi pi-check')"></i>
+          </div>
+        </div>
+        <small class="error-msg" *ngIf="pan.touched && !isFieldValid('panNumber')">
+          {{ clientDetails.panNumber ? 'Invalid PAN' : 'Required' }}
+        </small>
+      </div>
+      <div class="col-12 md:col-2">
+        <label class="block text-sm font-medium mb-1 label-required">Aadhaar Number</label>
+        <div class="flex gap-1">
+          <input type="text" pInputText [(ngModel)]="clientDetails.aadhaarNumber" #aadhaar="ngModel" 
+                 (keypress)="onlyNumbers($event)" (ngModelChange)="formatAadhaar()"
+                 maxlength="14"
+                 [class.ng-invalid]="aadhaar.touched && !isFieldValid('aadhaarNumber')"
+                 [class.ng-dirty]="aadhaar.touched && isFieldValid('aadhaarNumber')" class="w-full" />
+          <div class="check-box" [class.verified]="isFieldValid('aadhaarNumber')" [class.failure-box]="aadhaar.touched && !isFieldValid('aadhaarNumber')">
+            <i [class]="isFieldValid('aadhaarNumber') ? 'pi pi-check' : (aadhaar.touched ? 'pi pi-times' : 'pi pi-check')"></i>
+          </div>
+        </div>
+        <small class="error-msg" *ngIf="aadhaar.touched && !isFieldValid('aadhaarNumber')">
+          {{ clientDetails.aadhaarNumber ? 'Invalid Aadhaar' : 'Required' }}
+        </small>
+      </div>
+      <div class="col-12 md:col-2">
+        <label class="block text-sm font-medium mb-1">Annual Income</label>
+        <div class="flex gap-1">
+          <input type="text" pInputText placeholder="Enter Annual Income" [(ngModel)]="clientDetails.annualIncome" #income="ngModel"
+                 (keypress)="onlyNumbers($event)" (input)="formatCurrency('annualIncome')"
+                 [class.ng-invalid]="income.touched && !isFieldValid('annualIncome')"
+                 [class.ng-dirty]="income.touched && isFieldValid('annualIncome')" class="w-full" />
+          <div class="check-box" [class.verified]="isFieldValid('annualIncome')" [class.failure-box]="income.touched && !isFieldValid('annualIncome')">₹</div>
+        </div>
+        <small class="error-msg" *ngIf="income.touched && !isFieldValid('annualIncome')">Invalid Number</small>
+      </div>
+      <div class="col-12 md:col-2">
+        <label class="block text-sm font-medium mb-1">Employment Status</label>
+        <p-select [options]="employmentStatuses" [(ngModel)]="clientDetails.employmentStatus" placeholder="Select" class="w-full" />
+      </div>
+
+      <!-- Living Situation, Rent -->      <!-- Living Situation, Rent -->
+      <div class="col-12 md:col-6 mt-3">
+        <label class="block text-sm font-medium mb-1">Which of the following describes your current living situation?</label>
+        <p-select [options]="livingSituations" [(ngModel)]="clientDetails.livingSituation" placeholder="Select" class="w-full" />
+      </div>
+      <div class="col-12 md:col-6 mt-3">
+        <label class="block text-sm font-medium mb-1">How much do you pay monthly for rent/mortgage?</label>
+        <div class="flex gap-1">
+          <input type="text" pInputText placeholder="Enter Mortgages Rent" [(ngModel)]="clientDetails.monthlyRent" #rent="ngModel"
+                 (keypress)="onlyNumbers($event)" (input)="formatCurrency('monthlyRent')"
+                 [class.ng-invalid]="rent.touched && !isFieldValid('monthlyRent')"
+                 [class.ng-dirty]="rent.touched && isFieldValid('monthlyRent')" class="w-full" />
+          <div class="check-box" [class.verified]="isFieldValid('monthlyRent')" [class.failure-box]="rent.touched && !isFieldValid('monthlyRent')">₹</div>
+        </div>
+        <small class="error-msg" *ngIf="rent.touched && !isFieldValid('monthlyRent')">Invalid Number</small>
+      </div>
+
+      <!-- Phone Number -->
+      <div class="col-12 mt-4">
+        <p class="text-xs text-blue-600 italic mb-2">
+          Phone Number <span class="text-gray-500">(Atleast one Mobile type is required for Phone Number field to receive the OTP while login)</span>
+        </p>
+        <div class="flex align-items-center gap-2">
+          <div class="check-box" [class.verified]="isFieldValid('phoneNumber')" [class.failure-box]="phone.touched && !isFieldValid('phoneNumber')">
+            <i [class]="isFieldValid('phoneNumber') ? 'pi pi-check' : (phone.touched ? 'pi pi-times' : 'pi pi-check')"></i>
+          </div>
+          <p-select [options]="[{label: 'Mobile', value: 'Mobile'}]" [(ngModel)]="clientDetails.phoneType" class="w-8rem" />
+          <p-select [options]="countries" [(ngModel)]="clientDetails.countryCode" class="w-10rem" />
+          <input type="text" pInputText [(ngModel)]="clientDetails.phoneNumber" #phone="ngModel" 
+                 (keypress)="onlyNumbers($event)" (input)="formatPhone()"
+                 maxlength="11"
+                 [class.ng-invalid]="phone.touched && !isFieldValid('phoneNumber')"
+                 [class.ng-dirty]="phone.touched && isFieldValid('phoneNumber')" class="w-15rem" />
+          <button class="add-btn"><i class="pi pi-plus"></i></button>
+        </div>
+        <small class="error-msg" *ngIf="phone.touched && !isFieldValid('phoneNumber')">
+          {{ clientDetails.phoneNumber ? 'Invalid Phone (10 digits)' : 'Required' }}
+        </small>
+      </div>
+
+      <!-- Address Section -->
+      <div class="col-12 mt-4">
+        <p class="text-xs text-gray-500 italic mb-2">
+          Address <span class="text-gray-400">(Only a "Physical" (residential) address is allowed, no P.O. boxes)</span>
+        </p>
+        <div class="flex gap-3">
+          <div class="check-box mt-4" [class.verified]="isFieldValid('addressLine1') && isFieldValid('zipCode')" 
+               [class.failure-box]="(addr1.touched && !isFieldValid('addressLine1')) || (zip.touched && !isFieldValid('zipCode'))">
+            <i [class]="(isFieldValid('addressLine1') && isFieldValid('zipCode')) ? 'pi pi-check' : 'pi pi-times'"></i>
+          </div>
+          <div class="grid flex-grow-1">
+            <div class="col-12 md:col-3">
+              <label class="block text-xs font-medium mb-1 label-required">Address Line 1</label>
+              <input type="text" pInputText [(ngModel)]="clientDetails.addressLine1" #addr1="ngModel"
+                     [class.ng-invalid]="addr1.touched && !isFieldValid('addressLine1')"
+                     [class.ng-dirty]="addr1.touched && isFieldValid('addressLine1')" class="w-full" />
+              <small class="error-msg" *ngIf="addr1.touched && !isFieldValid('addressLine1')">Required</small>
+            </div>
+            <div class="col-12 md:col-3">
+              <label class="block text-xs font-medium mb-1">Address Line 2</label>
+              <input type="text" pInputText [(ngModel)]="clientDetails.addressLine2" #addr2="ngModel" class="w-full" />
+            </div>
+            <div class="col-12 md:col-1">
+              <label class="block text-xs font-medium mb-1 label-required">ZIP Code</label>
+              <input type="text" pInputText [(ngModel)]="clientDetails.zipCode" #zip="ngModel"
+                     (keypress)="onlyNumbers($event)"
+                     maxlength="6"
+                     [class.ng-invalid]="zip.touched && !isFieldValid('zipCode')"
+                     [class.ng-dirty]="zip.touched && isFieldValid('zipCode')" class="w-full" />
+              <small class="error-msg" *ngIf="zip.touched && !isFieldValid('zipCode')">Invalid</small>
+            </div>
+            <div class="col-12 md:col-1">
+              <label class="block text-xs font-medium mb-1">City</label>
+              <input type="text" pInputText [(ngModel)]="clientDetails.city" class="w-full bg-gray-100" />
+            </div>
+            <div class="col-12 md:col-2">
+              <label class="block text-xs font-medium mb-1">State</label>
+              <input type="text" pInputText [(ngModel)]="clientDetails.state" class="w-full bg-gray-100" />
+            </div>
+            <div class="col-12 md:col-2">
+              <label class="block text-xs font-medium mb-1">Country</label>
+              <input type="text" pInputText [(ngModel)]="clientDetails.country" class="w-full bg-gray-100" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Actions -->
+    <div class="flex justify-content-center gap-3 mt-5">
+      <button pButton label="Save" class="p-button-outlined save-btn" (click)="save()"></button>
+      <button pButton label="Verify Information" class="verify-info-btn" 
+        [disabled]="!isFormValid || isVerifying"
+        (click)="verifyInformation()"></button>
+      <button *ngIf="isVerified" pButton label="Next" class="p-button-primary next-btn" routerLink="/advisor/new-account-creation/advisor-documents"></button>
+    </div>
+  </div>
+
+  <!-- Loading Modal -->
+  <p-dialog [(visible)]="isVerifying" [modal]="true" [closable]="false" [showHeader]="false" 
+    [style]="{width: '300px'}" [draggable]="false" [resizable]="false" class="loader-dialog">
+    <div class="flex flex-column align-items-center justify-content-center p-5 text-center">
+      <div class="custom-spinner mb-4"></div>
+      <h3 class="m-0 text-blue-900 font-semibold">Verifying Identity</h3>
+      <p class="text-sm text-gray-500 mt-2">Checking third-party databases...</p>
+    </div>
+  </p-dialog>
+
+  <!-- Verification Modal -->
+  <p-dialog header="Plaid Identity Verification Results" [(visible)]="displayVerificationResults" [modal]="true" 
+    [style]="{width: '550px'}" [draggable]="false" [resizable]="false" 
+    class="verification-dialog" [closable]="false">
+    
+    <div class="verification-content">
+      <!-- Name -->
+      <div class="verify-row flex align-items-center justify-content-between border-bottom-1 border-gray-100">
+        <div class="flex-column">
+          <label class="text-blue-700 font-semibold mb-1 block">Name :-</label>
+          <span class="text-gray-700">{{clientDetails.firstName}} {{clientDetails.middleName}} {{clientDetails.lastName}}</span>
+        </div>
+        <div class="status-icon" [class.success]="verificationStatus.name" [class.fail]="!verificationStatus.name">
+          <i [class]="verificationStatus.name ? 'pi pi-check' : 'pi pi-times'"></i>
+        </div>
+      </div>
+
+      <!-- DOB -->
+      <div class="verify-row flex align-items-center justify-content-between border-bottom-1 border-gray-100">
+        <div class="flex-column">
+          <label class="text-blue-700 font-semibold mb-1 block">Date of Birth :-</label>
+          <span class="text-gray-700">{{clientDetails.dob}}</span>
+        </div>
+        <div class="status-icon" [class.success]="verificationStatus.dob" [class.fail]="!verificationStatus.dob">
+          <i [class]="verificationStatus.dob ? 'pi pi-check' : 'pi pi-times'"></i>
+        </div>
+      </div>
+
+      <!-- PAN -->
+      <div class="verify-row flex align-items-center justify-content-between border-bottom-1 border-gray-100">
+        <div class="flex-column">
+          <label class="text-blue-700 font-semibold mb-1 block">PAN :-</label>
+          <div class="flex align-items-center gap-2">
+            <span class="text-gray-700">{{clientDetails.panNumber}}</span>
+            <i class="pi pi-eye text-gray-400 text-xs"></i>
+          </div>
+        </div>
+        <div class="status-icon" [class.success]="verificationStatus.pan" [class.fail]="!verificationStatus.pan">
+          <i [class]="verificationStatus.pan ? 'pi pi-check' : 'pi pi-times'"></i>
+        </div>
+      </div>
+
+      <!-- Aadhaar -->
+      <div class="verify-row flex align-items-center justify-content-between border-bottom-1 border-gray-100">
+        <div class="flex-column">
+          <label class="text-blue-700 font-semibold mb-1 block">Aadhaar :-</label>
+          <div class="flex align-items-center gap-2">
+            <span class="text-gray-700">{{clientDetails.aadhaarNumber}}</span>
+            <i class="pi pi-eye text-gray-400 text-xs"></i>
+          </div>
+        </div>
+        <div class="status-icon" [class.success]="verificationStatus.aadhaar" [class.fail]="!verificationStatus.aadhaar">
+          <i [class]="verificationStatus.aadhaar ? 'pi pi-check' : 'pi pi-times'"></i>
+        </div>
+      </div>
+
+      <!-- Phone -->
+      <div class="verify-row flex align-items-center justify-content-between border-bottom-1 border-gray-100">
+        <div class="flex-column">
+          <label class="text-blue-700 font-semibold mb-1 block">Phone :-</label>
+          <span class="text-gray-700">{{clientDetails.countryCode}} {{clientDetails.phoneNumber}}</span>
+        </div>
+        <div class="status-icon" [class.success]="verificationStatus.phone" [class.fail]="!verificationStatus.phone">
+          <i [class]="verificationStatus.phone ? 'pi pi-check' : 'pi pi-times'"></i>
+        </div>
+      </div>
+
+      <!-- Address -->
+      <div class="verify-row flex align-items-center justify-content-between">
+        <div class="flex-column">
+          <label class="text-blue-700 font-semibold mb-1 block">Address :-</label>
+          <span class="text-gray-700">{{clientDetails.addressLine1}}, {{clientDetails.zipCode}}, {{clientDetails.city}}, {{clientDetails.country}}</span>
+        </div>
+        <div class="status-icon" [class.success]="verificationStatus.address" [class.fail]="!verificationStatus.address">
+          <i [class]="verificationStatus.address ? 'pi pi-check' : 'pi pi-times'"></i>
+        </div>
+      </div>
+
+      <div class="warning-footer flex gap-2 align-items-start">
+        <i class="pi pi-exclamation-triangle text-orange-500 mt-1"></i>
+        <p class="text-xs text-orange-600 m-0">
+          Results are based on third-party verification. Please ensure client information is accurate to help avoid delays or manual review.
+        </p>
+      </div>
+    </div>
+
+    <ng-template pTemplate="footer">
+      <div class="flex justify-content-end p-2">
+        <button pButton label="Close" class="p-button-primary close-modal-btn" (click)="closeVerification()"></button>
+      </div>
+    </ng-template>
+  </p-dialog>
+</div>

@@ -1,0 +1,150 @@
+<div class="email-container p-4">
+  <!-- Breadcrumb -->
+  <div class="flex align-items-center gap-2 mb-2 text-secondary text-sm">
+    <i class="pi pi-home cursor-pointer" routerLink="/advisor/dashboard"></i>
+    <span>/</span>
+    <span class="cursor-pointer" routerLink="/advisor/new-account-creation">New Account Creation</span>
+  </div>
+
+  <!-- Header and Stepper Row -->
+  <div class="flex justify-content-between align-items-center mb-5">
+    <h1 class="page-title m-0">Credit Cards</h1>
+
+    <!-- Premium Stepper -->
+    <div class="stepper-container m-0">
+      <div class="step-wrapper">
+        <div class="step-node completed">
+          <div class="step-circle"><i class="pi pi-check"></i></div>
+          <span class="step-label">Client Details</span>
+        </div>
+        <div class="step-connector active"></div>
+      </div>
+      <div class="step-wrapper">
+        <div class="step-node completed">
+          <div class="step-circle"><i class="pi pi-check"></i></div>
+          <span class="step-label">Advisor Documents</span>
+        </div>
+        <div class="step-connector active"></div>
+      </div>
+      <div class="step-wrapper">
+        <div class="step-node completed">
+          <div class="step-circle"><i class="pi pi-check"></i></div>
+          <span class="step-label">Preview</span>
+        </div>
+        <div class="step-connector active"></div>
+      </div>
+      <div class="step-wrapper">
+        <div class="step-node active">
+          <div class="step-circle">4</div>
+          <span class="step-label">Mail</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="content-wrapper max-w-7xl mx-auto bg-white p-5 border-round">
+    <!-- Recipient Bubble -->
+    <div class="recipient-bubble flex align-items-center gap-2 mb-4">
+      <div class="number-circle">1</div>
+      <span class="font-medium text-blue-700">{{clientName}}</span>
+    </div>
+
+    <!-- Fields -->
+    <div class="grid mb-4">
+      <div class="col-12 mb-3">
+        <label class="block text-sm font-semibold mb-2">Send To</label>
+        <input type="text" pInputText [value]="email" class="w-full bg-gray-50 border-gray-200" />
+      </div>
+      
+      <div class="col-12">
+        <label class="block text-sm font-semibold mb-2">Subject</label>
+        <div class="flex gap-2">
+          <input type="text" pInputText [value]="subject" class="flex-grow-1 bg-gray-50 border-gray-200" />
+          <button pButton icon="pi pi-paperclip" label="Attachments" class="p-button-secondary attachments-btn" (click)="fileInput.click()"></button>
+          <input #fileInput type="file" multiple class="hidden" (change)="onFilesSelected($event)" />
+        </div>
+        
+        <!-- Attached Files List -->
+        <div class="attached-files-list flex flex-wrap gap-2 mt-2" *ngIf="attachedFiles.length > 0">
+          <div class="file-chip bg-blue-50 border-1 border-blue-200 border-round px-2 py-1 flex align-items-center gap-2" *ngFor="let file of attachedFiles; let i = index">
+            <i class="pi pi-file text-blue-600 text-xs"></i>
+            <span class="text-xs text-blue-800">{{file.name}} ({{file.size}})</span>
+            <i class="pi pi-times cursor-pointer text-xs text-red-500 hover:text-red-700" (click)="removeAttachment(i)"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Custom Message Editor -->
+    <div class="mb-4">
+      <label class="block text-sm font-semibold mb-2">Custom Message</label>
+      <div class="editor-container">
+        <p-editor [(ngModel)]="messageContent" [style]="{ height: '400px' }">
+          <ng-template pTemplate="header">
+            <div class="flex align-items-center gap-3 overflow-x-auto custom-toolbar">
+              <!-- Custom Text Menus -->
+              <div class="toolbar-text-group flex gap-3 px-2 border-right-1 border-gray-200">
+                <span class="cursor-pointer text-sm font-medium text-gray-700">File</span>
+                <span class="cursor-pointer text-sm font-medium text-gray-700">Edit</span>
+                <span class="cursor-pointer text-sm font-medium text-gray-700">View</span>
+                <span class="cursor-pointer text-sm font-medium text-gray-700">Format</span>
+              </div>
+
+              <!-- Format Dropdown -->
+              <span class="ql-formats border-right-1 border-gray-200 pr-3 ml-2">
+                <select class="ql-header">
+                  <option selected>Paragraph</option>
+                  <option value="1">Heading 1</option>
+                  <option value="2">Heading 2</option>
+                </select>
+              </span>
+
+              <!-- Basic Styling -->
+              <span class="ql-formats border-right-1 border-gray-200 pr-3 ml-2">
+                <button class="ql-bold" aria-label="Bold"></button>
+                <button class="ql-italic" aria-label="Italic"></button>
+                <select class="ql-color" title="Text Color"></select>
+              </span>
+
+              <!-- Alignment -->
+              <span class="ql-formats ml-2">
+                <select class="ql-align" title="Alignment"></select>
+              </span>
+            </div>
+          </ng-template>
+        </p-editor>
+      </div>
+    </div>
+
+    <!-- Footer Send -->
+    <div class="flex justify-content-center mt-5">
+      <button pButton label="Send" class="p-button-primary send-btn-large" (click)="onSend()"></button>
+    </div>
+  </div>
+
+  <!-- Success Popup -->
+  <p-dialog [(visible)]="displaySuccessDialog" [modal]="true" [style]="{width: '500px'}" [draggable]="false" [resizable]="false" class="success-dialog" [closable]="false">
+    <ng-template pTemplate="header">
+      <span class="text-blue-700 font-semibold text-lg">Account Opening Process Started</span>
+    </ng-template>
+
+    <div class="p-5 text-center">
+      <!-- Success Icon -->
+      <div class="success-icon-container mb-4">
+        <div class="success-circle">
+          <i class="pi pi-check text-4xl"></i>
+        </div>
+      </div>
+
+      <h2 class="text-2xl font-bold text-gray-800 mb-2">Congratulations!</h2>
+      <p class="text-gray-600 mb-4">
+        Email sent to <span class="font-semibold text-gray-800">{{email}}</span>
+      </p>
+      <p class="text-gray-500 text-sm mb-5">
+        Click on the OK button to go Next.
+      </p>
+
+      <button pButton label="Ok" class="p-button-primary ok-btn" (click)="onOk()"></button>
+    </div>
+  </p-dialog>
+</div>

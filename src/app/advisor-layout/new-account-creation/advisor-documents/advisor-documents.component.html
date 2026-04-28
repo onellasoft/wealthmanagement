@@ -1,0 +1,112 @@
+<div class="docs-container p-4">
+  <!-- Breadcrumb -->
+  <div class="flex align-items-center gap-2 mb-2 text-secondary text-sm">
+    <i class="pi pi-home cursor-pointer" routerLink="/advisor/dashboard"></i>
+    <span>/</span>
+    <span class="cursor-pointer" routerLink="/advisor/new-account-creation">New Account Creation</span>
+    <span>/</span>
+    <span>Credit Cards</span>
+  </div>
+
+  <!-- Header and Stepper Row -->
+  <div class="flex justify-content-between align-items-center mb-5">
+    <h1 class="page-title m-0">Credit Cards</h1>
+
+    <!-- Premium Stepper -->
+    <div class="stepper-container m-0">
+      <div class="step-wrapper">
+        <div class="step-node completed">
+          <div class="step-circle"><i class="pi pi-check"></i></div>
+          <span class="step-label">Client Details</span>
+        </div>
+        <div class="step-connector active"></div>
+      </div>
+      <div class="step-wrapper">
+        <div class="step-node active">
+          <div class="step-circle">2</div>
+          <span class="step-label">Advisor Documents</span>
+        </div>
+        <div class="step-connector"></div>
+      </div>
+      <div class="step-wrapper">
+        <div class="step-node">
+          <div class="step-circle">3</div>
+          <span class="step-label">Preview</span>
+        </div>
+        <div class="step-connector"></div>
+      </div>
+      <div class="step-wrapper">
+        <div class="step-node">
+          <div class="step-circle">4</div>
+          <span class="step-label">Mail</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="content-wrapper text-center">
+    <p class="instruction-text mb-5 text-gray-600">
+      Please upload the signed agreement or add to the client's application workflow for their signature from the agreement listed below.
+    </p>
+
+    <div class="grid justify-content-center gap-4 mb-5">
+      <div *ngFor="let doc of documents" class="col-12 md:col-3 card document-card p-4 text-left">
+        <h3 class="document-title mb-4">{{doc.title}}</h3>
+        
+        <div class="flex align-items-center gap-2">
+          <div class="action-icons flex gap-2">
+            <button class="icon-btn" [class.active]="doc.uploaded" pTooltip="View Document" (click)="viewDocument(doc)">
+              <i class="pi pi-eye"></i>
+            </button>
+            <button class="icon-btn" [class.success-btn]="doc.uploaded" pTooltip="Upload Document" (click)="triggerUpload(doc)">
+              <i [class]="doc.uploaded ? 'pi pi-check' : 'pi pi-upload'"></i>
+            </button>
+            <button class="icon-btn" 
+                    [class.success-btn]="doc.sentForSignature" 
+                    [pTooltip]="doc.sentForSignature ? 'Sent for Signature' : 'Send for Signature'" 
+                    tooltipPosition="top"
+                    (click)="sendForSignature(doc)">
+              <i [class]="doc.sentForSignature ? 'pi pi-check' : 'pi pi-send'"></i>
+            </button>
+          </div>
+          <span class="status-text text-sm ml-3" [class.text-blue-600]="doc.uploaded" [class.text-gray-400]="!doc.uploaded">
+            {{doc.status}}
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Hidden File Input -->
+    <input type="file" id="fileInput" style="display: none" (change)="onFileSelected($event)" accept=".pdf,.doc,.docx,.jpg,.png">
+
+    <div class="flex justify-content-center mt-5">
+      <button pButton label="Next" class="p-button-primary next-btn-large" (click)="onNext()"></button>
+    </div>
+  </div>
+
+  <!-- Preview Dialog -->
+  <p-dialog [header]="selectedDoc?.title" [(visible)]="displayPreview" [modal]="true" [style]="{width: '70vw'}" [draggable]="false" [resizable]="false">
+    <div class="preview-content p-4 text-center bg-gray-50 border-round">
+      <div *ngIf="selectedDoc?.uploaded">
+        <!-- Image Preview -->
+        <div *ngIf="selectedDoc.fileType?.startsWith('image/')" class="image-preview-container">
+          <img [src]="selectedDoc.previewUrl" class="max-w-full border-round shadow-2" style="max-height: 500px; object-fit: contain;">
+        </div>
+        
+        <!-- PDF/Other Placeholder -->
+        <div *ngIf="!selectedDoc.fileType?.startsWith('image/')" class="file-placeholder py-5">
+          <i class="pi pi-file-pdf text-6xl text-red-500 mb-3"></i>
+          <p class="text-gray-600">Document: {{selectedDoc.status}}</p>
+        </div>
+      </div>
+      
+      <div *ngIf="!selectedDoc?.uploaded" class="py-5">
+        <i class="pi pi-cloud-upload text-5xl text-gray-300 mb-3"></i>
+        <p class="text-gray-400">No content to display. Please upload the document first.</p>
+      </div>
+    </div>
+    <ng-template pTemplate="footer">
+      <button pButton label="Close" icon="pi pi-times" class="p-button-text close-modal-btn" (click)="displayPreview = false"></button>
+    </ng-template>
+  </p-dialog>
+</div>

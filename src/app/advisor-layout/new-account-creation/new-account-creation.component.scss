@@ -1,0 +1,84 @@
+.new-account-container {
+  background-color: var(--page-bg);
+  min-height: 100vh;
+}
+
+.page-title {
+  color: var(--primary-color);
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.text-secondary {
+  color: var(--text-secondary);
+}
+
+.creation-card {
+  background: var(--row-bg);
+  border-radius: 12px;
+  border: 1px solid var(--border-light);
+  max-width: 400px;
+  margin: 0 auto;
+  transition: background 0.2s ease;
+
+  &:hover {
+    background: #f8fafc;
+  }
+}
+
+.illustration-container {
+  height: 140px; // Reduced height
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  .illustration-img {
+    max-height: 100%;
+    max-width: 100%;
+    object-fit: contain;
+  }
+}
+
+.card-title {
+  color: var(--text-primary);
+  font-size: 18px; // Slightly smaller
+  font-weight: 600;
+}
+
+.card-description {
+  color: var(--text-secondary);
+  font-size: 13px;
+  line-height: 1.5;
+  min-height: 60px;
+}
+
+.action-btn {
+  width: auto;
+  
+  ::ng-deep {
+    .p-button {
+      background: var(--primary-color) !important;
+      border: 1px solid var(--primary-color) !important;
+      border-radius: 6px;
+      padding: 8px 24px !important; // Fixed padding
+      font-weight: 600;
+      width: auto !important;
+      min-width: 160px;
+      justify-content: center;
+      
+      &:hover {
+        opacity: 0.9;
+      }
+      
+      .p-button-label {
+        flex: 0 0 auto;
+        white-space: nowrap;
+      }
+
+      .p-button-icon {
+        font-size: 10px;
+      }
+    }
+  }
+}
+

@@ -1,0 +1,27 @@
+<div class="new-account-container p-4">
+  <!-- Breadcrumb-like Header -->
+  <div class="flex align-items-center gap-2 mb-2 text-secondary text-sm">
+    <i class="pi pi-home cursor-pointer" routerLink="/advisor/dashboard"></i>
+    <span>/</span>
+    <span>New Account Creation</span>
+  </div>
+  
+  <h1 class="page-title mb-5">New Account Creation</h1>
+
+  <div class="grid justify-content-center">
+    <div *ngFor="let card of cards" class="col-12 md:col-6 lg:col-5 xl:col-4">
+      <div class="card creation-card flex flex-column align-items-center p-4 text-center">
+        <div class="illustration-container mb-3">
+          <img [src]="card.image" [alt]="card.title" class="illustration-img">
+        </div>
+        
+        <h2 class="card-title mb-2">{{ card.title }}</h2>
+        <p class="card-description mb-4">{{ card.description }}</p>
+        
+        <div class="mt-auto w-full flex justify-content-center">
+          <p-button [label]="card.buttonLabel" [icon]="card.buttonIcon" class="action-btn" [routerLink]="card.link" />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

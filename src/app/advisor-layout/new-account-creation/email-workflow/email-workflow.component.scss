@@ -1,0 +1,239 @@
+.email-container {
+  background-color: var(--page-bg);
+  min-height: calc(100vh - 60px);
+  padding: 1rem !important;
+}
+
+/* Premium Stepper */
+.stepper-container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0;
+  flex: 0 0 auto;
+  margin-left: auto;
+  max-width: 480px;
+
+  .step-wrapper {
+    display: flex;
+    align-items: center;
+    flex: 0 0 85px;
+
+    &:last-child {
+      flex: none;
+    }
+  }
+
+  .step-node {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    cursor: default;
+
+    .step-circle {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: white;
+      border: 2px solid #E2E8F0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 13px;
+      color: #94A3B8;
+      transition: all 0.3s ease;
+      z-index: 2;
+    }
+
+    .step-label {
+      position: absolute;
+      top: 40px;
+      font-size: 10px;
+      font-weight: 600;
+      color: #94A3B8;
+      white-space: nowrap;
+      transition: all 0.3s ease;
+      text-align: center;
+    }
+
+    &.active {
+      .step-circle {
+        background: #1359B9;
+        border-color: #1359B9;
+        color: white;
+        box-shadow: 0 0 0 3px rgba(19, 89, 185, 0.1);
+      }
+      .step-label {
+        color: #1359B9;
+      }
+    }
+
+    &.completed {
+      .step-circle {
+        background: #F1F5F9;
+        border-color: #1359B9;
+        color: #1359B9;
+      }
+      .step-label {
+        color: #64748B;
+      }
+    }
+  }
+
+  .step-connector {
+    flex: 1;
+    height: 2px;
+    background: #E2E8F0;
+    margin: 0 -2px;
+    z-index: 1;
+
+    &.active {
+      background: #1359B9;
+    }
+  }
+}
+
+.page-title {
+  color: #1359B9;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.recipient-bubble {
+  border: 1px solid #E2E8F0;
+  padding: 4px 12px;
+  border-radius: 20px;
+  display: inline-flex;
+  background: white;
+
+  .number-circle {
+    width: 20px;
+    height: 20px;
+    background: #1359B9;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 600;
+  }
+}
+
+.attachments-btn {
+  background: #1359B9 !important;
+  border: none !important;
+  padding: 0 20px !important;
+  border-radius: 6px !important;
+  white-space: nowrap;
+  color: #ffffff !important;
+  
+  i {
+    color: #ffffff !important;
+  }
+}
+
+.editor-container {
+  border: 1px solid #E2E8F0;
+  border-radius: 8px;
+  overflow: hidden;
+
+  ::ng-deep {
+    .p-editor-toolbar {
+      background: #F8FAFC !important;
+      border: none !important;
+      border-bottom: 1px solid #E2E8F0 !important;
+      padding: 8px 12px !important;
+    }
+
+    .p-editor-content {
+      border: none !important;
+      .ql-editor {
+        font-family: inherit;
+        color: #4A5568;
+        font-size: 14px;
+        line-height: 1.6;
+      }
+    }
+
+    .ql-stroke {
+      stroke: #64748B !important;
+    }
+    
+    .ql-fill {
+      fill: #64748B !important;
+    }
+
+    .ql-header {
+      width: 100px !important;
+    }
+  }
+}
+
+.custom-toolbar {
+  .toolbar-text-group {
+    span:hover {
+      color: #1359B9;
+    }
+  }
+}
+
+.send-btn-large {
+  background: #1359B9 !important;
+  border: none !important;
+  padding: 12px 60px !important;
+  border-radius: 8px !important;
+  font-weight: 600 !important;
+  font-size: 16px;
+
+  &:hover {
+    opacity: 0.9 !important;
+  }
+}
+
+:host ::ng-deep {
+  .p-inputtext {
+    border-radius: 6px !important;
+    padding: 10px 12px !important;
+    font-size: 14px;
+  }
+
+  .success-dialog {
+    .p-dialog-header {
+      border-bottom: 1px solid #E2E8F0;
+      padding: 1.25rem 1.5rem;
+    }
+
+    .p-dialog-content {
+      padding: 0 !important;
+    }
+  }
+}
+
+.success-icon-container {
+  display: flex;
+  justify-content: center;
+  
+  .success-circle {
+    width: 80px;
+    height: 80px;
+    background-color: #E6FFFA;
+    border: 2px solid #38B2AC;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #38B2AC;
+  }
+}
+
+.ok-btn {
+  background: #1359B9 !important;
+  border: none !important;
+  padding: 10px 50px !important;
+  border-radius: 8px !important;
+  font-weight: 600 !important;
+  font-size: 16px;
+}

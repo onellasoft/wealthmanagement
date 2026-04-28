@@ -1,0 +1,428 @@
+.details-container {
+  background-color: var(--page-bg);
+  min-height: calc(100vh - 60px);
+  padding: 1rem !important;
+}
+
+.page-title {
+  color: #1359B9;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.label-required::after {
+  content: " *";
+  color: #e53e3e;
+}
+
+/* Premium Stepper */
+.stepper-container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0;
+  flex: 0 0 auto;
+  margin-left: auto;
+  max-width: 480px;
+
+  .step-wrapper {
+    display: flex;
+    align-items: center;
+    flex: 0 0 85px;
+
+    &:last-child {
+      flex: none;
+    }
+  }
+
+  .step-node {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    cursor: default;
+
+    .step-circle {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: white;
+      border: 2px solid #E2E8F0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 13px;
+      color: #94A3B8;
+      transition: all 0.3s ease;
+      z-index: 2;
+    }
+
+    .step-label {
+      position: absolute;
+      top: 40px;
+      font-size: 10px;
+      font-weight: 600;
+      color: #94A3B8;
+      white-space: nowrap;
+      transition: all 0.3s ease;
+      text-align: center;
+    }
+
+    &.active {
+      .step-circle {
+        background: #1359B9;
+        border-color: #1359B9;
+        color: white;
+        box-shadow: 0 0 0 3px rgba(19, 89, 185, 0.1);
+      }
+      .step-label {
+        color: #1359B9;
+      }
+    }
+
+    &.completed {
+      .step-circle {
+        background: #F1F5F9;
+        border-color: #1359B9;
+        color: #1359B9;
+      }
+      .step-label {
+        color: #64748B;
+      }
+    }
+  }
+
+  .step-connector {
+    flex: 1;
+    height: 2px;
+    background: #E2E8F0;
+    margin: 0 -2px;
+    z-index: 1;
+
+    &.active {
+      background: #1359B9;
+    }
+  }
+}
+
+.check-box {
+  width: 38px;
+  height: 38px;
+  background: #EDF2F7;
+  border: 1.5px solid transparent;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: #718096;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  
+  i {
+    color: #A0AEC0;
+    font-size: 14px;
+  }
+  
+  &.verified {
+    background: #F0FFF4 !important;
+    border-color: #38A169 !important;
+    i { color: #38A169 !important; }
+  }
+
+  &.failure-box {
+    background: #FFF5F5 !important;
+    border-color: #E53E3E !important;
+    i { color: #E53E3E !important; }
+  }
+}
+
+.add-btn {
+  width: 38px;
+  height: 38px;
+  border: 1.5px solid #1359B9;
+  background: transparent;
+  color: #1359B9;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  
+  &:hover {
+    background: rgba(19, 89, 185, 0.05);
+  }
+}
+
+.save-btn {
+  border: 1.5px solid #C3C9D6 !important;
+  color: #4A5568 !important;
+  padding: 10px 40px !important;
+  border-radius: 8px !important;
+  font-weight: 600 !important;
+  background: transparent !important;
+  min-width: 120px;
+
+  &:hover {
+    background: #F7FAFC !important;
+  }
+}
+
+.verify-info-btn {
+  background: #1359B9 !important;
+  border: none !important;
+  padding: 10px 40px !important;
+  border-radius: 8px !important;
+  font-weight: 600 !important;
+  color: #ffffff !important;
+  min-width: 180px;
+  transition: all 0.2s ease;
+
+  &:hover:not(:disabled) {
+    opacity: 0.9 !important;
+  }
+
+  &:disabled {
+    background: #C3C9D6 !important;
+    opacity: 0.6 !important;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+}
+
+::ng-deep {
+  .p-inputtext, .p-select {
+    height: 38px;
+    border: 1px solid #E2E8F0 !important;
+    background: #ffffff !important;
+    font-size: 14px;
+    border-radius: 4px !important;
+    transition: all 0.2s ease;
+    
+    &:focus {
+      border-color: #1359B9 !important;
+      box-shadow: 0 0 0 1px #1359B9 !important;
+    }
+
+    &.ng-invalid.ng-touched {
+      border-color: #E53E3E !important;
+      background: #FFF5F5 !important;
+    }
+
+    &.ng-dirty:not(.ng-invalid) {
+      border-color: #38A169 !important;
+      background: #F0FFF4 !important;
+    }
+  }
+  
+  .p-inputgroup {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: stretch !important;
+    height: 38px;
+    max-width: 180px;
+    
+    input {
+      border-top-right-radius: 0 !important;
+      border-bottom-right-radius: 0 !important;
+      width: 100%;
+    }
+    
+    .p-inputgroup-addon {
+      border-top-left-radius: 0 !important;
+      border-bottom-left-radius: 0 !important;
+      border-left: none !important;
+      background: #EDF2F7 !important;
+      border: 1px solid #E2E8F0 !important;
+      color: #718096 !important;
+      font-weight: 600;
+      padding: 0 10px !important;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+
+  .bg-gray-100 {
+    background-color: #F7FAFC !important;
+  }
+
+  .verification-dialog {
+    .p-dialog-header {
+      border-bottom: 1px solid #edf2f7;
+      padding: 1.25rem 1.5rem;
+      
+      .p-dialog-title {
+        color: #1359B9;
+        font-weight: 600;
+        font-size: 1.25rem;
+      }
+    }
+
+    .p-dialog-content {
+      padding: 0 !important;
+    }
+
+    .p-dialog-footer {
+      border-top: 1px solid #edf2f7;
+      padding: 1rem 1.5rem;
+      background: white;
+    }
+  }
+
+  .verification-content {
+    padding: 0.5rem 0 !important;
+  }
+
+  .verify-row {
+    transition: background 0.2s;
+    padding: 0.75rem 1.5rem !important;
+    
+    &:hover {
+      background: #F7FAFC;
+    }
+
+    label {
+      font-size: 0.85rem !important;
+      margin-bottom: 2px !important;
+    }
+
+    span {
+      font-size: 0.9rem !important;
+    }
+  }
+
+  .warning-footer {
+    margin: 1rem 1.5rem !important;
+    padding: 0.75rem;
+    background: #FFFBEB;
+    border-radius: 6px;
+  }
+
+  .status-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    i {
+      font-size: 14px;
+      font-weight: bold;
+    }
+
+    &.success {
+      background: #E6FFFA;
+      color: #38B2AC;
+      border: 1px solid #38B2AC;
+    }
+
+    &.fail {
+      background: #FFF5F5;
+      color: #E53E3E;
+      border: 1px solid #E53E3E;
+    }
+  }
+
+  .failure-box {
+    background: #FFF5F5 !important;
+    
+    i {
+      color: #E53E3E !important;
+    }
+  }
+
+  .success-box {
+    background: #E6FFFA !important;
+    
+    i {
+      color: #38B2AC !important;
+    }
+  }
+
+  .next-btn {
+    background: #1359B9 !important;
+    border: none !important;
+    padding: 10px 40px !important;
+    border-radius: 8px !important;
+    font-weight: 600 !important;
+    color: #ffffff !important;
+    min-width: 120px;
+
+    &:hover {
+      opacity: 0.9 !important;
+    }
+  }
+
+  .close-modal-btn {
+    background: #1359B9 !important;
+    border: none !important;
+    padding: 8px 32px !important;
+    border-radius: 6px !important;
+    font-weight: 500 !important;
+  }
+}
+.loader-dialog {
+  ::ng-deep .p-dialog-content {
+    border-radius: 12px;
+    padding: 0 !important;
+  }
+}
+
+.custom-spinner {
+  width: 50px;
+  height: 50px;
+  border: 4px solid rgba(19, 89, 185, 0.1);
+  border-left-color: #1359B9;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+
+  &.error {
+    input, p-select ::ng-deep .p-select {
+      border-color: #E53E3E !important;
+      background-color: #FFF5F5 !important;
+    }
+  }
+
+  .success-icon {
+    position: absolute;
+    right: 12px;
+    color: #38A169;
+    font-size: 14px;
+    z-index: 10;
+  }
+}
+
+.error-msg {
+  color: #E53E3E;
+  font-size: 11px;
+  display: block;
+  margin-top: 4px;
+  font-weight: 500;
+}
+
+::ng-deep .p-datepicker {
+  font-size: 13px !important;
+  .p-datepicker-calendar {
+    td {
+      padding: 0.2rem !important;
+      > span {
+        width: 2rem !important;
+        height: 2rem !important;
+      }
+    }
+  }
+}

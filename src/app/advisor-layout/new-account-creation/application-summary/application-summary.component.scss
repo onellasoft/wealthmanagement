@@ -1,0 +1,234 @@
+.summary-container {
+  background-color: var(--page-bg);
+  min-height: calc(100vh - 60px);
+  padding: 1rem !important;
+}
+
+/* Premium Stepper */
+.stepper-container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0;
+  flex: 0 0 auto;
+  margin-left: auto;
+  max-width: 480px;
+
+  .step-wrapper {
+    display: flex;
+    align-items: center;
+    flex: 0 0 85px;
+
+    &:last-child {
+      flex: none;
+    }
+  }
+
+  .step-node {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    cursor: default;
+
+    .step-circle {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: white;
+      border: 2px solid #E2E8F0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 13px;
+      color: #94A3B8;
+      transition: all 0.3s ease;
+      z-index: 2;
+    }
+
+    .step-label {
+      position: absolute;
+      top: 40px;
+      font-size: 10px;
+      font-weight: 600;
+      color: #94A3B8;
+      white-space: nowrap;
+      transition: all 0.3s ease;
+      text-align: center;
+    }
+
+    &.active {
+      .step-circle {
+        background: #1359B9;
+        border-color: #1359B9;
+        color: white;
+        box-shadow: 0 0 0 3px rgba(19, 89, 185, 0.1);
+      }
+      .step-label {
+        color: #1359B9;
+      }
+    }
+
+    &.completed {
+      .step-circle {
+        background: #F1F5F9;
+        border-color: #1359B9;
+        color: #1359B9;
+      }
+      .step-label {
+        color: #64748B;
+      }
+    }
+  }
+
+  .step-connector {
+    flex: 1;
+    height: 2px;
+    background: #E2E8F0;
+    margin: 0 -2px;
+    z-index: 1;
+
+    &.active {
+      background: #1359B9;
+    }
+  }
+}
+
+.page-title {
+  color: #1359B9;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.warning-banner {
+  background: #FFF5F5;
+  border: 1px solid #FED7D7;
+  border-radius: 8px;
+  
+  i {
+    font-size: 1.2rem;
+  }
+}
+
+.summary-section {
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid #E2E8F0;
+
+  .section-header {
+    transition: background 0.2s;
+    border-bottom: 1px solid #E2E8F0;
+
+    &.account-header {
+      background: #E6FFFA;
+      color: #2D3748;
+      
+      &:hover {
+        background: darken(#E6FFFA, 2%);
+      }
+    }
+
+    &.personal-header {
+      background: #FFF5F5;
+      color: #2D3748;
+      
+      &:hover {
+        background: darken(#FFF5F5, 2%);
+      }
+    }
+
+    i {
+      color: #4A5568;
+      font-size: 14px;
+    }
+  }
+
+  .section-body {
+    border: none !important;
+  }
+}
+
+.label-required::after {
+  content: " *";
+  color: #E53E3E;
+}
+
+.p-inputgroup-addon {
+  border-left: none !important;
+  color: #718096 !important;
+}
+
+.next-btn-small {
+  background: #1359B9 !important;
+  border: none !important;
+  padding: 8px 32px !important;
+  border-radius: 6px !important;
+  font-weight: 600 !important;
+}
+
+.submit-btn-large {
+  background: #1359B9 !important;
+  border: none !important;
+  padding: 12px 60px !important;
+  border-radius: 8px !important;
+  font-weight: 600 !important;
+  color: #ffffff !important;
+  font-size: 16px;
+
+  &:hover {
+    opacity: 0.9 !important;
+  }
+}
+
+.cancel-btn {
+  border-color: #94A3B8 !important;
+  color: #94A3B8 !important;
+  padding: 8px 30px !important;
+  border-radius: 8px !important;
+  font-weight: 600 !important;
+  
+  &:hover {
+    background: #f8fafc !important;
+  }
+}
+
+.confirm-btn {
+  background: #1359B9 !important;
+  border: none !important;
+  padding: 8px 30px !important;
+  border-radius: 8px !important;
+  font-weight: 600 !important;
+  
+  &:hover {
+    opacity: 0.9 !important;
+  }
+}
+
+:host ::ng-deep {
+  .confirm-dialog {
+    .p-dialog-header {
+      border-bottom: 1px solid #E2E8F0;
+      padding: 1rem 1.5rem;
+    }
+    
+    .p-dialog-footer {
+      border-top: none;
+      padding: 0 1.5rem 1.25rem 1.5rem;
+      display: flex !important;
+      justify-content: center !important;
+      gap: 1rem;
+    }
+    
+    .p-dialog-content {
+      padding: 1.5rem 1.5rem;
+    }
+  }
+
+  .p-inputtext:disabled {
+    background: #F7FAFC !important;
+    color: #4A5568 !important;
+    opacity: 1 !important;
+    border: 1px solid #E2E8F0 !important;
+  }
+}

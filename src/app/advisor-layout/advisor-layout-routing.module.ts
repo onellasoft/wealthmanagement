@@ -43,6 +43,35 @@ const routes: Routes = [
       {
         path: 'sbl',
         loadChildren: () => import('./sbl-hub-v2/sbl-hub-v2.module').then(m => m.SblHubV2Module)
+      },
+      {
+        path: 'new-account-creation',
+        children: [
+          {
+            path: '',
+            loadComponent: () => import('./new-account-creation/new-account-creation.component').then(m => m.NewAccountCreationComponent)
+          },
+          {
+            path: 'credit-card',
+            loadComponent: () => import('./new-account-creation/credit-card-application/credit-card-application.component').then(m => m.CreditCardApplicationComponent)
+          },
+          {
+            path: 'credit-card-details',
+            loadComponent: () => import('./new-account-creation/credit-card-details/credit-card-details.component').then(m => m.CreditCardDetailsComponent)
+          },
+          {
+            path: 'advisor-documents',
+            loadComponent: () => import('./new-account-creation/advisor-documents/advisor-documents.component').then(m => m.AdvisorDocumentsComponent)
+          },
+          {
+            path: 'application-summary',
+            loadComponent: () => import('./new-account-creation/application-summary/application-summary.component').then(m => m.ApplicationSummaryComponent)
+          },
+          {
+            path: 'email-workflow',
+            loadComponent: () => import('./new-account-creation/email-workflow/email-workflow.component').then(m => m.EmailWorkflowComponent)
+          }
+        ]
       }
     ]
   }

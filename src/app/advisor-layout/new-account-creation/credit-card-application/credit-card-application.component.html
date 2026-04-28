@@ -1,0 +1,220 @@
+<div class="application-container p-4">
+  <!-- Breadcrumb -->
+  <div class="flex align-items-center gap-2 mb-2 text-secondary text-sm">
+    <i class="pi pi-home cursor-pointer" routerLink="/advisor/dashboard"></i>
+    <span>/</span>
+    <span class="cursor-pointer" routerLink="/advisor/new-account-creation">New Account Creation</span>
+    <span>/</span>
+    <span>Credit Cards</span>
+  </div>
+
+  <h1 class="page-title mb-4">Credit Cards</h1>
+
+  <div class="card p-3">
+    <!-- Warning Message -->
+    <div class="warning-banner flex align-items-center gap-3 p-2 mb-2">
+      <i class="pi pi-exclamation-triangle text-xl"></i>
+      <p class="m-0 text-sm">
+        Make sure the details you enter are correct. Once you click Next on the screen, you won't be able to make any changes here.
+      </p>
+    </div>
+
+    <!-- Form Row -->
+    <div class="grid form-grid">
+      <div class="col-12 md:col-4">
+        <label class="block text-sm font-medium mb-2 label-required">Select Institution</label>
+        <p-select [options]="institutions" [(ngModel)]="selectedInstitution" placeholder="American Express" class="w-full" />
+      </div>
+
+      <div class="col-12 md:col-4">
+        <label class="block text-sm font-medium mb-2 label-required">Credit Card</label>
+        <div class="flex gap-2">
+          <p-select [options]="cards" [(ngModel)]="selectedCard" placeholder="Credit Card" class="flex-grow-1" />
+          <button class="info-btn">
+            <i class="pi pi-info-circle"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="col-12 md:col-4">
+        <label class="block text-sm font-medium mb-2 label-required">Select Client</label>
+        <div class="flex gap-2">
+          <p-select [options]="clientOptions" [(ngModel)]="clientName" placeholder="Select Client" class="flex-grow-1" />
+          <button class="search-btn" (click)="openClientSearch()">
+            <i class="pi pi-search"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Actions -->
+    <div class="flex justify-content-center mt-3">
+      <button pButton label="Save & Next" class="save-next-btn" 
+        [disabled]="!selectedInstitution || !selectedCard || !clientName"
+        (click)="saveAndNext()"></button>
+    </div>
+  </div>
+
+  <!-- Find Existing Client Dialog -->
+  <p-dialog header="Find Existing Client" [(visible)]="displayClientSearch" [modal]="true" 
+    [style]="{width: '850px'}" [draggable]="false" [resizable]="false" class="client-search-dialog">
+    <ng-template pTemplate="header">
+      <div class="flex align-items-center justify-content-between w-full pr-4">
+        <span class="text-xl font-semibold text-navy-900">Find Existing Client</span>
+        <div class="flex gap-2">
+          <button class="dialog-icon-btn"><i class="pi pi-search"></i></button>
+          <button class="dialog-icon-btn" (click)="openAddClient()"><i class="pi pi-user-plus"></i></button>
+        </div>
+      </div>
+    </ng-template>
+
+    <div class="modal-body">
+      <p-table [value]="clients" [(selection)]="selectedClient" selectionMode="single" 
+        [scrollable]="true" scrollHeight="350px" class="client-table">
+        <ng-template pTemplate="header">
+          <tr>
+            <th style="width: 4rem"></th>
+            <th>Client Name</th>
+            <th>Type</th>
+            <th>Primary Email</th>
+            <th>Primary Phone</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-client>
+          <tr [pSelectableRow]="client">
+            <td>
+              <div class="custom-radio" [class.active]="selectedClient === client">
+                <div class="radio-dot"></div>
+              </div>
+            </td>
+            <td><span class="text-blue-600 font-medium">{{ client.name }}</span></td>
+            <td>{{ client.type }}</td>
+            <td>{{ client.email }}</td>
+            <td>{{ client.phone }}</td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+
+    <ng-template pTemplate="footer">
+      <div class="flex justify-content-between align-items-center w-full footer-container">
+        <div class="pagination-wrapper">
+          <p-paginator [rows]="10" [totalRecords]="clients.length" class="compact-paginator" />
+        </div>
+        <button pButton label="Select" class="modal-select-btn" [disabled]="!selectedClient" (click)='selectClient()'></button>
+      </div>
+    </ng-template>
+  </p-dialog>
+
+  <!-- Add New Client Modal -->
+  <p-dialog [(visible)]="displayAddClient" [modal]="true" [style]="{width: '800px'}" 
+    [draggable]="false" [resizable]="false" class="add-client-dialog" [closable]="true">
+    
+    <ng-template pTemplate="header">
+      <span class="text-xl font-bold">Add New Client</span>
+    </ng-template>
+
+    <div class="modal-body p-4">
+      <div class="grid form-grid-compact">
+        <!-- Title, First Name, Middle Name -->
+        <div class="col-12 md:col-3">
+          <label class="block text-sm font-medium mb-1">Title</label>
+          <p-select [options]="titles" [(ngModel)]="newClient.title" placeholder="Select Title" class="w-full" />
+        </div>
+        <div class="col-12 md:col-5">
+          <label class="block text-sm font-medium mb-1 label-required">First Name</label>
+          <input type="text" pInputText [(ngModel)]="newClient.firstName" placeholder="Enter First Name" class="w-full" />
+        </div>
+        <div class="col-12 md:col-4">
+          <label class="block text-sm font-medium mb-1">Middle Name</label>
+          <input type="text" pInputText [(ngModel)]="newClient.middleName" placeholder="Enter Middle Name" class="w-full" />
+        </div>
+
+        <!-- Last Name, Suffix, Email -->
+        <div class="col-12 md:col-4">
+          <label class="block text-sm font-medium mb-1 label-required">Last Name</label>
+          <input type="text" pInputText [(ngModel)]="newClient.lastName" placeholder="Enter Last Name" class="w-full" />
+        </div>
+        <div class="col-12 md:col-3">
+          <label class="block text-sm font-medium mb-1">Suffix</label>
+          <p-select [options]="suffixes" [(ngModel)]="newClient.suffix" placeholder="Select Suffix" class="w-full" />
+        </div>
+        <div class="col-12 md:col-5">
+          <label class="block text-sm font-medium mb-1 label-required">Email</label>
+          <input type="email" pInputText [(ngModel)]="newClient.email" placeholder="Enter Email" class="w-full" />
+        </div>
+
+        <!-- DOB, PAN, Aadhaar -->
+        <div class="col-12 md:col-4">
+          <label class="block text-sm font-medium mb-1 label-required">Date Of Birth (MM-DD-YYYY)</label>
+          <input type="text" pInputText [(ngModel)]="newClient.dob" placeholder="Date Of Birth" class="w-full" />
+        </div>
+        <div class="col-12 md:col-4">
+          <label class="block text-sm font-medium mb-1 label-required">PAN Number</label>
+          <input type="text" pInputText [(ngModel)]="newClient.idNumber" placeholder="Enter PAN" class="w-full" />
+        </div>
+        <div class="col-12 md:col-4">
+          <label class="block text-sm font-medium mb-1 label-required">Aadhaar Number</label>
+          <input type="text" pInputText [(ngModel)]="newClient.aadhaarNumber" placeholder="Enter Aadhaar" class="w-full" />
+        </div>
+
+        <!-- ID Verification No. -->
+        <div class="col-12">
+          <label class="block text-sm font-medium mb-1">ID Verification No.</label>
+          <div class="grid">
+            <div class="col-6">
+              <input type="text" pInputText placeholder="Driving License No." class="w-full" />
+            </div>
+            <div class="col-6">
+              <input type="text" pInputText placeholder="Passport No." class="w-full" />
+            </div>
+          </div>
+        </div>
+
+        <!-- Phone Number Section -->
+        <div class="col-12 mt-3">
+          <p class="text-xs text-blue-600 italic mb-2">
+            (At least one Mobile type is required for Phone Number field to receive the OTP while login)
+          </p>
+          <label class="block text-sm font-medium mb-1 label-required">Phone Number</label>
+          <div class="flex gap-2 align-items-center">
+            <p-select [options]="[{label: 'Mobile', value: 'Mobile'}]" [(ngModel)]="newClient.phoneType" class="w-5rem" />
+            <p-select [options]="countries" [(ngModel)]="newClient.countryCode" class="w-8rem" />
+            <input type="text" pInputText [(ngModel)]="newClient.phoneNumber" placeholder="(XXX) XXX-XXXX" class="flex-grow-1" />
+            <button class="dialog-icon-btn-outline">
+              <i class="pi pi-plus"></i>
+            </button>
+          </div>
+          <p class="text-xs text-gray-500 italic mt-2">
+            (Only a "Physical" (residential) address is allowed, no P.O. boxes)
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <ng-template pTemplate="footer">
+      <div class="flex justify-content-end p-2">
+        <button pButton label="Verify & Create" class="verify-create-btn" 
+          [disabled]="!newClient.firstName || !newClient.lastName || !newClient.email || !newClient.dob || !newClient.idNumber || !newClient.aadhaarNumber || !newClient.phoneNumber"
+          (click)="verifyAndCreate()"></button>
+      </div>
+    </ng-template>
+  </p-dialog>
+
+  <!-- Confirmation Modal -->
+  <p-dialog header="Account" [(visible)]="displayConfirmation" [modal]="true" 
+    [style]="{width: '450px'}" [draggable]="false" [resizable]="false" 
+    class="confirmation-dialog" [closable]="false">
+    
+    <div class="modal-body text-center p-4">
+      <p class="text-gray-700 text-lg mb-4">
+        Are you sure you want to proceed with the entered details.
+      </p>
+    </div>
+
+    <ng-template pTemplate="footer">
+      <button pButton label="No" class="p-button-outlined cancel-btn" (click)="cancelProceed()"></button>
+      <button pButton label="Yes" class="p-button-primary confirm-btn" (click)="confirmProceed()"></button>
+    </ng-template>
+  </p-dialog>
+</div>
