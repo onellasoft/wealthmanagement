@@ -55,7 +55,8 @@
         
         <div class="flex align-items-center gap-2">
           <div class="action-icons flex gap-2">
-            <button class="icon-btn" [class.active]="doc.uploaded" pTooltip="View Document" (click)="viewDocument(doc)">
+            <button class="icon-btn" [class.active]="doc.uploaded" pTooltip="View Document" 
+                    [disabled]="!doc.uploaded" (click)="viewDocument(doc)">
               <i class="pi pi-eye"></i>
             </button>
             <button class="icon-btn" [class.success-btn]="doc.uploaded" pTooltip="Upload Document" (click)="triggerUpload(doc)">
@@ -65,6 +66,7 @@
                     [class.success-btn]="doc.sentForSignature" 
                     [pTooltip]="doc.sentForSignature ? 'Sent for Signature' : 'Send for Signature'" 
                     tooltipPosition="top"
+                    [disabled]="!doc.uploaded"
                     (click)="sendForSignature(doc)">
               <i [class]="doc.sentForSignature ? 'pi pi-check' : 'pi pi-send'"></i>
             </button>
@@ -80,7 +82,9 @@
     <input type="file" id="fileInput" style="display: none" (change)="onFileSelected($event)" accept=".pdf,.doc,.docx,.jpg,.png">
 
     <div class="flex justify-content-center mt-5">
-      <button pButton label="Next" class="p-button-primary next-btn-large" (click)="onNext()"></button>
+      <button pButton label="Next" class="p-button-primary next-btn-large" 
+        [disabled]="!areAllDocumentsUploaded"
+        (click)="onNext()"></button>
     </div>
   </div>
 

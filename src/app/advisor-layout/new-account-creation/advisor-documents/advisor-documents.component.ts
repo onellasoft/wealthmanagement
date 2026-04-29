@@ -68,7 +68,13 @@ export class AdvisorDocumentsComponent {
     doc.sentForSignature = true;
   }
 
+  get areAllDocumentsUploaded(): boolean {
+    return this.documents.every(doc => doc.uploaded);
+  }
+
   onNext() {
-    this.router.navigate(['/advisor/new-account-creation/application-summary']);
+    if (this.areAllDocumentsUploaded) {
+      this.router.navigate(['/advisor/new-account-creation/application-summary']);
+    }
   }
 }

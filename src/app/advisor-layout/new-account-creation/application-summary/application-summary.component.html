@@ -83,7 +83,11 @@
     <div class="summary-section mb-5">
       <div class="section-header personal-header flex justify-content-between align-items-center p-3 cursor-pointer" (click)="toggleSection('personalDetails')">
         <span class="font-semibold">Personal Details</span>
-        <i [class]="sections.personalDetails ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></i>
+        <div class="flex align-items-center gap-3">
+          <button pButton label="Edit" icon="pi pi-pencil" class="p-button-outlined p-button-sm edit-btn" 
+            (click)="$event.stopPropagation(); editPersonalDetails()"></button>
+          <i [class]="sections.personalDetails ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></i>
+        </div>
       </div>
       <div class="section-body p-4 bg-white border-1 border-gray-200" *ngIf="sections.personalDetails">
         <div class="grid">

@@ -72,6 +72,6 @@ export class EmailWorkflowComponent {
 
   onOk() {
     this.displaySuccessDialog = false;
-    this.router.navigate(['/advisor/dashboard']);
+    this.router.navigate(['/advisor/credit-card']);
   }
 }

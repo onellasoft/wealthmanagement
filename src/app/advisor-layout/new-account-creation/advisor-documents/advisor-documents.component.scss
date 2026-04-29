@@ -143,6 +143,14 @@
     background: rgba(19, 89, 185, 0.05);
   }
 
+  &:disabled {
+    border-color: #E2E8F0;
+    color: #A0AEC0;
+    background: #F7FAFC;
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+
   &.success-btn {
     background: #E6FFFA !important;
     border-color: #38B2AC !important;
@@ -163,7 +171,14 @@
   color: #ffffff !important;
   font-size: 16px;
 
-  &:hover {
+  &:hover:not(:disabled) {
     opacity: 0.9 !important;
+  }
+
+  &:disabled {
+    background: #C3C9D6 !important;
+    opacity: 0.6 !important;
+    cursor: not-allowed;
+    pointer-events: none;
   }
 }

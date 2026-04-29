@@ -21,11 +21,15 @@ import { DialogModule } from 'primeng/dialog';
   styleUrl: './application-summary.component.scss'
 })
 export class ApplicationSummaryComponent {
-  constructor(private router: Router) {}
+  constructor(public router: Router) {}
+  
+  editPersonalDetails() {
+    this.router.navigate(['/advisor/new-account-creation/credit-card-details']);
+  }
 
   sections = {
-    accountDetails: false,
-    personalDetails: false
+    accountDetails: true,
+    personalDetails: true
   };
 
   displayConfirmDialog: boolean = false;

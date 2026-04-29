@@ -39,7 +39,10 @@
       <div class="col-12 md:col-4">
         <label class="block text-sm font-medium mb-2 label-required">Select Client</label>
         <div class="flex gap-2">
-          <p-select [options]="clientOptions" [(ngModel)]="clientName" placeholder="Select Client" class="flex-grow-1" />
+          <div class="clickable-input-wrapper flex-grow-1" (click)="openClientSearch()">
+            <input type="text" pInputText [value]="clientName || 'Select Client'" readonly class="w-full cursor-pointer" />
+            <i class="pi pi-chevron-down dropdown-icon"></i>
+          </div>
           <button class="search-btn" (click)="openClientSearch()">
             <i class="pi pi-search"></i>
           </button>
