@@ -178,6 +178,7 @@ a {
   background: var(--border-light);
   border-radius: 3px;
 }
+
 /* Premium Stepper Global Styles */
 .stepper-container {
   display: flex;
@@ -186,12 +187,12 @@ a {
   padding: 0;
   flex: 0 0 auto;
   margin-left: auto;
-  max-width: 480px;
+  max-width: 650px;
 
   .step-wrapper {
     display: flex;
     align-items: center;
-    flex: 0 0 85px;
+    flex: 0 0 154px;
 
     &:last-child {
       flex: none;
@@ -239,24 +240,27 @@ a {
         color: white;
         box-shadow: 0 0 0 3px rgba(19, 89, 185, 0.1);
       }
+
       .step-label {
         color: #1359B9;
       }
     }
+
     &.completed {
       .step-circle {
-        background: #F1F5F9;
+        background: white;
         border-color: #1359B9;
         color: #1359B9;
       }
+
       .step-label {
-        color: #64748B;
+        color: #1359B9;
       }
     }
   }
 
   .step-connector {
-    flex: 1;
+    width: 118px;
     height: 2px;
     background: #E2E8F0;
     margin: 0 -2px;
@@ -267,3 +271,142 @@ a {
     }
   }
 }
+
+/* Compact DatePicker Panel for Advisor Financing */
+.compact-datepicker-panel.p-datepicker-panel {
+  height: auto !important;
+  width: auto !important;
+  min-width: 220px !important;
+  max-width: 240px !important;
+  background: white !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
+  padding: 4px !important;
+  z-index: 10001 !important;
+}
+
+.compact-datepicker-panel .p-datepicker-header {
+  padding: 4px !important;
+  height: 32px !important;
+}
+
+.compact-datepicker-panel .p-datepicker-title {
+  line-height: 24px !important;
+}
+
+.compact-datepicker-panel .p-datepicker-prev,
+.compact-datepicker-panel .p-datepicker-next {
+  width: 24px !important;
+  height: 24px !important;
+}
+
+.compact-datepicker-panel .p-yearpicker {
+  padding: 4px !important;
+  display: grid !important;
+  grid-template-columns: repeat(4, 1fr) !important;
+  gap: 2px !important;
+}
+
+.compact-datepicker-panel .p-yearpicker .p-yearpicker-year {
+  padding: 4px 2px !important;
+  font-size: 11px !important;
+  text-align: center !important;
+  border-radius: 4px !important;
+  height: 28px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+/* PrimeNG Global Styling Overrides for Consistency */
+.p-select, .p-inputtext {
+  background: #F7FAFC !important;
+  border: 1px solid #E2E8F0 !important;
+  border-radius: 6px !important;
+  transition: all 0.2s ease !important;
+
+  &:hover {
+    border-color: #1359B9 !important;
+  }
+
+  &:focus, &.p-focus, &.p-inputwrapper-focus {
+    border-color: #1359B9 !important;
+    box-shadow: 0 0 0 1px #1359B9 !important;
+    outline: none !important;
+  }
+}
+
+.p-select {
+  height: 40px !important;
+  display: flex !important;
+  align-items: center !important;
+
+  .p-select-label {
+    padding: 0 12px !important;
+    line-height: 38px !important;
+    font-size: 14px !important;
+    color: #4A5568 !important;
+    display: flex !important;
+    align-items: center !important;
+  }
+
+  .p-select-trigger {
+    width: 32px !important;
+    color: #718096 !important;
+  }
+}
+
+/* Dropdown Panel Styling */
+.p-select-panel {
+  background: #ffffff !important;
+  border: 1px solid #E2E8F0 !important;
+  border-radius: 8px !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08) !important;
+  padding: 4px !important;
+  margin-top: 4px !important;
+
+  .p-select-list {
+    padding: 0 !important;
+  }
+
+  .p-select-option {
+    border-radius: 6px !important;
+    padding: 10px 16px !important;
+    color: #4A5568 !important;
+    font-size: 14px !important;
+    transition: all 0.15s ease !important;
+    margin: 2px 0 !important;
+
+    &:hover, &.p-focus, &.p-highlight {
+      background: #F0F7FF !important;
+      color: #1359B9 !important;
+    }
+
+    &.p-highlight {
+      font-weight: 600 !important;
+    }
+    
+    &:focus {
+      box-shadow: none !important;
+      background: #F0F7FF !important;
+    }
+  }
+
+  .p-select-filter-container {
+    padding: 8px !important;
+    border-bottom: 1px solid #E2E8F0 !important;
+    
+    .p-select-filter {
+      background: #F7FAFC !important;
+      padding: 8px 12px !important;
+      font-size: 13px !important;
+    }
+  }
+}
+
+/* Global Input Height Consistency */
+.p-inputtext {
+  height: 40px !important;
+  padding: 0 12px !important;
+  font-size: 14px !important;
+  color: #4A5568 !important;
+}

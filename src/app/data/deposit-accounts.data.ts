@@ -330,8 +330,8 @@ export const LIFE_SETTLEMENTS_DATA: LifeSettlement[] = [
 ];
 
 export const ADVISOR_FINANCING_DATA: AdvisorFinancing[] = [
-  { firmName: '18Forty8 Private Wealth', submittedDate: '10-17-2025', firmAum: '₹2,000.00', advisorsCount: 500, owners: ['adnan hussain Jr.'] },
-  { firmName: '18Forty8 Private Wealth', submittedDate: '09-11-2025', firmAum: '₹5,000.00', advisorsCount: 200, owners: ['Kavya Dashich', 'Adnan Hussain Jr.'] },
+  { firmName: '18Forty8 Private Wealth India', submittedDate: '17-10-2025', firmAum: '₹2,000.00', advisorsCount: 500, owners: ['Akash Patil'] },
+  { firmName: '18Forty8 Private Wealth India', submittedDate: '11-09-2025', firmAum: '₹5,000.00', advisorsCount: 200, owners: ['Kavya Dadhich', 'Akash Patil'] },
 ];
 
 export interface CreditCard {

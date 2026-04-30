@@ -1,0 +1,819 @@
+<div class="application-container p-4">
+  <!-- Breadcrumb -->
+  <div class="flex align-items-center justify-content-between mb-4">
+    <div class="flex align-items-center gap-2 text-secondary text-sm">
+      <i class="pi pi-home cursor-pointer" routerLink="/advisor/dashboard"></i>
+      <span>/</span>
+      <span class="cursor-pointer" routerLink="/advisor/new-account-creation">New Account Creation</span>
+      <span>/</span>
+      <span>Home Loan Opening Process</span>
+    </div>
+    
+    <!-- Premium Stepper -->
+    <div class="stepper-container m-0">
+      <div class="step-wrapper">
+        <div class="step-node" [class.active]="currentStep === 1" [class.completed]="currentStep > 1" (click)="goToStep(1)">
+          <div class="step-circle">
+            <i class="pi pi-check" *ngIf="currentStep > 1"></i>
+            <span *ngIf="currentStep <= 1">1</span>
+          </div>
+          <span class="step-label">Account Type</span>
+        </div>
+        <div class="step-connector" [class.active]="currentStep > 1"></div>
+      </div>
+      <div class="step-wrapper">
+        <div class="step-node" [class.active]="currentStep === 2" [class.completed]="currentStep > 2" (click)="goToStep(2)">
+          <div class="step-circle">
+            <i class="pi pi-check" *ngIf="currentStep > 2"></i>
+            <span *ngIf="currentStep <= 2">2</span>
+          </div>
+          <span class="step-label">Personal Details</span>
+        </div>
+        <div class="step-connector" [class.active]="currentStep > 2"></div>
+      </div>
+      <div class="step-wrapper">
+        <div class="step-node" [class.active]="currentStep === 3" [class.completed]="currentStep > 3" (click)="goToStep(3)">
+          <div class="step-circle">
+            <i class="pi pi-check" *ngIf="currentStep > 3"></i>
+            <span *ngIf="currentStep <= 3">3</span>
+          </div>
+          <span class="step-label">Review</span>
+        </div>
+        <div class="step-connector" [class.active]="currentStep > 3"></div>
+      </div>
+      <div class="step-wrapper">
+        <div class="step-node" [class.active]="currentStep === 4" [class.completed]="currentStep > 4" (click)="goToStep(4)">
+          <div class="step-circle">
+            <i class="pi pi-check" *ngIf="currentStep > 4"></i>
+            <span *ngIf="currentStep <= 4">4</span>
+          </div>
+          <span class="step-label">Email Customization</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h1 class="page-title mb-4">Home Loan Opening Process</h1>
+
+  <div class="card p-3 mt-4">
+    <!-- Step 1: Account Type -->
+    <div *ngIf="currentStep === 1">
+      <!-- Warning Message -->
+      <div class="warning-banner flex align-items-center gap-3 p-2 mb-4">
+        <i class="pi pi-exclamation-triangle text-xl"></i>
+        <p class="m-0 text-sm">
+          Make sure the details you enter are correct. Once you click Next on the screen, you won't be able to make any changes here.
+        </p>
+      </div>
+      
+      <div class="grid form-grid">
+        <div class="col-12 md:col-4">
+          <label class="block text-sm font-medium mb-2 label-required">Select Institution</label>
+          <p-select [options]="institutions" [(ngModel)]="formData.institution" placeholder="Select" class="w-full" [filter]="true" filterBy="label"></p-select>
+        </div>
+        
+        <div class="col-12 md:col-4">
+          <label class="block text-sm font-medium mb-2 label-required">Mortgages</label>
+          <div class="flex gap-2 w-full">
+            <p-select [options]="mortgages" [(ngModel)]="formData.mortgage" placeholder="Select" class="flex-grow-1" [filter]="true" filterBy="label"></p-select>
+            <button class="info-btn">
+               <i class="pi pi-info-circle"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="col-12 md:col-4">
+          <label class="block text-sm font-medium mb-2 label-required">Select Client</label>
+          <div class="flex gap-2">
+            <div class="clickable-input-wrapper flex-grow-1" (click)="openClientSearch()">
+              <input type="text" pInputText [value]="clientName || 'Select Client'" readonly class="w-full cursor-pointer" />
+              <i class="pi pi-chevron-down dropdown-icon"></i>
+            </div>
+            <button class="search-btn" (click)="openClientSearch()">
+               <i class="pi pi-search"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Extended Fields (Show only when client is selected) -->
+      <div class="grid form-grid mt-4" *ngIf="clientName">
+        <!-- Zip Code -->
+        <div class="col-12 md:col-3">
+          <label class="block text-sm font-medium mb-2 label-required">
+            Zip Code <span class="text-secondary font-normal text-xs">(Client Plans to Buy The Property)</span>
+          </label>
+          <input type="text" pInputText [(ngModel)]="formData.zipCode" placeholder="ZIP Code" class="w-full" />
+        </div>
+
+        <!-- Home Loan Type -->
+        <div class="col-12 md:col-3">
+          <label class="block text-sm font-medium mb-2 label-required">Home Loan Type</label>
+          <div class="flex gap-4 align-items-center h-40px">
+            <div class="flex align-items-center gap-2">
+              <p-radioButton name="homeLoanType" [value]="'purchase'" [(ngModel)]="formData.homeLoanType" inputId="purchase"></p-radioButton>
+              <label for="purchase" class="cursor-pointer text-sm">Purchase</label>
+            </div>
+            <div class="flex align-items-center gap-2">
+              <p-radioButton name="homeLoanType" [value]="'refinance'" [(ngModel)]="formData.homeLoanType" inputId="refinance"></p-radioButton>
+              <label for="refinance" class="cursor-pointer text-sm">Refinance</label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sage Section -->
+        <div class="col-12 md:col-6">
+          <div class="sage-info-card p-3 flex align-items-center gap-4">
+             <div class="sage-logo-container flex align-items-center gap-2">
+                <div class="sage-icon-placeholder flex align-items-center justify-content-center">
+                   <i class="pi pi-home text-green-600"></i>
+                </div>
+                <div class="sage-text">
+                   <div class="font-bold text-navy-900" style="font-size: 14px; line-height: 1;">Sage</div>
+                   <div class="text-gray-400 font-semibold" style="font-size: 8px; letter-spacing: 0.5px;">HOME LOANS<br>CORPORATION</div>
+                </div>
+             </div>
+             
+             <div class="flex-grow-1">
+                <label class="block text-xs font-medium mb-1 label-required">Term</label>
+                <p-select [options]="termsOptions" [(ngModel)]="formData.loanTerm" placeholder="Select Terms" class="w-full sm-select"></p-select>
+             </div>
+
+             <div class="text-center px-2 border-left-1 border-gray-200">
+                <label class="block text-xs font-medium mb-1 label-required">Rate</label>
+                <span class="text-sm font-semibold text-gray-400">--</span>
+             </div>
+             
+             <div class="text-center px-2">
+                <label class="block text-xs font-medium mb-1 label-required">APR</label>
+                <span class="text-sm font-semibold text-gray-400">--</span>
+             </div>
+
+             <div class="text-center px-2">
+                <label class="block text-xs font-medium mb-1 label-required">Points</label>
+                <span class="text-sm font-semibold text-gray-400">--</span>
+             </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Action Button -->
+      <div class="flex justify-content-center mt-4">
+        <button pButton label="Save & Next" class="save-next-btn" (click)="saveAndNext()"></button>
+      </div>
+    </div>
+
+    <!-- Step 2: Personal Details -->
+    <div *ngIf="currentStep === 2">
+      <div class="grid form-grid">
+        <!-- Row 1: Title, Name, Suffix -->
+        <div class="col-12 md:col-2">
+          <label class="block text-sm font-medium mb-1">Title</label>
+          <div class="flex gap-1">
+            <p-select [options]="titles" [(ngModel)]="clientDetails.title" placeholder="Select Title" class="w-full" />
+            <div class="check-box verified"><i class="pi pi-check"></i></div>
+          </div>
+        </div>
+        <div class="col-12 md:col-2">
+          <label class="block text-sm font-medium mb-1 label-required">First Name</label>
+          <div class="flex gap-1">
+            <input type="text" pInputText [(ngModel)]="clientDetails.firstName" (keypress)="onlyAlphabets($event)" class="w-full" />
+            <div class="check-box" [class.verified]="isFieldValid('firstName')"><i class="pi pi-check"></i></div>
+          </div>
+        </div>
+        <div class="col-12 md:col-2">
+          <label class="block text-sm font-medium mb-1">Middle Name</label>
+          <div class="flex gap-1">
+            <input type="text" pInputText [(ngModel)]="clientDetails.middleName" (keypress)="onlyAlphabets($event)" class="w-full" />
+            <div class="check-box verified"><i class="pi pi-check"></i></div>
+          </div>
+        </div>
+        <div class="col-12 md:col-2">
+          <label class="block text-sm font-medium mb-1 label-required">Last Name</label>
+          <div class="flex gap-1">
+            <input type="text" pInputText [(ngModel)]="clientDetails.lastName" (keypress)="onlyAlphabets($event)" class="w-full" />
+            <div class="check-box" [class.verified]="isFieldValid('lastName')"><i class="pi pi-check"></i></div>
+          </div>
+        </div>
+        <div class="col-12 md:col-2">
+          <label class="block text-sm font-medium mb-1">Suffix</label>
+          <div class="flex gap-1">
+            <p-select [options]="suffixes" [(ngModel)]="clientDetails.suffix" placeholder="Select" class="w-full" />
+            <div class="check-box verified"><i class="pi pi-check"></i></div>
+          </div>
+        </div>
+
+        <!-- Row 2: Email, DOB, PAN -->
+        <div class="col-12 md:col-4 mt-1">
+          <label class="block text-sm font-medium mb-0 label-required">Email ID</label>
+          <div class="flex gap-1">
+            <input type="email" pInputText [(ngModel)]="clientDetails.email" class="w-full" />
+            <div class="check-box" [class.verified]="isFieldValid('email')"><i class="pi pi-check"></i></div>
+          </div>
+        </div>
+        <div class="col-12 md:col-3 mt-1">
+          <label class="block text-sm font-medium mb-0 label-required">Date of Birth (MM-DD-YYYY)</label>
+          <div class="flex gap-1">
+            <p-datepicker [(ngModel)]="clientDetails.dob" dateFormat="dd-mm-yy" [showIcon]="true" class="w-full" />
+            <div class="check-box" [class.verified]="isFieldValid('dob')"><i class="pi pi-check"></i></div>
+          </div>
+        </div>
+        <div class="col-12 md:col-3 mt-1">
+          <label class="block text-sm font-medium mb-0 label-required">PAN Number</label>
+          <div class="flex gap-1">
+            <input type="text" pInputText [(ngModel)]="clientDetails.panNumber" (input)="formatPAN()" maxlength="10" class="w-full" />
+            <div class="check-box" [class.verified]="isFieldValid('panNumber')"><i class="pi pi-check"></i></div>
+          </div>
+        </div>
+
+        <!-- ID Verification Section -->
+        <div class="col-12 mt-1">
+          <p class="text-sm font-semibold text-blue-900 mb-1">ID Verification No.</p>
+          <div class="grid">
+            <div class="col-12 md:col-3">
+              <input type="text" pInputText [(ngModel)]="clientDetails.drivingLicense" placeholder="Driving License No." class="w-full" />
+            </div>
+            <div class="col-12 md:col-3">
+              <input type="text" pInputText [(ngModel)]="clientDetails.passport" placeholder="Passport No." class="w-full" />
+            </div>
+          </div>
+        </div>
+
+        <!-- Phone Number Section -->
+        <div class="col-12 mt-1">
+          <p class="text-xs text-blue-600 italic mb-1">
+            Phone Number <span class="text-gray-500">(At least one Mobile type is required for Phone Number field to receive the OTP while login)</span>
+          </p>
+          <div class="flex align-items-center gap-2">
+            <div class="check-box" [class.verified]="isFieldValid('phoneNumber')"><i class="pi pi-check"></i></div>
+            <p-select [options]="[{label: 'Mobile', value: 'Mobile'}]" [(ngModel)]="clientDetails.phoneType" class="w-8rem" />
+            <p-select [options]="countries" [(ngModel)]="clientDetails.countryCode" class="w-10rem" />
+            <input type="text" pInputText [(ngModel)]="clientDetails.phoneNumber" (input)="formatPhone()" placeholder="(830) 250-8166" class="w-15rem" />
+            <button class="add-btn"><i class="pi pi-plus"></i></button>
+          </div>
+        </div>
+
+        <!-- Address Section -->
+        <div class="col-12 mt-1">
+          <p class="text-xs text-blue-600 italic mb-1">
+            Address <span class="text-gray-400">(Only a "Physical" (residential) address is allowed, no P.O. boxes)</span>
+          </p>
+          <div class="flex gap-2">
+            <div class="check-box mt-3" [class.verified]="isFieldValid('addressLine1') && isFieldValid('zipCode')"><i class="pi pi-check"></i></div>
+            <div class="grid flex-grow-1">
+              <div class="col-12 md:col-3">
+                <label class="block text-xs font-medium mb-0 label-required">Address Line 1</label>
+                <input type="text" pInputText [(ngModel)]="clientDetails.addressLine1" class="w-full" />
+              </div>
+              <div class="col-12 md:col-3">
+                <label class="block text-xs font-medium mb-0">Address Line 2</label>
+                <input type="text" pInputText [(ngModel)]="clientDetails.addressLine2" class="w-full" />
+              </div>
+              <div class="col-12 md:col-1">
+                <label class="block text-xs font-medium mb-0 label-required">ZIP Code</label>
+                <input type="text" pInputText [(ngModel)]="clientDetails.zipCode" maxlength="6" (keypress)="onlyNumbers($event)" class="w-full" />
+              </div>
+              <div class="col-12 md:col-1">
+                <label class="block text-xs font-medium mb-0">City</label>
+                <input type="text" pInputText [(ngModel)]="clientDetails.city" class="w-full bg-gray-100" />
+              </div>
+              <div class="col-12 md:col-2">
+                <label class="block text-xs font-medium mb-0">State</label>
+                <input type="text" pInputText [(ngModel)]="clientDetails.state" class="w-full bg-gray-100" />
+              </div>
+              <div class="col-12 md:col-2">
+                <label class="block text-xs font-medium mb-0">Country</label>
+                <input type="text" pInputText [(ngModel)]="clientDetails.country" class="w-full bg-gray-100" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Actions -->
+      <div class="flex justify-content-center gap-3 mt-3">
+        <button pButton label="Save" class="save-btn" (click)="save()"></button>
+        <button pButton label="Verify Information" class="verify-info-btn" [disabled]="isVerifying" (click)="verifyInformation()"></button>
+      </div>
+    </div>
+
+    <!-- Step 3: Review -->
+    <div *ngIf="currentStep === 3" class="mt-4">
+      <!-- Warning Banner -->
+      <div class="warning-banner red-banner flex align-items-center gap-3 p-3 mb-4">
+        <i class="pi pi-exclamation-triangle text-xl"></i>
+        <p class="m-0 text-sm">
+          Please review all details carefully. Only the Personal Details section can be updated. Once you click Submit, no further changes can be made.
+        </p>
+      </div>
+
+      <div class="review-content">
+        <!-- Account Type Section -->
+        <div class="summary-section">
+          <div class="section-header account-header flex justify-content-between align-items-center p-3 cursor-pointer" (click)="toggleSection('accountType')">
+            <span class="font-bold">Account Type</span>
+            <div class="flex align-items-center gap-3">
+              <button pButton label="Edit" icon="pi pi-pencil" class="edit-btn" (click)="$event.stopPropagation(); goToStep(1)"></button>
+              <i [class]="sections.accountType ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></i>
+            </div>
+          </div>
+          <div class="section-body p-4" *ngIf="sections.accountType">
+            <div class="grid form-grid">
+              <div class="col-12 md:col-4">
+                <label class="block text-xs font-medium mb-1">Select Institution</label>
+                <input type="text" pInputText [value]="formData.institution?.label || 'Sage Home Loan'" disabled class="w-full bg-gray-50" />
+              </div>
+              <div class="col-12 md:col-4">
+                <label class="block text-xs font-medium mb-1">Mortgages</label>
+                <div class="relative flex align-items-center">
+                  <input type="text" pInputText [value]="formData.mortgage?.label || 'Mortgage'" disabled class="w-full bg-gray-50 pr-5" />
+                  <i class="pi pi-info-circle absolute right-0 mr-3 text-gray-400"></i>
+                </div>
+              </div>
+              <div class="col-12 md:col-4">
+                <label class="block text-xs font-medium mb-1">Full Name <span class="text-gray-400">(Primary)</span></label>
+                <input type="text" pInputText [value]="clientName || 'Frankil Adam III'" disabled class="w-full bg-gray-50" />
+              </div>
+
+              <div class="col-12 md:col-3 mt-3">
+                <label class="block text-xs font-medium mb-1">Zip Code <span class="text-gray-400">(Client Plans to Buy The Property)</span></label>
+                <input type="text" pInputText [value]="formData.zipCode || '02482'" disabled class="w-full bg-gray-50" />
+              </div>
+              <div class="col-12 md:col-3 mt-3">
+                <label class="block text-xs font-medium mb-1">Home Loan Type</label>
+                <div class="flex gap-4 align-items-center h-38px">
+                  <div class="flex align-items-center gap-2 opacity-60">
+                    <p-radioButton name="rev_type" [value]="'purchase'" [ngModel]="formData.homeLoanType" [disabled]="true"></p-radioButton>
+                    <span class="text-sm">Purchase</span>
+                  </div>
+                  <div class="flex align-items-center gap-2 opacity-60">
+                    <p-radioButton name="rev_type" [value]="'refinance'" [ngModel]="formData.homeLoanType" [disabled]="true"></p-radioButton>
+                    <span class="text-sm">Refinance</span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12 md:col-6 mt-3">
+                <div class="sage-info-card p-2 flex align-items-center gap-3 bg-gray-50 opacity-80 border-gray-200">
+                   <div class="sage-logo-container flex align-items-center gap-2">
+                      <div class="sage-text">
+                         <div class="font-bold text-navy-900" style="font-size: 12px;">Sage</div>
+                         <div class="text-gray-400 font-semibold" style="font-size: 7px;">HOME LOANS</div>
+                      </div>
+                   </div>
+                   <div class="flex-grow-1">
+                      <label class="block text-[10px] font-medium mb-0">Term</label>
+                      <span class="text-xs font-semibold">{{formData.loanTerm?.label || '15 year Fixed'}}</span>
+                   </div>
+                   <div class="text-center px-2 border-left-1 border-gray-200">
+                      <label class="block text-[10px] font-medium mb-0">Rate</label>
+                      <span class="text-xs font-bold text-navy-900">5.25%</span>
+                   </div>
+                   <div class="text-center px-2">
+                      <label class="block text-[10px] font-medium mb-0">APR</label>
+                      <span class="text-xs font-bold text-navy-900">5.503%</span>
+                   </div>
+                   <div class="text-center px-2">
+                      <label class="block text-[10px] font-medium mb-0">Points</label>
+                      <span class="text-xs font-bold text-navy-900">$3,129.60</span>
+                   </div>
+                </div>
+              </div>
+            </div>
+            <div class="flex justify-content-center mt-4">
+              <button pButton label="Next" class="p-button-primary next-btn-small" style="background:#1359B9 !important" (click)="toggleSection('personalDetails'); toggleSection('accountType')"></button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Personal Details Section -->
+        <div class="summary-section">
+          <div class="section-header personal-header flex justify-content-between align-items-center p-3 cursor-pointer" (click)="toggleSection('personalDetails')">
+            <span class="font-bold">Personal Details</span>
+            <div class="flex align-items-center gap-3">
+              <button pButton label="Edit" icon="pi pi-pencil" class="edit-btn" (click)="$event.stopPropagation(); editPersonalDetails()"></button>
+              <i [class]="sections.personalDetails ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></i>
+            </div>
+          </div>
+          <div class="section-body p-4" *ngIf="sections.personalDetails">
+            <div class="grid form-grid">
+              <div class="col-12 md:col-2">
+                <label class="block text-xs font-medium mb-1">Title</label>
+                <input type="text" pInputText [value]="clientDetails.title || 'Mr.'" disabled class="w-full bg-gray-50" />
+              </div>
+              <div class="col-12 md:col-3">
+                <label class="block text-xs font-medium mb-1">First Name</label>
+                <input type="text" pInputText [value]="clientDetails.firstName || 'Frankil'" disabled class="w-full bg-gray-50" />
+              </div>
+              <div class="col-12 md:col-3">
+                <label class="block text-xs font-medium mb-1">Middle Name</label>
+                <input type="text" pInputText [value]="clientDetails.middleName" disabled class="w-full bg-gray-50" />
+              </div>
+              <div class="col-12 md:col-3">
+                <label class="block text-xs font-medium mb-1">Last Name</label>
+                <input type="text" pInputText [value]="clientDetails.lastName || 'Adam'" disabled class="w-full bg-gray-50" />
+              </div>
+              <div class="col-12 md:col-1">
+                <label class="block text-xs font-medium mb-1">Suffix</label>
+                <input type="text" pInputText [value]="clientDetails.suffix || 'III'" disabled class="w-full bg-gray-50" />
+              </div>
+
+              <div class="col-12 md:col-4 mt-3">
+                <label class="block text-xs font-medium mb-1">Email ID</label>
+                <input type="text" pInputText [value]="clientDetails.email || 'fadam111@yopmail.com'" disabled class="w-full bg-gray-50" />
+              </div>
+              <div class="col-12 md:col-4 mt-3">
+                <label class="block text-xs font-medium mb-1">Date of Birth</label>
+                <input type="text" pInputText [value]="clientDetails.dob || '03-03-2026'" disabled class="w-full bg-gray-50" />
+              </div>
+              <div class="col-12 md:col-4 mt-3">
+                <label class="block text-xs font-medium mb-1">PAN Number</label>
+                <input type="text" pInputText [value]="clientDetails.panNumber || 'XXX-XX-4345'" disabled class="w-full bg-gray-50" />
+              </div>
+
+              <div class="col-12 mt-3">
+                <label class="block text-xs font-medium mb-1">Phone Number</label>
+                <input type="text" pInputText [value]="clientDetails.countryCode + ' ' + clientDetails.phoneNumber" disabled class="w-full bg-gray-50" />
+              </div>
+
+              <div class="col-12 mt-3">
+                <label class="block text-xs font-medium mb-1">Address</label>
+                <input type="text" pInputText [value]="clientDetails.addressLine1 + ', ' + clientDetails.addressLine2 + ', ' + clientDetails.city + ', ' + clientDetails.state + ' ' + clientDetails.zipCode" disabled class="w-full bg-gray-50" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="flex justify-content-center mt-5">
+          <button pButton label="Submit" class="submit-btn-large" (click)="onSubmit()"></button>
+        </div>
+      </div>
+    </div>
+    <!-- Step 4: Email Customization -->
+    <div *ngIf="currentStep === 4" class="email-customization-container mt-4">
+      <div class="email-header-info flex align-items-center">
+        <span class="client-bullet">1</span>
+        <span class="font-bold">{{clientName || 'Frankil Adam III'}}</span>
+      </div>
+
+      <div class="grid">
+        <div class="col-12 mb-3">
+          <label class="block text-sm font-medium mb-1 text-gray-600">Send To</label>
+          <input type="text" pInputText [(ngModel)]="emailData.sendTo" class="w-full bg-white" />
+        </div>
+
+        <div class="col-12 mb-3">
+          <label class="block text-sm font-medium mb-1 text-gray-600">Subject</label>
+          <div class="flex gap-2">
+            <input type="text" pInputText [(ngModel)]="emailData.subject" class="flex-grow-1 bg-white" />
+            <button pButton class="attachments-btn">
+              <i class="pi pi-paperclip"></i>
+              <span>Attachments</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="col-12 mb-4">
+          <label class="block text-sm font-medium mb-1 text-gray-600">Custom Message</label>
+          <p-editor [(ngModel)]="emailData.message" [style]="{ height: '320px' }">
+            <ng-template pTemplate="toolbar">
+              <span class="ql-formats">
+                <button class="ql-bold" aria-label="Bold"></button>
+                <button class="ql-italic" aria-label="Italic"></button>
+                <button class="ql-underline" aria-label="Underline"></button>
+                <button class="ql-strike" aria-label="Strike"></button>
+              </span>
+              <span class="ql-formats">
+                <select class="ql-color"></select>
+                <select class="ql-background"></select>
+              </span>
+              <span class="ql-formats">
+                <button class="ql-list" value="ordered"></button>
+                <button class="ql-list" value="bullet"></button>
+                <select class="ql-align">
+                  <option selected></option>
+                  <option value="center"></option>
+                  <option value="right"></option>
+                  <option value="justify"></option>
+                </select>
+              </span>
+              <span class="ql-formats">
+                <button class="ql-link"></button>
+                <button class="ql-image"></button>
+                <button class="ql-code-block"></button>
+              </span>
+            </ng-template>
+          </p-editor>
+        </div>
+      </div>
+
+      <!-- Send Button -->
+      <div class="flex justify-content-center mt-5">
+        <button pButton label="Send" class="send-btn-large" (click)="onSend()"></button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Review Account Confirmation Modal -->
+<p-dialog [(visible)]="displaySubmitConfirm" [modal]="true" [style]="{width: '450px'}" [draggable]="false" [resizable]="false" styleClass="confirm-dialog" [closable]="false">
+  <ng-template pTemplate="header">
+    <span class="text-xl font-semibold text-blue-700">Review Account</span>
+  </ng-template>
+  
+  <div class="p-4 text-center">
+    <p class="text-gray-600 line-height-3 m-0">
+      Please confirm if the details are reviewed and correct!
+    </p>
+  </div>
+
+  <ng-template pTemplate="footer">
+    <div class="flex justify-content-center gap-3 pb-3">
+      <button pButton label="Cancel" class="p-button-outlined cancel-btn" (click)="displaySubmitConfirm = false"></button>
+      <button pButton label="Confirm" class="p-button-primary confirm-btn" (click)="confirmSubmit()"></button>
+    </div>
+  </ng-template>
+</p-dialog>
+
+<!-- Find Existing Client Dialog -->
+<p-dialog header="Find Existing Client" [(visible)]="displayClientSearch" [modal]="true" 
+  [style]="{width: '850px'}" [draggable]="false" [resizable]="false" styleClass="client-search-dialog" [closable]="false">
+  <ng-template pTemplate="header">
+    <div class="flex align-items-center justify-content-between w-full pr-4">
+      <span class="text-xl font-semibold text-navy-900">Find Existing Client</span>
+      <div class="flex gap-2">
+        <button class="dialog-icon-btn"><i class="pi pi-search"></i></button>
+        <button class="dialog-icon-btn" (click)="openAddClient()"><i class="pi pi-user-plus"></i></button>
+      </div>
+    </div>
+  </ng-template>
+
+  <div class="modal-body">
+    <p-table [value]="clients" [(selection)]="selectedClient" selectionMode="single" 
+      [scrollable]="true" scrollHeight="350px" class="client-table">
+      <ng-template pTemplate="header">
+        <tr>
+          <th style="width: 4rem"></th>
+          <th>Client Name</th>
+          <th>Type</th>
+          <th>Primary Email</th>
+          <th>Primary Phone</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-client>
+        <tr [pSelectableRow]="client">
+          <td>
+            <div class="custom-radio" [class.active]="selectedClient === client">
+              <div class="radio-dot"></div>
+            </div>
+          </td>
+          <td><span class="text-blue-600 font-medium">{{ client.name }}</span></td>
+          <td>{{ client.type }}</td>
+          <td>{{ client.email }}</td>
+          <td>{{ client.phone }}</td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+
+  <ng-template pTemplate="footer">
+    <div class="flex justify-content-between align-items-center w-full footer-container">
+      <div class="pagination-wrapper">
+        <p-paginator [rows]="10" [totalRecords]="clients.length" class="compact-paginator" />
+      </div>
+      <button pButton label="Select" class="modal-select-btn" [disabled]="!selectedClient" (click)='selectClient()'></button>
+    </div>
+  </ng-template>
+</p-dialog>
+
+<!-- Add New Client Modal -->
+<p-dialog [(visible)]="displayAddClient" [modal]="true" [style]="{width: '800px'}" 
+  [draggable]="false" [resizable]="false" styleClass="add-client-dialog" [closable]="true">
+  
+  <ng-template pTemplate="header">
+    <span class="text-xl font-bold">Add New Client</span>
+  </ng-template>
+
+  <div class="modal-body p-4">
+    <div class="grid form-grid-compact">
+      <!-- Title, First Name, Middle Name -->
+      <div class="col-12 md:col-3">
+        <label class="block text-sm font-medium mb-1">Title</label>
+        <p-select [options]="titles" [(ngModel)]="newClient.title" placeholder="Select Title" class="w-full" />
+      </div>
+      <div class="col-12 md:col-5">
+        <label class="block text-sm font-medium mb-1 label-required">First Name</label>
+        <input type="text" pInputText [(ngModel)]="newClient.firstName" placeholder="Enter First Name" class="w-full" />
+      </div>
+      <div class="col-12 md:col-4">
+        <label class="block text-sm font-medium mb-1">Middle Name</label>
+        <input type="text" pInputText [(ngModel)]="newClient.middleName" placeholder="Enter Middle Name" class="w-full" />
+      </div>
+
+      <!-- Last Name, Suffix, Email -->
+      <div class="col-12 md:col-4">
+        <label class="block text-sm font-medium mb-1 label-required">Last Name</label>
+        <input type="text" pInputText [(ngModel)]="newClient.lastName" placeholder="Enter Last Name" class="w-full" />
+      </div>
+      <div class="col-12 md:col-3">
+        <label class="block text-sm font-medium mb-1">Suffix</label>
+        <p-select [options]="suffixes" [(ngModel)]="newClient.suffix" placeholder="Select Suffix" class="w-full" />
+      </div>
+      <div class="col-12 md:col-5">
+        <label class="block text-sm font-medium mb-1 label-required">Email</label>
+        <input type="email" pInputText [(ngModel)]="newClient.email" placeholder="Enter Email" class="w-full" />
+      </div>
+
+      <!-- DOB, PAN, Aadhaar -->
+      <div class="col-12 md:col-4">
+        <label class="block text-sm font-medium mb-1 label-required">Date Of Birth (MM-DD-YYYY)</label>
+        <input type="text" pInputText [(ngModel)]="newClient.dob" placeholder="Date Of Birth" class="w-full" />
+      </div>
+      <div class="col-12 md:col-4">
+        <label class="block text-sm font-medium mb-1 label-required">PAN Number</label>
+        <input type="text" pInputText [(ngModel)]="newClient.idNumber" placeholder="Enter PAN" class="w-full" />
+      </div>
+      <div class="col-12 md:col-4">
+        <label class="block text-sm font-medium mb-1 label-required">Aadhaar Number</label>
+        <input type="text" pInputText [(ngModel)]="newClient.aadhaarNumber" placeholder="Enter Aadhaar" class="w-full" />
+      </div>
+
+      <!-- ID Verification No. -->
+      <div class="col-12">
+        <label class="block text-sm font-medium mb-1">ID Verification No.</label>
+        <div class="grid">
+          <div class="col-6">
+            <input type="text" pInputText placeholder="Driving License No." class="w-full" />
+          </div>
+          <div class="col-6">
+            <input type="text" pInputText placeholder="Passport No." class="w-full" />
+          </div>
+        </div>
+      </div>
+
+      <!-- Phone Number Section -->
+      <div class="col-12 mt-3">
+        <p class="text-xs text-blue-600 italic mb-2">
+          (At least one Mobile type is required for Phone Number field to receive the OTP while login)
+        </p>
+        <label class="block text-sm font-medium mb-1 label-required">Phone Number</label>
+        <div class="flex gap-2 align-items-center">
+          <p-select [options]="[{label: 'Mobile', value: 'Mobile'}]" [(ngModel)]="newClient.phoneType" class="w-5rem" />
+          <p-select [options]="countries" [(ngModel)]="newClient.countryCode" class="w-8rem" />
+          <input type="text" pInputText [(ngModel)]="newClient.phoneNumber" placeholder="(XXX) XXX-XXXX" class="flex-grow-1" />
+          <button class="dialog-icon-btn-outline">
+            <i class="pi pi-plus"></i>
+          </button>
+        </div>
+        <p class="text-xs text-gray-500 italic mt-2">
+          (Only a "Physical" (residential) address is allowed, no P.O. boxes)
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <ng-template pTemplate="footer">
+    <div class="flex justify-content-end p-2">
+      <button pButton label="Verify & Create" class="verify-create-btn" 
+        [disabled]="!newClient.firstName || !newClient.lastName || !newClient.email || !newClient.dob || !newClient.idNumber || !newClient.aadhaarNumber || !newClient.phoneNumber"
+        (click)="verifyAndCreate()"></button>
+    </div>
+  </ng-template>
+</p-dialog>
+
+<!-- Confirmation Modal -->
+<p-dialog header="Account" [(visible)]="displayConfirmation" [modal]="true" 
+          [style]="{width: '450px'}" [draggable]="false" [resizable]="false" 
+          styleClass="confirmation-dialog" [closable]="false">
+  
+  <div class="modal-body text-center p-4">
+    <p class="text-gray-700 text-lg mb-4">
+      Are you sure you want to proceed with the entered details?
+    </p>
+  </div>
+
+  <ng-template pTemplate="footer">
+    <div class="flex justify-content-center gap-3 w-full pb-3">
+      <button pButton label="No" class="p-button-outlined cancel-btn" (click)="cancelProceed()"></button>
+      <button pButton label="Yes" class="p-button-primary confirm-btn" (click)="confirmProceed()"></button>
+    </div>
+  </ng-template>
+</p-dialog>
+
+<!-- Loading Modal -->
+<p-dialog [(visible)]="isVerifying" [modal]="true" [closable]="false" [showHeader]="false" 
+  [style]="{width: '300px'}" [draggable]="false" [resizable]="false" styleClass="loader-dialog">
+  <div class="flex flex-column align-items-center justify-content-center p-5 text-center">
+    <div class="custom-spinner mb-4"></div>
+    <h3 class="m-0 text-blue-900 font-semibold">Verifying Identity</h3>
+    <p class="text-sm text-gray-500 mt-2">Checking third-party databases...</p>
+  </div>
+</p-dialog>
+
+<!-- Verification Modal -->
+<p-dialog header="Identity Verification Results" [(visible)]="displayVerificationResults" [modal]="true" 
+  [style]="{width: '550px'}" [draggable]="false" [resizable]="false" 
+  styleClass="verification-dialog" [closable]="false">
+  
+  <div class="verification-content">
+    <!-- Name -->
+    <div class="verify-row flex align-items-center justify-content-between border-bottom-1 border-gray-100">
+      <div class="flex-column">
+        <label class="text-blue-700 font-semibold mb-1 block">Name :-</label>
+        <span class="text-gray-700">{{clientDetails.firstName}} {{clientDetails.middleName}} {{clientDetails.lastName}}</span>
+      </div>
+      <div class="status-icon" [class.success]="verificationStatus.name" [class.fail]="!verificationStatus.name">
+        <i [class]="verificationStatus.name ? 'pi pi-check' : 'pi pi-times'"></i>
+      </div>
+    </div>
+
+    <!-- DOB -->
+    <div class="verify-row flex align-items-center justify-content-between border-bottom-1 border-gray-100">
+      <div class="flex-column">
+        <label class="text-blue-700 font-semibold mb-1 block">Date of Birth :-</label>
+        <span class="text-gray-700">{{clientDetails.dob}}</span>
+      </div>
+      <div class="status-icon" [class.success]="verificationStatus.dob" [class.fail]="!verificationStatus.dob">
+        <i [class]="verificationStatus.dob ? 'pi pi-check' : 'pi pi-times'"></i>
+      </div>
+    </div>
+
+    <!-- PAN -->
+    <div class="verify-row flex align-items-center justify-content-between border-bottom-1 border-gray-100">
+      <div class="flex-column">
+        <label class="text-blue-700 font-semibold mb-1 block">PAN :-</label>
+        <div class="flex align-items-center gap-2">
+          <span class="text-gray-700">{{clientDetails.panNumber}}</span>
+          <i class="pi pi-eye text-gray-400 text-xs"></i>
+        </div>
+      </div>
+      <div class="status-icon" [class.success]="verificationStatus.pan" [class.fail]="!verificationStatus.pan">
+        <i [class]="verificationStatus.pan ? 'pi pi-check' : 'pi pi-times'"></i>
+      </div>
+    </div>
+
+    <!-- Phone -->
+    <div class="verify-row flex align-items-center justify-content-between border-bottom-1 border-gray-100">
+      <div class="flex-column">
+        <label class="text-blue-700 font-semibold mb-1 block">Phone :-</label>
+        <span class="text-gray-700">{{clientDetails.countryCode}} {{clientDetails.phoneNumber}}</span>
+      </div>
+      <div class="status-icon" [class.success]="verificationStatus.phone" [class.fail]="!verificationStatus.phone">
+        <i [class]="verificationStatus.phone ? 'pi pi-check' : 'pi pi-times'"></i>
+      </div>
+    </div>
+
+    <!-- Address -->
+    <div class="verify-row flex align-items-center justify-content-between">
+      <div class="flex-column">
+        <label class="text-blue-700 font-semibold mb-1 block">Address :-</label>
+        <span class="text-gray-700">{{clientDetails.addressLine1}}, {{clientDetails.zipCode}}, {{clientDetails.city}}, {{clientDetails.country}}</span>
+      </div>
+      <div class="status-icon" [class.success]="verificationStatus.address" [class.fail]="!verificationStatus.address">
+        <i [class]="verificationStatus.address ? 'pi pi-check' : 'pi pi-times'"></i>
+      </div>
+    </div>
+
+    <div class="warning-footer flex gap-2 align-items-start">
+      <i class="pi pi-exclamation-triangle text-orange-500 mt-1"></i>
+      <p class="text-xs text-orange-600 m-0">
+        Results are based on third-party verification. Please ensure client information is accurate to help avoid delays or manual review.
+      </p>
+    </div>
+  </div>
+
+  <ng-template pTemplate="footer">
+    <div class="flex justify-content-end p-2">
+      <button pButton label="Close" class="p-button-primary confirm-btn" (click)="closeVerification()"></button>
+    </div>
+  </ng-template>
+</p-dialog>
+
+<!-- Success Popup -->
+<p-dialog [(visible)]="displayMailSuccess" [modal]="true" [style]="{width: '500px'}" [draggable]="false" [resizable]="false" styleClass="success-dialog" [closable]="false">
+  <ng-template pTemplate="header">
+    <span class="text-blue-700 font-semibold text-lg">Account Opening Process Started</span>
+  </ng-template>
+
+  <div class="p-5 text-center">
+    <!-- Success Icon -->
+    <div class="success-icon-container mb-4">
+      <div class="success-circle">
+        <i class="pi pi-check" style="font-size: 2rem;"></i>
+      </div>
+    </div>
+
+    <h2 class="text-2xl font-bold text-gray-800 mb-2">Congratulations!</h2>
+    <p class="text-gray-600 mb-4">
+      Email sent to <span class="font-semibold text-gray-800">{{emailData.sendTo}}</span>
+    </p>
+    <p class="text-gray-500 text-sm mb-5">
+      Click on the OK button to go Next.
+    </p>
+
+    <div class="flex justify-content-center">
+      <button pButton label="Ok" class="ok-btn" (click)="onSuccessClose()"></button>
+    </div>
+  </div>
+</p-dialog>
+

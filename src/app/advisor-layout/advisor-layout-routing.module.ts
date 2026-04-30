@@ -68,6 +68,18 @@ const routes: Routes = [
             loadComponent: () => import('./new-account-creation/application-summary/application-summary.component').then(m => m.ApplicationSummaryComponent)
           },
           {
+            path: 'advisor-financing',
+            loadComponent: () => import('./new-account-creation/advisor-financing-application/advisor-financing-application.component').then(m => m.AdvisorFinancingApplicationComponent)
+          },
+          {
+            path: 'financing-email-workflow',
+            loadComponent: () => import('./new-account-creation/advisor-financing-application/financing-email-workflow/financing-email-workflow.component').then(m => m.FinancingEmailWorkflowComponent)
+          },
+          {
+            path: 'sage-loan',
+            loadComponent: () => import('./new-account-creation/sage-loan-application/sage-loan-application.component').then(m => m.SageLoanApplicationComponent)
+          },
+          {
             path: 'email-workflow',
             loadComponent: () => import('./new-account-creation/email-workflow/email-workflow.component').then(m => m.EmailWorkflowComponent)
           }

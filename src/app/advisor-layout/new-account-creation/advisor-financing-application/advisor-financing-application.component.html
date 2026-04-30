@@ -1,0 +1,354 @@
+<div class="application-container p-4">
+  <!-- Breadcrumb and Stepper Row -->
+  <div class="flex justify-content-between align-items-start mb-2">
+    <div>
+      <div class="flex align-items-center gap-2 mb-2 text-secondary text-sm">
+        <i class="pi pi-home cursor-pointer" routerLink="/advisor/dashboard"></i>
+        <span>/</span>
+        <span class="cursor-pointer" routerLink="/advisor/new-account-creation">New Account Creation</span>
+      </div>
+      <h1 class="page-title m-0">Advisor Financing</h1>
+    </div>
+
+    <!-- Premium Stepper -->
+    <div class="stepper-container m-0">
+      <div class="step-wrapper">
+        <div class="step-node" [class.active]="currentStep === 1" [class.completed]="currentStep > 1">
+          <div class="step-circle">
+            <i class="pi pi-check" *ngIf="currentStep > 1"></i>
+            <span *ngIf="currentStep === 1">1</span>
+          </div>
+          <span class="step-label">Firm & Ownership Details</span>
+        </div>
+        <div class="step-connector" [class.active]="currentStep > 1"></div>
+      </div>
+      <div class="step-wrapper">
+        <div class="step-node" [class.active]="currentStep === 2" [class.completed]="currentStep > 2">
+          <div class="step-circle">
+            <i class="pi pi-check" *ngIf="currentStep > 2"></i>
+            <span *ngIf="currentStep <= 2">2</span>
+          </div>
+          <span class="step-label">Loan Request Information</span>
+        </div>
+        <div class="step-connector" [class.active]="currentStep > 2"></div>
+      </div>
+      <div class="step-wrapper">
+        <div class="step-node" [class.active]="currentStep === 3" [class.completed]="currentStep > 3">
+          <div class="step-circle">
+            <i class="pi pi-check" *ngIf="currentStep > 3"></i>
+            <span *ngIf="currentStep <= 3">3</span>
+          </div>
+          <span class="step-label">Review</span>
+        </div>
+        <div class="step-connector" [class.active]="currentStep > 3"></div>
+      </div>
+      <div class="step-wrapper">
+        <div class="step-node" [class.active]="currentStep === 4">
+          <div class="step-circle">4</div>
+          <span class="step-label">Mail</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card p-4">
+    <!-- Step 1: Firm & Ownership Details -->
+    <div *ngIf="currentStep === 1">
+      <div class="grid form-grid">
+        <!-- Row 1 -->
+        <div class="col-12 md:col-3">
+          <label class="block text-sm font-medium mb-1 label-required">Firm Name</label>
+          <input type="text" pInputText [(ngModel)]="formData.firmName" class="w-full" />
+        </div>
+        <div class="col-12 md:col-3">
+          <label class="block text-sm font-medium mb-1 label-required">Location</label>
+          <div class="flex gap-2">
+            <input type="text" pInputText [(ngModel)]="formData.locationCity" placeholder="City" class="w-full" />
+            <p-select [options]="states" [(ngModel)]="formData.locationState" placeholder="Select State" class="w-full" [filter]="true" filterBy="label" />
+          </div>
+        </div>
+        <div class="col-12 md:col-3">
+          <label class="block text-sm font-medium mb-1 label-required">Firm AUM (₹)</label>
+          <div class="p-inputgroup">
+            <span class="p-inputgroup-addon">₹</span>
+            <input type="text" pInputText [(ngModel)]="formData.firmAum" placeholder="Amount" />
+          </div>
+        </div>
+        <div class="col-12 md:col-3">
+          <label class="block text-sm font-medium mb-1 label-required">No. of Advisors & Employees</label>
+          <input type="text" pInputText [(ngModel)]="formData.advisorsCount" placeholder="Enter Number" class="w-full" />
+        </div>
+
+        <!-- Row 2 -->
+        <div class="col-12 md:col-2">
+          <label class="block text-sm font-medium mb-1 label-required">Year Founded (Year)</label>
+          <p-datepicker [(ngModel)]="formData.yearFounded" view="year" dateFormat="yy" placeholder="Year Founded" class="w-full" [showIcon]="true" size="small" panelStyleClass="compact-datepicker-panel" />
+        </div>
+        <div class="col-12 md:col-2">
+          <label class="block text-sm font-medium mb-1 label-required">Corporate Structure</label>
+          <p-select [options]="structures" [(ngModel)]="formData.corporateStructure" placeholder="Select Corporate ..." class="w-full" />
+        </div>
+        <div class="col-12 md:col-2">
+          <label class="block text-sm font-medium mb-1 label-required">RIA Affiliation</label>
+          <p-select [options]="affiliations" [(ngModel)]="formData.riaAffiliation" placeholder="Select RIA Affiliati..." class="w-full" />
+        </div>
+      </div>
+
+      <!-- Ownership Details Section -->
+      <div class="section-divider mt-5 mb-4">
+        <span class="divider-text">Ownership Details</span>
+      </div>
+
+      <div class="grid form-grid" *ngFor="let owner of owners; let i = index">
+        <div class="col-12 md:col-2">
+          <label class="block text-sm font-medium mb-1 label-required">First Name</label>
+          <input type="text" pInputText [(ngModel)]="owner.firstName" placeholder="First Name" class="w-full" />
+        </div>
+        <div class="col-12 md:col-2">
+          <label class="block text-sm font-medium mb-1 label-required">Last Name</label>
+          <input type="text" pInputText [(ngModel)]="owner.lastName" placeholder="Last Name" class="w-full" />
+        </div>
+        <div class="col-12 md:col-2">
+          <label class="block text-sm font-medium mb-1">Suffix</label>
+          <p-select [options]="suffixes" [(ngModel)]="owner.suffix" placeholder="Select Suffix" class="w-full" />
+        </div>
+        <div class="col-12 md:col-3">
+          <label class="block text-sm font-medium mb-1 label-required">Email Address</label>
+          <input type="email" pInputText [(ngModel)]="owner.email" placeholder="Email Address" class="w-full" />
+        </div>
+        <div class="col-12 md:col-2">
+          <label class="block text-sm font-medium mb-1 label-required">Ownership</label>
+          <div class="p-inputgroup">
+            <input type="text" pInputText [(ngModel)]="owner.ownership" placeholder="Enter Ownership" />
+            <span class="p-inputgroup-addon">%</span>
+          </div>
+        </div>
+        <div class="col-12 md:col-1 flex align-items-end pb-1" *ngIf="i === owners.length - 1">
+          <button pButton icon="pi pi-plus" class="add-owner-btn p-button-outlined" (click)="addOwner()"></button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 2: Loan Request Information -->
+    <div *ngIf="currentStep === 2">
+      <div class="grid form-grid">
+        <!-- Row 1 -->
+        <div class="col-12 md:col-3">
+          <label class="block text-sm font-medium mb-1 label-required">Amount of Financing Requested (₹)</label>
+          <div class="p-inputgroup">
+            <span class="p-inputgroup-addon">₹</span>
+            <input type="text" pInputText [(ngModel)]="loanData.amountRequested" placeholder="Amount" />
+          </div>
+        </div>
+        <div class="col-12 md:col-3">
+          <label class="block text-sm font-medium mb-1 label-required">Use of Funds</label>
+          <p-select [options]="useOfFundsOptions" [(ngModel)]="loanData.useOfFunds" placeholder="Select Use of Funds" class="w-full" />
+        </div>
+        <div class="col-12 md:col-3">
+          <label class="block text-sm font-medium mb-1 label-required">Timeline for Financing</label>
+          <p-select [options]="timelineOptions" [(ngModel)]="loanData.timeline" placeholder="Select Timeline" class="w-full" />
+        </div>
+        <div class="col-12 md:col-3">
+          <label class="block text-sm font-medium mb-1 label-required">Has a Letter of Intent (LOI) been signed? (Yes/No)</label>
+          <div class="flex gap-4 align-items-center h-40px">
+            <div class="flex align-items-center gap-2">
+              <p-radioButton name="loi" value="yes" [(ngModel)]="loanData.loiSigned" inputId="loiYes" />
+              <label for="loiYes" class="cursor-pointer text-sm">Yes</label>
+            </div>
+            <div class="flex align-items-center gap-2">
+              <p-radioButton name="loi" value="no" [(ngModel)]="loanData.loiSigned" inputId="loiNo" />
+              <label for="loiNo" class="cursor-pointer text-sm">No</label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Row 2 -->
+        <div class="col-12">
+          <label class="block text-sm font-medium mb-1 label-required">Description of Opportunity</label>
+          <textarea pTextarea rows="4" [(ngModel)]="loanData.description" placeholder="Description of Opportunity" class="w-full"></textarea>
+        </div>
+      </div>
+
+      <!-- Ranking Preferences & Contact Section -->
+      <div class="section-divider mt-5 mb-4">
+        <span class="divider-text">Ranking Preferences & Contact</span>
+      </div>
+
+      <div class="grid form-grid">
+        <div class="col-12 md:col-3">
+          <label class="block text-sm font-medium mb-1 label-required">Preferred Bank</label>
+          <p-select [options]="bankOptions" [(ngModel)]="loanData.preferredBank" placeholder="Select Preferred B..." class="w-full" />
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 3: Review -->
+    <div *ngIf="currentStep === 3" class="review-step">
+      <div class="summary-section mb-3">
+        <div class="section-header firm-header flex justify-content-between align-items-center p-3 cursor-pointer" (click)="toggleReviewSection('firm')">
+          <span class="font-semibold">Firm & Ownership Details</span>
+          <div class="flex align-items-center gap-3">
+            <button pButton label="Edit" icon="pi pi-pencil" class="p-button-outlined p-button-sm edit-btn" 
+              (click)="$event.stopPropagation(); goToStep(1)"></button>
+            <i [class]="reviewSections.firm ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></i>
+          </div>
+        </div>
+        <div class="section-body p-4 bg-white border-1 border-gray-200" *ngIf="reviewSections.firm">
+          <div class="grid form-grid">
+            <!-- Row 1 -->
+            <div class="col-12 md:col-3">
+              <label class="block text-sm font-medium mb-1">Firm Name</label>
+              <input type="text" pInputText [(ngModel)]="formData.firmName" class="w-full bg-gray-50" disabled />
+            </div>
+            <div class="col-12 md:col-3">
+              <label class="block text-sm font-medium mb-1">Location</label>
+              <div class="flex gap-2">
+                <input type="text" pInputText [(ngModel)]="formData.locationCity" placeholder="City" class="w-full bg-gray-50" disabled />
+                <p-select [options]="states" [(ngModel)]="formData.locationState" placeholder="Select State" class="w-full bg-gray-50" [disabled]="true" />
+              </div>
+            </div>
+            <div class="col-12 md:col-3">
+              <label class="block text-sm font-medium mb-1">Firm AUM (₹)</label>
+              <div class="p-inputgroup">
+                <span class="p-inputgroup-addon">₹</span>
+                <input type="text" pInputText [(ngModel)]="formData.firmAum" placeholder="Amount" class="bg-gray-50" disabled />
+              </div>
+            </div>
+            <div class="col-12 md:col-3">
+              <label class="block text-sm font-medium mb-1">No. of Advisors & Employees</label>
+              <input type="text" pInputText [(ngModel)]="formData.advisorsCount" placeholder="Enter Number" class="w-full bg-gray-50" disabled />
+            </div>
+
+            <!-- Row 2 -->
+            <div class="col-12 md:col-2">
+              <label class="block text-sm font-medium mb-1">Year Founded (Year)</label>
+              <p-datepicker [(ngModel)]="formData.yearFounded" view="year" dateFormat="yy" placeholder="Year Founded" class="w-full" [disabled]="true" [showIcon]="true" size="small" />
+            </div>
+            <div class="col-12 md:col-2">
+              <label class="block text-sm font-medium mb-1">Corporate Structure</label>
+              <p-select [options]="structures" [(ngModel)]="formData.corporateStructure" placeholder="Select Corporate ..." class="w-full bg-gray-50" [disabled]="true" />
+            </div>
+            <div class="col-12 md:col-2">
+              <label class="block text-sm font-medium mb-1">RIA Affiliation</label>
+              <p-select [options]="affiliations" [(ngModel)]="formData.riaAffiliation" placeholder="Select RIA Affiliati..." class="w-full bg-gray-50" [disabled]="true" />
+            </div>
+          </div>
+
+          <!-- Ownership Details Section -->
+          <div class="section-divider mt-5 mb-4">
+            <span class="divider-text">Ownership Details</span>
+          </div>
+
+          <div class="grid form-grid" *ngFor="let owner of owners; let i = index">
+            <div class="col-12 md:col-2">
+              <label class="block text-sm font-medium mb-1">First Name</label>
+              <input type="text" pInputText [(ngModel)]="owner.firstName" placeholder="First Name" class="w-full bg-gray-50" disabled />
+            </div>
+            <div class="col-12 md:col-2">
+              <label class="block text-sm font-medium mb-1">Last Name</label>
+              <input type="text" pInputText [(ngModel)]="owner.lastName" placeholder="Last Name" class="w-full bg-gray-50" disabled />
+            </div>
+            <div class="col-12 md:col-2">
+              <label class="block text-sm font-medium mb-1">Suffix</label>
+              <p-select [options]="suffixes" [(ngModel)]="owner.suffix" placeholder="Select Suffix" class="w-full bg-gray-50" [disabled]="true" />
+            </div>
+            <div class="col-12 md:col-3">
+              <label class="block text-sm font-medium mb-1">Email Address</label>
+              <input type="email" pInputText [(ngModel)]="owner.email" placeholder="Email Address" class="w-full bg-gray-50" disabled />
+            </div>
+            <div class="col-12 md:col-2">
+              <label class="block text-sm font-medium mb-1">Ownership</label>
+              <div class="p-inputgroup">
+                <input type="text" pInputText [(ngModel)]="owner.ownership" placeholder="Enter Ownership" class="bg-gray-50" disabled />
+                <span class="p-inputgroup-addon">%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section 2: Loan Request Information -->
+      <div class="summary-section mb-3">
+        <div class="section-header loan-header flex justify-content-between align-items-center p-3 cursor-pointer" (click)="toggleReviewSection('loan')">
+          <span class="font-semibold">Loan Request Information</span>
+          <div class="flex align-items-center gap-3">
+            <button pButton label="Edit" icon="pi pi-pencil" class="p-button-outlined p-button-sm edit-btn" 
+              (click)="$event.stopPropagation(); goToStep(2)"></button>
+            <i [class]="reviewSections.loan ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></i>
+          </div>
+        </div>
+        <div class="section-body p-4 bg-white border-1 border-gray-200" *ngIf="reviewSections.loan">
+          <div class="grid form-grid">
+            <div class="col-12 md:col-3">
+              <label class="block text-sm font-medium mb-1">Amount of Financing Requested (₹)</label>
+              <div class="p-inputgroup">
+                <span class="p-inputgroup-addon">₹</span>
+                <input type="text" pInputText [(ngModel)]="loanData.amountRequested" placeholder="Amount" class="bg-gray-50" disabled />
+              </div>
+            </div>
+            <div class="col-12 md:col-3">
+              <label class="block text-sm font-medium mb-1">Use of Funds</label>
+              <p-select [options]="useOfFundsOptions" [(ngModel)]="loanData.useOfFunds" placeholder="Select Use of Funds" class="w-full bg-gray-50" [disabled]="true" />
+            </div>
+            <div class="col-12 md:col-3">
+              <label class="block text-sm font-medium mb-1">Timeline for Financing</label>
+              <p-select [options]="timelineOptions" [(ngModel)]="loanData.timeline" placeholder="Select Timeline" class="w-full bg-gray-50" [disabled]="true" />
+            </div>
+            <div class="col-12 md:col-3">
+              <label class="block text-sm font-medium mb-1">Has a Letter of Intent (LOI) been signed? (Yes/No)</label>
+              <div class="flex gap-4 align-items-center h-40px">
+                <div class="flex align-items-center gap-2">
+                  <p-radioButton name="loiReview" value="yes" [(ngModel)]="loanData.loiSigned" inputId="loiYesReview" [disabled]="true" />
+                  <label for="loiYesReview" class="text-sm">Yes</label>
+                </div>
+                <div class="flex align-items-center gap-2">
+                  <p-radioButton name="loiReview" value="no" [(ngModel)]="loanData.loiSigned" inputId="loiNoReview" [disabled]="true" />
+                  <label for="loiNoReview" class="text-sm">No</label>
+                </div>
+              </div>
+            </div>
+            <div class="col-12">
+              <label class="block text-sm font-medium mb-1">Description of Opportunity</label>
+              <textarea pTextarea rows="4" [(ngModel)]="loanData.description" placeholder="Description of Opportunity" class="w-full bg-gray-50" disabled></textarea>
+            </div>
+          </div>
+
+          <div class="section-divider mt-5 mb-4">
+            <span class="divider-text">Ranking Preferences & Contact</span>
+          </div>
+
+          <div class="grid form-grid">
+            <div class="col-12 md:col-3">
+              <label class="block text-sm font-medium mb-1">Preferred Bank</label>
+              <p-select [options]="bankOptions" [(ngModel)]="loanData.preferredBank" placeholder="Select Preferred B..." class="w-full bg-gray-50" [disabled]="true" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Actions -->
+    <div class="flex justify-content-center mt-5">
+      <button pButton label="Save & Next" class="save-next-btn" (click)="saveAndNext()"></button>
+    </div>
+  </div>
+</div>
+
+<!-- Confirmation Modal -->
+<p-dialog header="Account" [(visible)]="displayConfirmation" [modal]="true" 
+          [style]="{width: '450px'}" [draggable]="false" [resizable]="false" 
+          styleClass="confirmation-dialog" [closable]="false">
+  
+  <div class="modal-body text-center p-4">
+    <p class="text-gray-700 text-lg mb-4">
+      Are you sure you want to proceed with the entered details?
+    </p>
+  </div>
+
+  <ng-template pTemplate="footer">
+    <div class="flex justify-content-center gap-3">
+      <button pButton label="No" class="p-button-outlined cancel-btn" (click)="cancelProceed()"></button>
+      <button pButton label="Yes" class="p-button-primary confirm-btn" (click)="confirmProceed()"></button>
+    </div>
+  </ng-template>
+</p-dialog>
